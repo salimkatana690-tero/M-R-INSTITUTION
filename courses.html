@@ -27,5 +27,45 @@
     <footer>
         <p>&copy; 2026 College Financial</p>
     </footer>
+    
+    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+
+    <script>
+      const { createClient } = supabase;
+      const supabaseClient = createClient(
+        'https://hcufdggmbrhbcenoboef.supabase.co',
+        'sb_publishable_78sLh6qbQtYP2KFhpx-NuA_HvBOpKnD'
+      );
+
+      async function loadCourses() {
+        const { data, error } = await supabaseClient
+          .from('courses')
+          .select('*');
+
+        if (error) {
+          console.error('Error:', error);
+          document.getElementById('courses-container').innerHTML =
+            '<p>Error loading courses: ' + error.message + '</p>';
+          return;
+        }
+
+        const container = document.getElementById('courses-container');
+        if (!data.length) {
+          container.innerHTML = '<p>No courses available.</p>';
+          return;
+        }
+
+        container.innerHTML = data.map(course => `
+          <div class="course-card">
+            <h3>${course.name}</h3>
+            <p>${course.description || ''}</p>
+            <p><strong>Department:</strong> ${course.department || 'N/A'}</p>
+            <p><strong>Credits:</strong> ${course.credits}</p>
+          </div>
+        `).join('');
+      }
+
+      document.addEventListener('DOMContentLoaded', loadCourses);
+    </script>
 </body>
 </html>
