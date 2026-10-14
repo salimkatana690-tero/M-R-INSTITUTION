@@ -77,3 +77,21 @@ footer {
 .course-card p {
     margin: 0.25rem 0;
 }
+.cta-buttons {
+    display: flex;
+    gap: 1rem;
+    justify-content: center;
+    flex-wrap: wrap;
+    margin-top: 1.5rem;
+}
+
+.btn-secondary {
+    background: white;
+    color: #1e3a5f;
+    border: 2px solid #1e3a5f;
+}
+
+.btn-secondary:hover {
+    background: #1e3a5f;
+    color: white;
+}
