@@ -1,97 +1,371 @@
-* { margin: 0; padding: 0; box-sizing: border-box; }
+/* ============================================
+   College Financial - Modern Design System
+   ============================================ */
 
-body {
-    font-family: Arial, sans-serif;
-    line-height: 1.6;
-    color: #333;
-    background: #f4f4f4;
+:root {
+    --navy: #0f2744;
+    --navy-light: #1e3a5f;
+    --teal: #14b8a6;
+    --teal-dark: #0d9488;
+    --bg: #f8fafc;
+    --surface: #ffffff;
+    --text: #0f172a;
+    --text-muted: #64748b;
+    --border: #e2e8f0;
+    --danger: #dc2626;
+    --success: #16a34a;
+    --warning: #f59e0b;
+    --radius: 12px;
+    --radius-sm: 8px;
+    --shadow-sm: 0 1px 2px rgba(15, 23, 42, 0.05);
+    --shadow: 0 4px 12px rgba(15, 23, 42, 0.08);
+    --shadow-lg: 0 12px 32px rgba(15, 23, 42, 0.12);
+    --transition: 0.2s ease;
 }
 
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+html { scroll-behavior: smooth; }
+
+body {
+    font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+    font-size: 16px;
+    line-height: 1.6;
+    color: var(--text);
+    background: var(--bg);
+    -webkit-font-smoothing: antialiased;
+}
+
+/* ============================================
+   Header
+   ============================================ */
+
 header {
-    background: #1e3a5f;
-    color: white;
-    padding: 1.5rem 2rem;
-    text-align: center;
+    background: var(--surface);
+    color: var(--text);
+    padding: 1rem 2rem;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: 1rem;
+    border-bottom: 1px solid var(--border);
+    position: sticky;
+    top: 0;
+    z-index: 50;
+    backdrop-filter: blur(10px);
+    background: rgba(255, 255, 255, 0.95);
 }
 
 header h1 {
-    margin-bottom: 0.5rem;
+    font-size: 1.35rem;
+    font-weight: 700;
+    color: var(--navy);
+    margin: 0;
+    letter-spacing: -0.01em;
+}
+
+.header-right {
+    display: flex;
+    align-items: center;
+    gap: 1.5rem;
+}
+
+nav {
+    display: flex;
+    gap: 1.5rem;
+    align-items: center;
 }
 
 nav a {
-    color: white;
+    color: var(--text-muted);
     text-decoration: none;
-    margin: 0 1rem;
+    font-weight: 500;
+    font-size: 0.95rem;
+    transition: color var(--transition);
+    position: relative;
 }
 
 nav a:hover {
-    text-decoration: underline;
+    color: var(--navy);
 }
+
+nav a::after {
+    content: '';
+    position: absolute;
+    bottom: -4px;
+    left: 0;
+    right: 0;
+    height: 2px;
+    background: var(--teal);
+    transform: scaleX(0);
+    transition: transform var(--transition);
+}
+
+nav a:hover::after {
+    transform: scaleX(1);
+}
+
+/* Login button */
+.login-btn {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.5rem;
+    background: var(--navy);
+    color: white;
+    padding: 0.6rem 1.2rem;
+    border-radius: var(--radius-sm);
+    text-decoration: none;
+    font-weight: 600;
+    font-size: 0.95rem;
+    transition: all var(--transition);
+    box-shadow: var(--shadow-sm);
+}
+
+.login-btn:hover {
+    background: var(--navy-light);
+    transform: translateY(-1px);
+    box-shadow: var(--shadow);
+}
+
+.login-btn svg {
+    width: 16px;
+    height: 16px;
+    fill: currentColor;
+}
+
+/* ============================================
+   Main Content
+   ============================================ */
 
 main {
-    max-width: 900px;
-    margin: 2rem auto;
+    max-width: 1200px;
+    margin: 0 auto;
     padding: 2rem;
-    background: white;
-    border-radius: 8px;
-    text-align: center;
-    min-height: 60vh;
+    min-height: calc(100vh - 180px);
 }
 
-main h2 {
-    color: #1e3a5f;
-    margin-bottom: 1rem;
+.hero {
+    max-width: 800px;
+    margin: 4rem auto;
+    padding: 4rem 2rem;
+    background: var(--surface);
+    border-radius: var(--radius);
+    text-align: center;
+    box-shadow: var(--shadow);
 }
+
+.hero h2 {
+    color: var(--navy);
+    font-size: 2.5rem;
+    font-weight: 800;
+    margin-bottom: 1rem;
+    letter-spacing: -0.02em;
+    line-height: 1.2;
+}
+
+.hero p {
+    color: var(--text-muted);
+    font-size: 1.15rem;
+    max-width: 600px;
+    margin: 0 auto 1.5rem;
+}
+
+/* ============================================
+   Buttons
+   ============================================ */
 
 .btn {
     display: inline-block;
-    margin-top: 1rem;
-    padding: 0.75rem 2rem;
-    background: #1e3a5f;
+    padding: 0.75rem 1.5rem;
+    background: var(--navy);
     color: white;
     text-decoration: none;
-    border-radius: 4px;
+    border-radius: var(--radius-sm);
+    border: none;
+    cursor: pointer;
+    font-size: 1rem;
+    font-weight: 600;
+    font-family: inherit;
+    transition: all var(--transition);
+    box-shadow: var(--shadow-sm);
 }
 
-footer {
-    background: #1e3a5f;
-    color: white;
-    text-align: center;
-    padding: 1rem;
-    margin-top: 2rem;
-}
-.course-card {
-    padding: 1.5rem;
-    margin: 1rem 0;
-    border: 1px solid #e0e0e0;
-    border-radius: 6px;
-    background: #fafafa;
-    text-align: left;
+.btn:hover {
+    background: var(--navy-light);
+    transform: translateY(-1px);
+    box-shadow: var(--shadow);
 }
 
-.course-card h3 {
-    color: #1e3a5f;
-    margin-bottom: 0.5rem;
-}
-
-.course-card p {
-    margin: 0.25rem 0;
-}
-.cta-buttons {
-    display: flex;
-    gap: 1rem;
-    justify-content: center;
-    flex-wrap: wrap;
-    margin-top: 1.5rem;
-}
+.btn-primary { background: var(--navy); }
+.btn-primary:hover { background: var(--navy-light); }
 
 .btn-secondary {
-    background: white;
-    color: #1e3a5f;
-    border: 2px solid #1e3a5f;
+    background: var(--surface);
+    color: var(--navy);
+    border: 2px solid var(--navy);
 }
 
 .btn-secondary:hover {
-    background: #1e3a5f;
+    background: var(--navy);
     color: white;
+}
+
+/* ============================================
+   Cards
+   ============================================ */
+
+.page-content {
+    background: var(--surface);
+    padding: 2.5rem;
+    border-radius: var(--radius);
+    box-shadow: var(--shadow);
+}
+
+.page-content h1,
+.page-content h2 {
+    color: var(--navy);
+    margin-bottom: 1.5rem;
+    font-weight: 700;
+    letter-spacing: -0.01em;
+}
+
+.page-content h1 { font-size: 2rem; }
+.page-content h2 { font-size: 1.5rem; }
+
+.page-content p {
+    color: var(--text-muted);
+    margin-bottom: 1rem;
+}
+
+/* Course cards */
+.course-card {
+    padding: 1.75rem;
+    margin: 1rem 0;
+    border: 1px solid var(--border);
+    border-radius: var(--radius);
+    background: var(--surface);
+    text-align: left;
+    transition: all var(--transition);
+}
+
+.course-card:hover {
+    border-color: var(--teal);
+    box-shadow: var(--shadow);
+    transform: translateY(-2px);
+}
+
+.course-card h3 {
+    color: var(--navy);
+    margin-bottom: 0.5rem;
+    font-size: 1.15rem;
+    font-weight: 700;
+}
+
+.course-card p {
+    color: var(--text-muted);
+    margin: 0.25rem 0;
+}
+
+/* ============================================
+   Forms
+   ============================================ */
+
+form input,
+form textarea,
+form select {
+    width: 100%;
+    padding: 0.85rem 1rem;
+    border: 2px solid var(--border);
+    border-radius: var(--radius-sm);
+    font-size: 1rem;
+    font-family: inherit;
+    color: var(--text);
+    background: var(--surface);
+    transition: border-color var(--transition), box-shadow var(--transition);
+    box-sizing: border-box;
+}
+
+form input:focus,
+form textarea:focus,
+form select:focus {
+    outline: none;
+    border-color: var(--teal);
+    box-shadow: 0 0 0 3px rgba(20, 184, 166, 0.1);
+}
+
+form label {
+    display: block;
+    margin-bottom: 0.4rem;
+    color: var(--text);
+    font-size: 0.9rem;
+    font-weight: 500;
+}
+
+/* ============================================
+   Footer
+   ============================================ */
+
+footer {
+    background: var(--navy);
+    color: white;
+    text-align: center;
+    padding: 1.5rem;
+    margin-top: 4rem;
+}
+
+footer p { margin: 0; opacity: 0.85; font-size: 0.9rem; }
+
+footer a {
+    color: rgba(255, 255, 255, 0.85);
+    text-decoration: none;
+}
+
+footer a:hover { color: white; text-decoration: underline; }
+
+/* ============================================
+   Status badges (reusable)
+   ============================================ */
+
+.status-badge {
+    display: inline-block;
+    padding: 0.25rem 0.75rem;
+    border-radius: 999px;
+    font-size: 0.75rem;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.03em;
+}
+
+.status-pending { background: #fef3c7; color: #92400e; }
+.status-under_review { background: #dbeafe; color: #1e40af; }
+.status-accepted { background: #dcfce7; color: #166534; }
+.status-rejected { background: #fee2e2; color: #991b1b; }
+.status-verified { background: #dcfce7; color: #166534; }
+
+/* ============================================
+   Responsive
+   ============================================ */
+
+@media (max-width: 768px) {
+    header {
+        flex-direction: column;
+        align-items: flex-start;
+        padding: 1rem;
+    }
+    .header-right {
+        width: 100%;
+        justify-content: space-between;
+        flex-wrap: wrap;
+    }
+    nav { gap: 1rem; }
+    .hero { padding: 2.5rem 1.5rem; margin: 2rem auto; }
+    .hero h2 { font-size: 1.75rem; }
+    .hero p { font-size: 1rem; }
+    main { padding: 1rem; }
+    .page-content { padding: 1.5rem; }
 }
