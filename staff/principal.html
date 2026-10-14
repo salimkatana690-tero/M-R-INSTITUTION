@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Principal Dashboard - College Financial</title>
+    <link rel="stylesheet" href="../css/style.css">
+    <style>
+        .dash { max-width: 1000px; margin: 2rem auto; padding: 2rem; background: white; border-radius: 8px; }
+        .dash-header { display: flex; justify-content: space-between; align-items: center; padding-bottom: 1rem; border-bottom: 2px solid #eee; margin-bottom: 1.5rem; flex-wrap: wrap; gap: 1rem; }
+        .dash-header h2 { color: #1e3a5f; margin: 0; }
+        .role-badge { display: inline-block; background: #c0392b; color: white; padding: 0.25rem 0.75rem; border-radius: 12px; font-size: 0.75rem; font-weight: bold; text-transform: uppercase; margin-top: 0.25rem; }
+        .btn-danger { background: #c0392b; color: white; padding: 0.5rem 1rem; border: none; border-radius: 4px; cursor: pointer; }
+        .card-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(240px, 1fr)); gap: 1rem; margin-top: 1rem; }
+        .dash-card { padding: 1.25rem; border-radius: 6px; background: #fafafa; border-left: 5px solid #c0392b; }
+        .dash-card h4 { color: #1e3a5f; margin-bottom: 0.5rem; }
+        #loading { text-align: center; padding: 2rem; }
+    </style>
+</head>
+<body>
+    <header>
+        <h1>College Financial</h1>
+        <nav>
+            <a href="../index.html">Home</a>
+            <a href="principal.html">Principal</a>
+        </nav>
+    </header>
+
+    <main>
+        <div id="loading">Loading dashboard...</div>
+
+        <div id="dash-view" style="display: none;">
+            <div class="dash">
+                <div class="dash-header">
+                    <div>
+                        <h2>Principal Dashboard</h2>
+                        <span class="role-badge">Principal</span>
+                    </div>
+                    <div>
+                        <span id="user-email" style="margin-right: 1rem; color: #666;"></span>
+                        <button id="logout-btn" class="btn-danger">Log Out</button>
+                    </div>
+                </div>
+
+                <p style="color:#555;">Welcome, Principal. Here's what you'll be able to do soon:</p>
+
+                <div class="card-grid">
+                    <div class="dash-card"><h4>📊 Overview</h4><p>Full institution snapshot.</p></div>
+                    <div class="dash-card"><h4>🏛️ Departments</h4><p>All department performance.</p></div>
+                    <div class="dash-card"><h4>👥 Students</h4><p>Total students and enrollments.</p></div>
+                    <div class="dash-card"><h4>👨‍🏫 Staff</h4><p>All staff members.</p></div>
+                    <div class="dash-card"><h4>💰 Finance</h4><p>Revenue and fee collection.</p></div>
+                    <div class="dash-card"><h4>📋 Approvals</h4><p>Approve decisions.</p></div>
+                    <div class="dash-card"><h4>📢 Broadcast</h4><p>Send announcements to all.</p></div>
+                    <div class="dash-card"><h4>📈 Reports</h4><p>Institution reports.</p></div>
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <footer>
+        <p>&copy; 2026 College Financial</p>
+    </footer>
+
+    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+    <script>
+      const { createClient } = supabase;
+      const supabaseClient = createClient(
+        'https://hcufdggmbrhbcenoboef.supabase.co',
+        'sb_publishable_78sLh6qbQtYP2KFhpx-NuA_HvBOpKnD'
+      );
+
+      async function init() {
+        const { data: { session } } = await supabaseClient.auth.getSession();
+        if (!session) { window.location.href = '../login.html'; return; }
+
+        const { data: profile } = await supabaseClient
+          .from('profiles').select('role').eq('id', session.user.id).single();
+
+        if (!profile || profile.role !== 'principal') {
+          window.location.href = '../login.html';
+          return;
+        }
+
+        document.getElementById('user-email').textContent = session.user.email;
+        document.getElementById('loading').style.display = 'none';
+        document.getElementById('dash-view').style.display = 'block';
+      }
+
+      document.getElementById('logout-btn').addEventListener('click', async () => {
+        await supabaseClient.auth.signOut();
+        window.location.href = '../login.html';
+      });
+
+      init();
+    </script>
+</body>
+</html>
