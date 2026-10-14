@@ -51,6 +51,44 @@
         .info-row { margin: 0.5rem 0; }
         .info-row strong { color: #1e3a5f; display: inline-block; width: 140px; }
         #loading { text-align: center; padding: 2rem; }
+
+        /* Announcements */
+        .ann-item {
+            padding: 1rem;
+            margin-bottom: 0.75rem;
+            border-radius: 6px;
+            border-left: 5px solid #3498db;
+            background: #fafafa;
+        }
+        .ann-item.high { border-left-color: #f39c12; }
+        .ann-item.urgent { border-left-color: #c0392b; }
+        .ann-item h4 { color: #1e3a5f; margin-bottom: 0.25rem; font-size: 1rem; }
+        .ann-item .meta { color: #888; font-size: 0.8rem; margin-bottom: 0.5rem; }
+        .ann-item p { font-size: 0.95rem; color: #333; }
+        .priority-badge {
+            display: inline-block; padding: 0.15rem 0.6rem;
+            border-radius: 10px; font-size: 0.7rem; font-weight: bold;
+            text-transform: uppercase; margin-left: 0.5rem;
+        }
+        .priority-normal { background: #e8f4fd; color: #2471a3; }
+        .priority-high { background: #fef5e7; color: #b9770e; }
+        .priority-urgent { background: #fdecea; color: #a93226; }
+
+        /* Timetables */
+        .tt-table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 0.5rem;
+        }
+        .tt-table th, .tt-table td {
+            padding: 0.75rem;
+            text-align: left;
+            border-bottom: 1px solid #eee;
+        }
+        .tt-table th {
+            background: #f4f4f4;
+            color: #1e3a5f;
+        }
     </style>
 </head>
 <body>
@@ -76,10 +114,22 @@
                     </div>
                 </div>
 
+                <!-- Application Section -->
                 <h3 style="color: #1e3a5f; margin-bottom: 1rem;">Your Application</h3>
-
                 <div id="application-section">
                     <!-- filled by JS -->
+                </div>
+
+                <!-- Announcements Section -->
+                <h3 style="color: #1e3a5f; margin: 2rem 0 1rem;">Announcements</h3>
+                <div id="announcements-section">
+                    <p>Loading announcements...</p>
+                </div>
+
+                <!-- Timetable Section -->
+                <h3 style="color: #1e3a5f; margin: 2rem 0 1rem;">Class Timetable</h3>
+                <div id="timetable-section">
+                    <p>Loading timetable...</p>
                 </div>
             </div>
         </div>
@@ -109,7 +159,10 @@
         document.getElementById('user-email').textContent = currentUser.email;
         document.getElementById('loading').style.display = 'none';
         document.getElementById('portal-view').style.display = 'block';
+
         loadApplication();
+        loadAnnouncements();
+        loadTimetable();
       }
 
       async function loadApplication() {
@@ -150,6 +203,79 @@
             ${data.admin_notes ? `<div class="info-row" style="margin-top:1rem; padding-top:1rem; border-top:1px solid #ddd;"><strong>Admin Notes:</strong> ${data.admin_notes}</div>` : ''}
             ${data.status === 'pending' ? `<a href="apply.html" class="btn-primary" style="margin-top:1rem;">Edit Application</a>` : ''}
           </div>
+        `;
+      }
+
+      async function loadAnnouncements() {
+        const { data, error } = await supabaseClient
+          .from('announcements')
+          .select('*')
+          .order('created_at', { ascending: false });
+
+        const section = document.getElementById('announcements-section');
+        if (error) { section.innerHTML = '<p style="color:#c0392b;">Error loading announcements.</p>'; return; }
+
+        if (!data || !data.length) {
+          section.innerHTML = '<p>No announcements at this time.</p>';
+          return;
+        }
+
+        section.innerHTML = data.map(a => `
+          <div class="ann-item ${a.priority}">
+            <h4>${a.title} <span class="priority-badge priority-${a.priority}">${a.priority}</span></h4>
+            <div class="meta">Posted ${new Date(a.created_at).toLocaleDateString()}</div>
+            <p>${a.content}</p>
+          </div>
+        `).join('');
+      }
+
+      async function loadTimetable() {
+        const { data, error } = await supabaseClient
+          .from('timetables')
+          .select('*')
+          .order('day_of_week');
+
+        const section = document.getElementById('timetable-section');
+        if (error) { section.innerHTML = '<p style="color:#c0392b;">Error loading timetable.</p>'; return; }
+
+        if (!data || !data.length) {
+          section.innerHTML = '<p>No timetable has been published yet.</p>';
+          return;
+        }
+
+        // Fetch course names
+        const courseIds = [...new Set(data.map(t => t.course_id))];
+        const { data: courses } = await supabaseClient
+          .from('courses')
+          .select('id, name')
+          .in('id', courseIds);
+
+        const courseMap = {};
+        (courses || []).forEach(c => courseMap[c.id] = c.name);
+
+        section.innerHTML = `
+          <table class="tt-table">
+            <thead>
+              <tr>
+                <th>Day</th>
+                <th>Time</th>
+                <th>Course</th>
+                <th>Room</th>
+                <th>Lecturer</th>
+              </tr>
+            </thead>
+            <tbody>
+              ${data.map(t => `
+                <tr>
+                  <td>${t.day_of_week}</td>
+                  <td>${t.start_time} – ${t.end_time}</td>
+                  <td>${courseMap[t.course_id] || '—'}</td>
+                  <td>${t.room || '—'}</td>
+                  <td>${t.lecturer || '—'}</td>
+                </tr>
+              `).join('')}
+            </tbody>
+          </table>
         `;
       }
 
