@@ -4,35 +4,130 @@
     <meta charset="UTF-8">
     <title>College Financial - Home</title>
     <link rel="stylesheet" href="css/style.css">
+    <style>
+        /* Header with login button on the right */
+        header {
+            background: #1e3a5f;
+            color: white;
+            padding: 1rem 2rem;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            flex-wrap: wrap;
+            gap: 1rem;
+        }
+        .logo-area h1 {
+            margin: 0;
+            font-size: 1.5rem;
+        }
+        .header-right {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+        }
+        nav {
+            display: flex;
+            gap: 1.25rem;
+            align-items: center;
+        }
+        nav a {
+            color: white;
+            text-decoration: none;
+            font-weight: 500;
+        }
+        nav a:hover { text-decoration: underline; }
+
+        /* The login button with icon */
+        .login-btn {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+            background: white;
+            color: #1e3a5f;
+            padding: 0.55rem 1.1rem;
+            border-radius: 6px;
+            text-decoration: none;
+            font-weight: 600;
+            transition: transform 0.15s, box-shadow 0.15s;
+            box-shadow: 0 2px 6px rgba(0,0,0,0.15);
+        }
+        .login-btn:hover {
+            transform: translateY(-1px);
+            box-shadow: 0 4px 10px rgba(0,0,0,0.2);
+            text-decoration: none;
+        }
+        .login-btn svg {
+            width: 18px;
+            height: 18px;
+            fill: #1e3a5f;
+        }
+
+        /* Hero section */
+        .hero {
+            max-width: 900px;
+            margin: 4rem auto;
+            padding: 3rem 2rem;
+            background: white;
+            border-radius: 12px;
+            text-align: center;
+            box-shadow: 0 4px 20px rgba(0,0,0,0.08);
+        }
+        .hero h2 {
+            color: #1e3a5f;
+            font-size: 2.25rem;
+            margin-bottom: 1rem;
+        }
+        .hero p {
+            color: #555;
+            font-size: 1.1rem;
+            max-width: 600px;
+            margin: 0 auto 1.5rem;
+        }
+        .hero-tagline {
+            color: #1e3a5f;
+            font-weight: 500;
+        }
+
+        @media (max-width: 600px) {
+            header { flex-direction: column; align-items: flex-start; }
+            .header-right { width: 100%; justify-content: space-between; }
+            nav { flex-wrap: wrap; }
+        }
+    </style>
 </head>
-<script src="js/main.js"></script>
 <body>
     <header>
-        <h1>College Financial</h1>
-        <nav>
-            <a href="index.html">Home</a>
-            <a href="about.html">About</a>
-            <a href="courses.html">Courses</a>
-            <a href="contact.html">Contact</a>
-        </nav>
+        <div class="logo-area">
+            <h1>College Financial</h1>
+        </div>
+
+        <div class="header-right">
+            <nav>
+                <a href="index.html">Home</a>
+                <a href="about.html">About</a>
+                <a href="courses.html">Courses</a>
+                <a href="contact.html">Contact</a>
+            </nav>
+
+            <a href="login.html" class="login-btn">
+                <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                    <path d="M12 12c2.76 0 5-2.24 5-5s-2.24-5-5-5-5 2.24-5 5 2.24 5 5 5zm0 2c-3.34 0-10 1.67-10 5v3h20v-3c0-3.33-6.66-5-10-5z"/>
+                </svg>
+                Login
+            </a>
+        </div>
     </header>
 
     <main>
-    <h2>Welcome to College Financial</h2>
-    <p>Your gateway to quality education and financial support.</p>
-
-    <div class="cta-buttons">
-        <a href="courses.html" class="btn">Browse Courses</a>
-        <a href="apply/register.html" class="btn btn-secondary">Register as Student</a>
-        <a href="apply/login.html" class="btn btn-secondary">Student Login</a>
-    </div>
-</main>
+        <section class="hero">
+            <h2>Welcome to College Financial</h2>
+            <p>Your gateway to quality education and financial support.</p>
+            <p class="hero-tagline">Sign in to access your personalized dashboard.</p>
+        </section>
+    </main>
 
     <footer>
-    <p>&copy; 2026 College Financial</p>
-    <p style="margin-top:0.5rem; font-size:0.85rem;">
-        <a href="admin/login.html" style="color: #aac4e0; text-decoration: none;">Admin Login</a>
-    </p>
-</footer>
+        <p>&copy; 2026 College Financial</p>
+    </footer>
 </body>
 </html>
