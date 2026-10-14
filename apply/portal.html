@@ -74,7 +74,7 @@
         .priority-high { background: #fef5e7; color: #b9770e; }
         .priority-urgent { background: #fdecea; color: #a93226; }
 
-        /* Timetables */
+        /* Timetables & Results tables */
         .tt-table {
             width: 100%;
             border-collapse: collapse;
@@ -89,6 +89,50 @@
             background: #f4f4f4;
             color: #1e3a5f;
         }
+
+        /* Results */
+        .grade-badge { display: inline-block; padding: 0.15rem 0.6rem; border-radius: 10px; font-size: 0.8rem; font-weight: bold; }
+        .grade-A { background: #e8f8f0; color: #1e8449; }
+        .grade-B { background: #e8f4fd; color: #2471a3; }
+        .grade-C { background: #fef5e7; color: #b9770e; }
+        .grade-D { background: #fdecea; color: #a93226; }
+        .grade-F { background: #fdecea; color: #7b241c; }
+
+        /* Fees */
+        .fee-summary {
+            display: grid;
+            grid-template-columns: 1fr 1fr 1fr;
+            gap: 1rem;
+            margin-bottom: 1.5rem;
+        }
+        .fee-box {
+            padding: 1rem;
+            border-radius: 6px;
+            background: #fafafa;
+            border-left: 5px solid #3498db;
+            text-align: center;
+        }
+        .fee-box.paid { border-left-color: #27ae60; }
+        .fee-box.balance { border-left-color: #c0392b; }
+        .fee-box .label { color: #666; font-size: 0.85rem; margin-bottom: 0.25rem; }
+        .fee-box .amount { color: #1e3a5f; font-size: 1.4rem; font-weight: bold; }
+        .pay-form {
+            background: #f9f9f9;
+            padding: 1.5rem;
+            border-radius: 6px;
+            margin-top: 1rem;
+        }
+        .pay-form label { display: block; margin-bottom: 0.25rem; color: #333; font-size: 0.9rem; font-weight: 500; margin-top: 0.75rem; }
+        .pay-form input, .pay-form select { width: 100%; padding: 0.6rem; border: 1px solid #ccc; border-radius: 4px; box-sizing: border-box; }
+        .pay-form button { margin-top: 1rem; padding: 0.6rem 1.5rem; background: #1e3a5f; color: white; border: none; border-radius: 4px; cursor: pointer; font-size: 0.95rem; }
+        .pay-history { margin-top: 1rem; }
+        .pay-history table { width: 100%; border-collapse: collapse; }
+        .pay-history th, .pay-history td { padding: 0.5rem; border-bottom: 1px solid #eee; text-align: left; font-size: 0.9rem; }
+        .pay-history th { background: #f4f4f4; color: #1e3a5f; }
+        .pay-status-badge { display: inline-block; padding: 0.15rem 0.5rem; border-radius: 10px; font-size: 0.7rem; font-weight: bold; text-transform: uppercase; }
+        .pay-status-pending { background: #fef5e7; color: #b9770e; }
+        .pay-status-verified { background: #e8f8f0; color: #1e8449; }
+        .pay-status-rejected { background: #fdecea; color: #a93226; }
     </style>
 </head>
 <body>
@@ -131,6 +175,18 @@
                 <div id="timetable-section">
                     <p>Loading timetable...</p>
                 </div>
+
+                <!-- Results Section -->
+                <h3 style="color: #1e3a5f; margin: 2rem 0 1rem;">My Results</h3>
+                <div id="results-section">
+                    <p>Loading results...</p>
+                </div>
+
+                <!-- Fees Section -->
+                <h3 style="color: #1e3a5f; margin: 2rem 0 1rem;">My Fees</h3>
+                <div id="fees-section">
+                    <p>Loading fees...</p>
+                </div>
             </div>
         </div>
     </main>
@@ -163,6 +219,8 @@
         loadApplication();
         loadAnnouncements();
         loadTimetable();
+        loadResults();
+        loadFees();
       }
 
       async function loadApplication() {
@@ -232,7 +290,6 @@
       async function loadTimetable() {
         const section = document.getElementById('timetable-section');
 
-        // Get the student's application to know their course
         const { data: app, error: appErr } = await supabaseClient
           .from('applications')
           .select('course_id')
@@ -249,7 +306,6 @@
           return;
         }
 
-        // Fetch only timetable entries for that course
         const { data, error } = await supabaseClient
           .from('timetables')
           .select('*')
@@ -263,7 +319,6 @@
           return;
         }
 
-        // Get the course name
         const { data: course } = await supabaseClient
           .from('courses')
           .select('name')
@@ -295,6 +350,171 @@
             </tbody>
           </table>
         `;
+      }
+
+      async function loadResults() {
+        const { data, error } = await supabaseClient
+          .from('results')
+          .select('*')
+          .eq('student_id', currentUser.id)
+          .order('created_at', { ascending: false });
+
+        const section = document.getElementById('results-section');
+        if (error) { section.innerHTML = '<p style="color:#c0392b;">Error loading results.</p>'; return; }
+
+        if (!data || !data.length) {
+          section.innerHTML = '<p>No results published yet.</p>';
+          return;
+        }
+
+        const courseIds = [...new Set(data.map(r => r.course_id).filter(Boolean))];
+        let courseMap = {};
+        if (courseIds.length) {
+          const { data: courses } = await supabaseClient
+            .from('courses').select('id, name').in('id', courseIds);
+          (courses || []).forEach(c => courseMap[c.id] = c.name);
+        }
+
+        section.innerHTML = `
+          <table class="tt-table">
+            <thead>
+              <tr>
+                <th>Exam</th>
+                <th>Course</th>
+                <th>Score</th>
+                <th>Grade</th>
+                <th>Remarks</th>
+              </tr>
+            </thead>
+            <tbody>
+              ${data.map(r => `
+                <tr>
+                  <td>${r.exam_name}</td>
+                  <td>${courseMap[r.course_id] || '—'}</td>
+                  <td>${r.score}</td>
+                  <td><span class="grade-badge grade-${(r.grade || 'F')[0]}">${r.grade || '—'}</span></td>
+                  <td>${r.remarks || '—'}</td>
+                </tr>
+              `).join('')}
+            </tbody>
+          </table>
+        `;
+      }
+
+      async function loadFees() {
+        const section = document.getElementById('fees-section');
+
+        const { data: feeData, error: feeErr } = await supabaseClient
+          .from('fees').select('*').eq('student_id', currentUser.id)
+          .order('created_at', { ascending: false }).limit(1).maybeSingle();
+
+        if (feeErr) { section.innerHTML = '<p style="color:#c0392b;">Error loading fees.</p>'; return; }
+
+        if (!feeData) {
+          section.innerHTML = '<p>No fee record set up yet. Contact the office.</p>';
+          return;
+        }
+
+        const { data: payData } = await supabaseClient
+          .from('payments').select('*').eq('student_id', currentUser.id)
+          .order('paid_at', { ascending: false });
+
+        const verifiedTotal = (payData || [])
+          .filter(p => p.status === 'verified')
+          .reduce((sum, p) => sum + parseFloat(p.amount), 0);
+
+        const total = parseFloat(feeData.total_amount);
+        const balance = total - verifiedTotal;
+
+        section.innerHTML = `
+          <div class="fee-summary">
+            <div class="fee-box">
+              <div class="label">Total Fees</div>
+              <div class="amount">KES ${total.toLocaleString()}</div>
+            </div>
+            <div class="fee-box paid">
+              <div class="label">Paid</div>
+              <div class="amount">KES ${verifiedTotal.toLocaleString()}</div>
+            </div>
+            <div class="fee-box balance">
+              <div class="label">Balance</div>
+              <div class="amount">KES ${balance.toLocaleString()}</div>
+            </div>
+          </div>
+
+          <p style="color:#666; margin-bottom:0.5rem;">
+            <strong>Semester:</strong> ${feeData.semester}
+            ${feeData.notes ? `<br><strong>Notes:</strong> ${feeData.notes}` : ''}
+          </p>
+
+          <div class="pay-form">
+            <h4 style="color:#1e3a5f; margin-bottom:0.5rem;">Submit a Payment</h4>
+            <form id="pay-form">
+              <label>Amount (KES) *</label>
+              <input type="number" id="pay-amount" step="0.01" min="1" required>
+
+              <label>Payment Method *</label>
+              <select id="pay-method" required>
+                <option value="">-- Select --</option>
+                <option value="mpesa">M-Pesa</option>
+                <option value="bank">Bank Transfer</option>
+                <option value="cash">Cash</option>
+                <option value="card">Card</option>
+              </select>
+
+              <label>Reference / Transaction Code *</label>
+              <input type="text" id="pay-reference" placeholder="e.g. QAB1234567" required>
+
+              <button type="submit">Submit Payment</button>
+              <p id="pay-msg" style="text-align:center; margin-top:0.75rem; font-size:0.9rem;"></p>
+            </form>
+          </div>
+
+          <div class="pay-history">
+            <h4 style="color:#1e3a5f; margin: 1.5rem 0 0.5rem;">Payment History</h4>
+            ${(!payData || !payData.length)
+              ? '<p>No payments submitted yet.</p>'
+              : `<table>
+                  <thead><tr><th>Date</th><th>Amount</th><th>Method</th><th>Reference</th><th>Status</th></tr></thead>
+                  <tbody>
+                    ${payData.map(p => `
+                      <tr>
+                        <td>${new Date(p.paid_at).toLocaleDateString()}</td>
+                        <td>KES ${parseFloat(p.amount).toLocaleString()}</td>
+                        <td>${p.method || '—'}</td>
+                        <td>${p.reference || '—'}</td>
+                        <td><span class="pay-status-badge pay-status-${p.status}">${p.status}</span></td>
+                      </tr>
+                    `).join('')}
+                  </tbody>
+                </table>`}
+          </div>
+        `;
+
+        document.getElementById('pay-form').addEventListener('submit', async (e) => {
+          e.preventDefault();
+          const msg = document.getElementById('pay-msg');
+          msg.textContent = 'Submitting...';
+          msg.style.color = '#666';
+
+          const payload = {
+            student_id: currentUser.id,
+            amount: parseFloat(document.getElementById('pay-amount').value),
+            method: document.getElementById('pay-method').value,
+            reference: document.getElementById('pay-reference').value.trim(),
+            status: 'pending'
+          };
+
+          const { error } = await supabaseClient.from('payments').insert(payload);
+          if (error) {
+            msg.textContent = 'Error: ' + error.message;
+            msg.style.color = '#c0392b';
+            return;
+          }
+          msg.textContent = 'Payment submitted! Awaiting admin verification.';
+          msg.style.color = '#27ae60';
+          setTimeout(loadFees, 1500);
+        });
       }
 
       document.getElementById('logout-btn').addEventListener('click', async () => {
