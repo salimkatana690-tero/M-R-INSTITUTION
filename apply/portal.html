@@ -230,36 +230,55 @@
       }
 
       async function loadTimetable() {
-        const { data, error } = await supabaseClient
-          .from('timetables')
-          .select('*')
-          .order('day_of_week');
-
         const section = document.getElementById('timetable-section');
-        if (error) { section.innerHTML = '<p style="color:#c0392b;">Error loading timetable.</p>'; return; }
 
-        if (!data || !data.length) {
-          section.innerHTML = '<p>No timetable has been published yet.</p>';
+        // Get the student's application to know their course
+        const { data: app, error: appErr } = await supabaseClient
+          .from('applications')
+          .select('course_id')
+          .eq('user_id', currentUser.id)
+          .maybeSingle();
+
+        if (appErr) {
+          section.innerHTML = '<p style="color:#c0392b;">Error loading your application.</p>';
           return;
         }
 
-        // Fetch course names
-        const courseIds = [...new Set(data.map(t => t.course_id))];
-        const { data: courses } = await supabaseClient
-          .from('courses')
-          .select('id, name')
-          .in('id', courseIds);
+        if (!app || !app.course_id) {
+          section.innerHTML = '<p>Submit an application first to see your class timetable.</p>';
+          return;
+        }
 
-        const courseMap = {};
-        (courses || []).forEach(c => courseMap[c.id] = c.name);
+        // Fetch only timetable entries for that course
+        const { data, error } = await supabaseClient
+          .from('timetables')
+          .select('*')
+          .eq('course_id', app.course_id)
+          .order('day_of_week');
+
+        if (error) { section.innerHTML = '<p style="color:#c0392b;">Error loading timetable.</p>'; return; }
+
+        if (!data || !data.length) {
+          section.innerHTML = '<p>No classes scheduled for your course yet. Check back soon.</p>';
+          return;
+        }
+
+        // Get the course name
+        const { data: course } = await supabaseClient
+          .from('courses')
+          .select('name')
+          .eq('id', app.course_id)
+          .single();
 
         section.innerHTML = `
+          <p style="color: #666; margin-bottom: 0.75rem;">
+            Showing classes for: <strong>${course ? course.name : 'Your Course'}</strong>
+          </p>
           <table class="tt-table">
             <thead>
               <tr>
                 <th>Day</th>
                 <th>Time</th>
-                <th>Course</th>
                 <th>Room</th>
                 <th>Lecturer</th>
               </tr>
@@ -269,7 +288,6 @@
                 <tr>
                   <td>${t.day_of_week}</td>
                   <td>${t.start_time} – ${t.end_time}</td>
-                  <td>${courseMap[t.course_id] || '—'}</td>
                   <td>${t.room || '—'}</td>
                   <td>${t.lecturer || '—'}</td>
                 </tr>
