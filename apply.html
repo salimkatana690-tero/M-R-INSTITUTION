@@ -1,1 +1,217 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Application Form - College Financial</title>
+    <link rel="stylesheet" href="../css/style.css">
+    <style>
+        .apply-box {
+            max-width: 700px;
+            margin: 2rem auto;
+            padding: 2rem;
+            background: white;
+            border-radius: 8px;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.05);
+        }
+        .apply-box h2 { color: #1e3a5f; margin-bottom: 0.5rem; }
+        .apply-box .subtitle { color: #666; margin-bottom: 2rem; font-size: 0.95rem; }
+        .apply-box label { display: block; margin-bottom: 0.25rem; color: #333; font-size: 0.9rem; font-weight: 500; }
+        .apply-box input, .apply-box select, .apply-box textarea {
+            width: 100%;
+            padding: 0.75rem;
+            margin-bottom: 1rem;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+            font-size: 1rem;
+            font-family: inherit;
+            box-sizing: border-box;
+        }
+        .apply-box textarea { min-height: 120px; resize: vertical; }
+        .apply-box button {
+            width: 100%;
+            padding: 0.9rem;
+            background: #1e3a5f;
+            color: white;
+            border: none;
+            border-radius: 4px;
+            font-size: 1rem;
+            cursor: pointer;
+            margin-top: 0.5rem;
+        }
+        .apply-box button:hover { background: #2c4a73; }
+        .msg { text-align: center; margin-top: 1rem; font-size: 0.95rem; }
+        .msg.error { color: #c0392b; }
+        .msg.success { color: #27ae60; }
+        .row { display: grid; grid-template-columns: 1fr 1fr; gap: 1rem; }
+        @media (max-width: 600px) { .row { grid-template-columns: 1fr; } }
+        #loading { text-align: center; padding: 2rem; }
+    </style>
+</head>
+<body>
+    <header>
+        <h1>College Financial</h1>
+        <nav>
+            <a href="../index.html">Home</a>
+            <a href="../courses.html">Courses</a>
+            <a href="portal.html">My Portal</a>
+        </nav>
+    </header>
 
+    <main>
+        <div id="loading">Loading...</div>
+
+        <div id="form-view" style="display: none;">
+            <div class="apply-box">
+                <h2 id="form-title">Application Form</h2>
+                <p class="subtitle">Fill in all fields marked required</p>
+                <form id="apply-form">
+                    <label>Full Name *</label>
+                    <input type="text" id="full_name" required>
+
+                    <label>Email *</label>
+                    <input type="email" id="email" required>
+
+                    <div class="row">
+                        <div>
+                            <label>Phone</label>
+                            <input type="tel" id="phone">
+                        </div>
+                        <div>
+                            <label>Date of Birth</label>
+                            <input type="date" id="date_of_birth">
+                        </div>
+                    </div>
+
+                    <label>Address</label>
+                    <input type="text" id="address">
+
+                    <label>Course You're Applying For *</label>
+                    <select id="course_id" required>
+                        <option value="">-- Select a course --</option>
+                    </select>
+
+                    <label>Previous School</label>
+                    <input type="text" id="previous_school">
+
+                    <label>Grades / Results</label>
+                    <input type="text" id="grades" placeholder="e.g. A, B+, B...">
+
+                    <label>Personal Statement</label>
+                    <textarea id="personal_statement" placeholder="Tell us why you want to join..."></textarea>
+
+                    <button type="submit">Submit Application</button>
+                </form>
+                <p id="message" class="msg"></p>
+            </div>
+        </div>
+    </main>
+
+    <footer>
+        <p>&copy; 2026 College Financial</p>
+    </footer>
+
+    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+    <script>
+      const { createClient } = supabase;
+      const supabaseClient = createClient(
+        'https://hcufdggmbrhbcenoboef.supabase.co',
+        'sb_publishable_78sLh6qbQtYP2KFhpx-NuA_HvBOpKnD'
+      );
+
+      let currentUser = null;
+      let existingApp = null;
+
+      async function init() {
+        const { data: { session } } = await supabaseClient.auth.getSession();
+        if (!session) {
+          window.location.href = 'login.html';
+          return;
+        }
+        currentUser = session.user;
+        document.getElementById('email').value = currentUser.email;
+
+        // Load courses into dropdown
+        const { data: courses } = await supabaseClient
+          .from('courses')
+          .select('id, name')
+          .order('name');
+
+        const select = document.getElementById('course_id');
+        courses.forEach(c => {
+          const opt = document.createElement('option');
+          opt.value = c.id;
+          opt.textContent = c.name;
+          select.appendChild(opt);
+        });
+
+        // Check if an application already exists
+        const { data } = await supabaseClient
+          .from('applications')
+          .select('*')
+          .eq('user_id', currentUser.id)
+          .maybeSingle();
+
+        if (data) {
+          existingApp = data;
+          document.getElementById('form-title').textContent = 'Edit Your Application';
+          document.getElementById('full_name').value = data.full_name || '';
+          document.getElementById('phone').value = data.phone || '';
+          document.getElementById('date_of_birth').value = data.date_of_birth || '';
+          document.getElementById('address').value = data.address || '';
+          document.getElementById('course_id').value = data.course_id || '';
+          document.getElementById('previous_school').value = data.previous_school || '';
+          document.getElementById('grades').value = data.grades || '';
+          document.getElementById('personal_statement').value = data.personal_statement || '';
+        }
+
+        document.getElementById('loading').style.display = 'none';
+        document.getElementById('form-view').style.display = 'block';
+      }
+
+      const form = document.getElementById('apply-form');
+      const msg = document.getElementById('message');
+
+      form.addEventListener('submit', async (e) => {
+        e.preventDefault();
+        msg.className = 'msg';
+        msg.textContent = 'Saving...';
+
+        const payload = {
+          user_id: currentUser.id,
+          full_name: document.getElementById('full_name').value.trim(),
+          email: document.getElementById('email').value.trim(),
+          phone: document.getElementById('phone').value.trim() || null,
+          date_of_birth: document.getElementById('date_of_birth').value || null,
+          address: document.getElementById('address').value.trim() || null,
+          course_id: document.getElementById('course_id').value ? parseInt(document.getElementById('course_id').value) : null,
+          previous_school: document.getElementById('previous_school').value.trim() || null,
+          grades: document.getElementById('grades').value.trim() || null,
+          personal_statement: document.getElementById('personal_statement').value.trim() || null,
+          updated_at: new Date().toISOString()
+        };
+
+        let result;
+        if (existingApp) {
+          result = await supabaseClient.from('applications').update(payload).eq('id', existingApp.id);
+        } else {
+          payload.status = 'pending';
+          result = await supabaseClient.from('applications').insert(payload);
+        }
+
+        if (result.error) {
+          msg.className = 'msg error';
+          msg.textContent = 'Error: ' + result.error.message;
+          return;
+        }
+
+        msg.className = 'msg success';
+        msg.textContent = 'Application saved! Redirecting to your portal...';
+        setTimeout(() => {
+          window.location.href = 'portal.html';
+        }, 1200);
+      });
+
+      init();
+    </script>
+</body>
+</html>
