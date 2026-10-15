@@ -9,7 +9,461 @@
 <body>
     <header>
         <h1>College Financial</h1>
-        <nav>
+        <nav><!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Contact Us - M&R Institution</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="css/style.css">
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body {
+            font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+            color: #0f172a;
+            background: #f8fafc;
+            line-height: 1.6;
+            -webkit-font-smoothing: antialiased;
+        }
+
+        /* Header */
+        header {
+            background: rgba(255,255,255,0.95);
+            backdrop-filter: blur(10px);
+            padding: 1rem 2rem;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            border-bottom: 1px solid #e2e8f0;
+            position: sticky;
+            top: 0;
+            z-index: 50;
+            flex-wrap: wrap;
+            gap: 1rem;
+        }
+        .logo-area { display: flex; align-items: center; gap: 0.6rem; text-decoration: none; color: inherit; }
+        .logo-icon {
+            width: 40px; height: 40px;
+            background: linear-gradient(135deg, #0f2744, #14b8a6);
+            border-radius: 10px;
+            display: flex; align-items: center; justify-content: center;
+            color: white; font-weight: 800; font-size: 1rem;
+        }
+        .logo-area h1 { font-size: 1.25rem; font-weight: 800; color: #0f2744; letter-spacing: -0.01em; }
+        .logo-area small { display: block; font-size: 0.7rem; color: #64748b; font-weight: 500; letter-spacing: 0.5px; text-transform: uppercase; }
+
+        .header-right { display: flex; align-items: center; gap: 1.5rem; }
+        nav { display: flex; gap: 1.5rem; align-items: center; }
+        nav a { color: #64748b; text-decoration: none; font-weight: 500; font-size: 0.95rem; transition: color 0.2s; }
+        nav a:hover { color: #0f2744; }
+        nav a.active { color: #0f2744; font-weight: 700; }
+        .login-btn {
+            display: inline-flex; align-items: center; gap: 0.5rem;
+            background: #0f2744; color: white;
+            padding: 0.6rem 1.2rem; border-radius: 8px;
+            text-decoration: none; font-weight: 600; font-size: 0.95rem;
+            transition: all 0.2s;
+            box-shadow: 0 1px 2px rgba(15,23,42,0.05);
+        }
+        .login-btn:hover { background: #1e3a5f; transform: translateY(-1px); box-shadow: 0 4px 12px rgba(15,23,42,0.15); }
+        .login-btn svg { width: 16px; height: 16px; fill: currentColor; }
+
+        /* Hero */
+        .page-hero {
+            background: linear-gradient(135deg, #0f2744 0%, #1e3a5f 100%);
+            color: white;
+            padding: 5rem 2rem 4rem;
+            position: relative;
+            overflow: hidden;
+        }
+        .page-hero::before {
+            content: '';
+            position: absolute;
+            top: -50%; right: -20%;
+            width: 600px; height: 600px;
+            background: radial-gradient(circle, rgba(20,184,166,0.3), transparent 70%);
+            border-radius: 50%;
+        }
+        .page-hero-inner { max-width: 1200px; margin: 0 auto; position: relative; z-index: 2; }
+        .back-btn {
+            display: inline-flex; align-items: center; gap: 0.5rem;
+            background: rgba(255,255,255,0.1); color: white;
+            padding: 0.55rem 1.1rem; border-radius: 8px;
+            text-decoration: none; font-weight: 600; font-size: 0.9rem;
+            transition: all 0.2s;
+            border: 1px solid rgba(255,255,255,0.15);
+            margin-bottom: 2rem;
+        }
+        .back-btn:hover { background: rgba(255,255,255,0.2); transform: translateX(-3px); }
+        .back-btn svg { width: 16px; height: 16px; fill: currentColor; }
+
+        .page-hero h2 {
+            font-size: 3rem; font-weight: 800;
+            letter-spacing: -0.02em; line-height: 1.1;
+            margin-bottom: 1rem;
+        }
+        .page-hero h2 .accent { color: #14b8a6; }
+        .page-hero p { font-size: 1.15rem; color: rgba(255,255,255,0.85); max-width: 640px; }
+
+        /* Contact Cards */
+        .contact-cards-section { padding: 4rem 2rem 2rem; }
+        .contact-cards-inner { max-width: 1200px; margin: 0 auto; }
+        .contact-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+            gap: 1.5rem;
+        }
+        .contact-card {
+            background: white;
+            padding: 2rem;
+            border-radius: 14px;
+            border: 1px solid #e2e8f0;
+            text-align: center;
+            transition: all 0.25s;
+        }
+        .contact-card:hover { transform: translateY(-4px); box-shadow: 0 12px 32px rgba(15,23,42,0.08); border-color: #99f6e4; }
+        .contact-card .c-icon {
+            width: 56px; height: 56px;
+            margin: 0 auto 1rem;
+            background: linear-gradient(135deg, #ccfbf1, #99f6e4);
+            color: #0d9488;
+            border-radius: 14px;
+            display: flex; align-items: center; justify-content: center;
+            font-size: 1.5rem;
+        }
+        .contact-card h4 { color: #0f2744; font-size: 1.05rem; font-weight: 700; margin-bottom: 0.5rem; }
+        .contact-card p { color: #64748b; font-size: 0.9rem; margin: 0; line-height: 1.6; }
+        .contact-card a { color: #0d9488; text-decoration: none; font-weight: 500; }
+        .contact-card a:hover { text-decoration: underline; }
+
+        /* Form + Map */
+        .form-section { padding: 3rem 2rem 5rem; }
+        .form-inner {
+            max-width: 1200px; margin: 0 auto;
+            display: grid;
+            grid-template-columns: 1.2fr 1fr;
+            gap: 2.5rem;
+            align-items: start;
+        }
+        .form-card {
+            background: white;
+            padding: 2.5rem;
+            border-radius: 20px;
+            box-shadow: 0 4px 20px rgba(15,23,42,0.06);
+            border: 1px solid #e2e8f0;
+        }
+        .form-card h3 { color: #0f2744; font-size: 1.75rem; font-weight: 800; letter-spacing: -0.02em; margin-bottom: 0.5rem; }
+        .form-card .subtitle { color: #64748b; font-size: 0.95rem; margin-bottom: 1.75rem; }
+
+        .form-card label {
+            display: block;
+            margin-bottom: 0.4rem;
+            color: #334155;
+            font-size: 0.88rem;
+            font-weight: 600;
+        }
+        .form-card input,
+        .form-card textarea {
+            width: 100%;
+            padding: 0.85rem 1rem;
+            margin-bottom: 1.1rem;
+            border: 2px solid #e2e8f0;
+            border-radius: 10px;
+            font-size: 1rem;
+            font-family: inherit;
+            background: #f8fafc;
+            color: #0f172a;
+            transition: all 0.2s;
+            box-sizing: border-box;
+            resize: vertical;
+        }
+        .form-card input:focus,
+        .form-card textarea:focus {
+            outline: none;
+            border-color: #14b8a6;
+            background: white;
+            box-shadow: 0 0 0 3px rgba(20,184,166,0.1);
+        }
+        .form-card textarea { min-height: 140px; }
+        .form-row { display: grid; grid-template-columns: 1fr 1fr; gap: 1rem; }
+        .submit-btn {
+            width: 100%;
+            padding: 0.95rem;
+            background: #0f2744;
+            color: white;
+            border: none;
+            border-radius: 10px;
+            font-size: 1rem;
+            font-weight: 600;
+            cursor: pointer;
+            font-family: inherit;
+            transition: all 0.2s;
+            margin-top: 0.5rem;
+        }
+        .submit-btn:hover { background: #1e3a5f; transform: translateY(-1px); box-shadow: 0 8px 20px rgba(15,23,42,0.15); }
+        .submit-btn:disabled { background: #94a3b8; cursor: not-allowed; transform: none; }
+        .form-msg {
+            text-align: center;
+            margin-top: 1rem;
+            font-size: 0.92rem;
+            font-weight: 500;
+            min-height: 1.2rem;
+        }
+        .form-msg.error { color: #c0392b; }
+        .form-msg.success { color: #16a34a; }
+
+        .map-wrap {
+            background: white;
+            padding: 0.5rem;
+            border-radius: 20px;
+            box-shadow: 0 4px 20px rgba(15,23,42,0.06);
+            border: 1px solid #e2e8f0;
+            overflow: hidden;
+            height: 100%;
+            min-height: 500px;
+            display: flex;
+            flex-direction: column;
+        }
+        .map-wrap iframe {
+            width: 100%;
+            flex-grow: 1;
+            border: 0;
+            border-radius: 15px;
+            min-height: 400px;
+        }
+
+        /* Footer */
+        footer {
+            background: #0f2744;
+            color: rgba(255,255,255,0.7);
+            padding: 3rem 2rem 1.5rem;
+        }
+        .footer-inner {
+            max-width: 1200px; margin: 0 auto;
+            display: grid; grid-template-columns: 2fr 1fr 1fr 1fr;
+            gap: 2rem; padding-bottom: 2rem;
+            border-bottom: 1px solid rgba(255,255,255,0.1);
+        }
+        .footer-brand h4 { color: white; font-size: 1.15rem; font-weight: 800; margin-bottom: 0.75rem; }
+        .footer-brand p { font-size: 0.9rem; line-height: 1.6; }
+        .footer-col h5 { color: white; font-size: 0.85rem; font-weight: 700; margin-bottom: 1rem; text-transform: uppercase; letter-spacing: 0.05em; }
+        .footer-col ul { list-style: none; }
+        .footer-col li { margin-bottom: 0.5rem; }
+        .footer-col a { color: rgba(255,255,255,0.7); text-decoration: none; font-size: 0.9rem; transition: color 0.2s; }
+        .footer-col a:hover { color: #14b8a6; }
+        .footer-bottom {
+            max-width: 1200px; margin: 1.5rem auto 0;
+            display: flex; justify-content: space-between; align-items: center;
+            flex-wrap: wrap; gap: 1rem; font-size: 0.85rem;
+        }
+        .social-row { display: flex; gap: 0.75rem; }
+        .social-row a {
+            width: 36px; height: 36px; border-radius: 8px;
+            background: rgba(255,255,255,0.08); color: white;
+            display: flex; align-items: center; justify-content: center;
+            text-decoration: none; transition: all 0.2s;
+        }
+        .social-row a:hover { background: #14b8a6; transform: translateY(-2px); }
+
+        @media (max-width: 900px) {
+            .form-inner { grid-template-columns: 1fr; }
+            .page-hero h2 { font-size: 2.25rem; }
+            .footer-inner { grid-template-columns: 1fr 1fr; }
+        }
+        @media (max-width: 600px) {
+            header { padding: 1rem; }
+            .header-right { width: 100%; justify-content: space-between; }
+            nav { gap: 0.9rem; }
+            .page-hero { padding: 3rem 1rem 2.5rem; }
+            .page-hero h2 { font-size: 1.85rem; }
+            .form-card { padding: 1.75rem; }
+            .form-row { grid-template-columns: 1fr; }
+            .footer-inner { grid-template-columns: 1fr; text-align: center; }
+            .footer-bottom { flex-direction: column; text-align: center; }
+        }
+    </style>
+</head>
+<body>
+
+    <!-- Header -->
+    <header>
+        <a href="index.html" class="logo-area">
+            <div class="logo-icon">M&R</div>
+            <div>
+                <h1>M&R Institution</h1>
+                <small>Excellence in Education</small>
+            </div>
+        </a>
+        <div class="header-right">
+            <nav>
+                <a href="index.html">Home</a>
+                <a href="about.html">About</a>
+                <a href="courses.html">Courses</a>
+                <a href="contact.html" class="active">Contact</a>
+            </nav>
+            <a href="login.html" class="login-btn">
+                <svg viewBox="0 0 24 24"><path d="M12 12c2.76 0 5-2.24 5-5s-2.24-5-5-5-5 2.24-5 5 2.24 5 5 5zm0 2c-3.34 0-10 1.67-10 5v3h20v-3c0-3.33-6.66-5-10-5z"/></svg>
+                Login
+            </a>
+        </div>
+    </header>
+
+    <!-- Hero -->
+    <section class="page-hero">
+        <div class="page-hero-inner">
+            <a href="index.html" class="back-btn">
+                <svg viewBox="0 0 24 24"><path d="M20 11H7.83l5.59-5.59L12 4l-8 8 8 8 1.41-1.41L7.83 13H20v-2z"/></svg>
+                Back to Home
+            </a>
+            <h2>Get in <span class="accent">Touch</span></h2>
+            <p>Have questions? We're here to help. Reach out to us and we'll respond as soon as possible.</p>
+        </div>
+    </section>
+
+    <!-- Contact Cards -->
+    <section class="contact-cards-section">
+        <div class="contact-cards-inner">
+            <div class="contact-grid">
+                <div class="contact-card">
+                    <div class="c-icon">📍</div>
+                    <h4>Visit Us</h4>
+                    <p>123 Education Avenue<br>Nairobi, Kenya</p>
+                </div>
+                <div class="contact-card">
+                    <div class="c-icon">📞</div>
+                    <h4>Call Us</h4>
+                    <p><a href="tel:+254700000000">+254 700 000 000</a><br>Mon–Fri, 8am–5pm</p>
+                </div>
+                <div class="contact-card">
+                    <div class="c-icon">✉️</div>
+                    <h4>Email Us</h4>
+                    <p><a href="mailto:info@mrinst.com">info@mrinst.com</a><br><a href="mailto:support@mrinst.com">support@mrinst.com</a></p>
+                </div>
+                <div class="contact-card">
+                    <div class="c-icon">🕐</div>
+                    <h4>Office Hours</h4>
+                    <p>Mon–Fri: 8am–5pm<br>Sat: 9am–1pm</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Form + Map -->
+    <section class="form-section">
+        <div class="form-inner">
+            <div class="form-card">
+                <h3>Send Us a Message</h3>
+                <p class="subtitle">Fill out the form below and we'll get back to you shortly.</p>
+
+                <form id="contact-form">
+                    <div class="form-row">
+                        <div>
+                            <label>Full Name *</label>
+                            <input type="text" id="name" required placeholder="Your name">
+                        </div>
+                        <div>
+                            <label>Email *</label>
+                            <input type="email" id="email" required placeholder="you@example.com">
+                        </div>
+                    </div>
+
+                    <label>Subject *</label>
+                    <input type="text" id="subject" required placeholder="What is this regarding?">
+
+                    <label>Message *</label>
+                    <textarea id="message" required placeholder="Type your message here..."></textarea>
+
+                    <button type="submit" class="submit-btn" id="submit-btn">Send Message</button>
+                    <p class="form-msg" id="form-msg"></p>
+                </form>
+            </div>
+
+            <div class="map-wrap">
+                <iframe
+                    src="https://www.google.com/maps?q=Nairobi,Kenya&output=embed"
+                    allowfullscreen=""
+                    loading="lazy"
+                    referrerpolicy="no-referrer-when-downgrade"
+                    title="M&R Institution Location">
+                </iframe>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer>
+        <div class="footer-inner">
+            <div class="footer-brand">
+                <h4>M&R Institution</h4>
+                <p>Empowering futures through quality education and financial support for all students.</p>
+            </div>
+            <div class="footer-col">
+                <h5>Quick Links</h5>
+                <ul>
+                    <li><a href="index.html">Home</a></li>
+                    <li><a href="about.html">About</a></li>
+                    <li><a href="courses.html">Courses</a></li>
+                    <li><a href="contact.html">Contact</a></li>
+                </ul>
+            </div>
+            <div class="footer-col">
+                <h5>Students</h5>
+                <ul>
+                    <li><a href="apply/register.html">Register</a></li>
+                    <li><a href="login.html">Login</a></li>
+                    <li><a href="apply/apply.html">Apply</a></li>
+                </ul>
+            </div>
+            <div class="footer-col">
+                <h5>Support</h5>
+                <ul>
+                    <li><a href="contact.html">Help Center</a></li>
+                    <li><a href="about.html">FAQs</a></li>
+                </ul>
+            </div>
+        </div>
+        <div class="footer-bottom">
+            <span>© 2026 M&R Institution. All rights reserved.</span>
+            <div class="social-row">
+                <a href="#" title="Facebook">f</a>
+                <a href="#" title="Twitter">𝕏</a>
+                <a href="#" title="Instagram">📷</a>
+                <a href="#" title="LinkedIn">in</a>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+      // Contact form (no backend yet — shows a friendly success message)
+      const form = document.getElementById('contact-form');
+      const msg = document.getElementById('form-msg');
+      const btn = document.getElementById('submit-btn');
+
+      form.addEventListener('submit', async (e) => {
+        e.preventDefault();
+        msg.className = 'form-msg';
+        msg.textContent = 'Sending...';
+        btn.disabled = true;
+        btn.textContent = 'Sending...';
+
+        // Simulate send (no backend configured yet)
+        await new Promise(r => setTimeout(r, 1000));
+
+        msg.className = 'form-msg success';
+        msg.textContent = '✅ Message sent! We\'ll get back to you soon.';
+        btn.disabled = false;
+        btn.textContent = 'Send Message';
+        form.reset();
+
+        // Clear success message after 5 seconds
+        setTimeout(() => { msg.textContent = ''; }, 5000);
+      });
+    </script>
+</body>
+</html>
             <a href="index.html">Home</a>
             <a href="about.html">About</a>
             <a href="courses.html">Courses</a>
