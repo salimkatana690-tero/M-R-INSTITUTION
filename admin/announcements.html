@@ -2,104 +2,189 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>Announcements - Admin</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Announcements - Admin - M&R Institution</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="../css/style.css">
     <style>
-        .admin-page { max-width: 1100px; margin: 2rem auto; padding: 2rem; background: white; border-radius: 8px; }
-        .admin-header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 1.5rem; padding-bottom: 1rem; border-bottom: 2px solid #eee; }
-        .admin-header h2 { color: #1e3a5f; margin: 0; }
-        .admin-nav a { margin-right: 1rem; color: #1e3a5f; text-decoration: none; font-weight: 500; }
-        .admin-nav a.active { border-bottom: 2px solid #1e3a5f; padding-bottom: 2px; }
-        .btn-danger { background: #c0392b; color: white; padding: 0.5rem 1rem; border: none; border-radius: 4px; cursor: pointer; font-size: 0.9rem; }
-        .btn-primary { background: #1e3a5f; color: white; padding: 0.75rem 1.5rem; border: none; border-radius: 4px; cursor: pointer; font-size: 1rem; margin-bottom: 1.5rem; }
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body { font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif; color: #0f172a; background: #f8fafc; line-height: 1.6; -webkit-font-smoothing: antialiased; }
+
+        .admin-topbar { background: white; padding: 0.9rem 2rem; display: flex; justify-content: space-between; align-items: center; border-bottom: 1px solid #e2e8f0; position: sticky; top: 0; z-index: 50; flex-wrap: wrap; gap: 1rem; }
+        .logo-area { display: flex; align-items: center; gap: 0.6rem; text-decoration: none; color: inherit; }
+        .logo-icon { width: 38px; height: 38px; background: linear-gradient(135deg, #0f2744, #14b8a6); border-radius: 10px; display: flex; align-items: center; justify-content: center; color: white; font-weight: 800; font-size: 0.95rem; }
+        .logo-area h1 { font-size: 1.15rem; font-weight: 800; color: #0f2744; }
+        .logo-area small { display: block; font-size: 0.68rem; color: #14b8a6; font-weight: 700; text-transform: uppercase; letter-spacing: 0.05em; }
+        .admin-user { display: flex; align-items: center; gap: 1rem; }
+        .user-chip { display: inline-flex; align-items: center; gap: 0.5rem; background: #f1f5f9; padding: 0.4rem 0.85rem; border-radius: 999px; font-size: 0.83rem; color: #334155; font-weight: 500; }
+        .user-chip .avatar { width: 24px; height: 24px; background: linear-gradient(135deg, #0f2744, #14b8a6); border-radius: 50%; color: white; display: flex; align-items: center; justify-content: center; font-size: 0.68rem; font-weight: 800; }
+        .logout-btn { background: #fee2e2; color: #991b1b; padding: 0.45rem 0.9rem; border-radius: 8px; border: none; cursor: pointer; font-weight: 600; font-size: 0.82rem; font-family: inherit; transition: all 0.2s; }
+        .logout-btn:hover { background: #fecaca; }
+
+        .layout { display: grid; grid-template-columns: 240px 1fr; max-width: 1400px; margin: 0 auto; padding: 2rem; gap: 2rem; align-items: start; }
+        .sidebar { position: sticky; top: 90px; background: white; border-radius: 14px; padding: 1rem; box-shadow: 0 4px 20px rgba(15,23,42,0.06); border: 1px solid #e2e8f0; }
+        .sidebar-title { padding: 0.5rem 0.9rem 0.75rem; font-size: 0.7rem; text-transform: uppercase; letter-spacing: 0.1em; color: #94a3b8; font-weight: 700; }
+        .sidebar nav { display: flex; flex-direction: column; gap: 0.15rem; }
+        .sidebar nav a { display: flex; align-items: center; gap: 0.6rem; padding: 0.65rem 0.85rem; border-radius: 8px; color: #475569; text-decoration: none; font-weight: 500; font-size: 0.9rem; transition: all 0.15s; }
+        .sidebar nav a:hover { background: #f1f5f9; color: #0f2744; }
+        .sidebar nav a.active { background: #ccfbf1; color: #0d9488; font-weight: 700; }
+        .sidebar nav a .ico { font-size: 1rem; }
+
+        .main-header { display: flex; justify-content: space-between; align-items: flex-end; margin-bottom: 1.5rem; flex-wrap: wrap; gap: 1rem; }
+        .main-header h2 { color: #0f2744; font-size: 1.75rem; font-weight: 800; letter-spacing: -0.02em; }
+        .main-header p { color: #64748b; font-size: 0.92rem; margin-top: 0.25rem; }
+
+        .btn { display: inline-flex; align-items: center; gap: 0.5rem; padding: 0.75rem 1.35rem; border-radius: 10px; font-weight: 700; font-size: 0.92rem; transition: all 0.2s; border: none; cursor: pointer; font-family: inherit; text-decoration: none; }
+        .btn-teal { background: #14b8a6; color: white; }
+        .btn-teal:hover { background: #0d9488; transform: translateY(-1px); box-shadow: 0 8px 20px rgba(20,184,166,0.3); }
+        .btn-primary { background: #0f2744; color: white; }
+        .btn-primary:hover { background: #1e3a5f; transform: translateY(-1px); }
+        .btn-edit { background: #3b82f6; color: white; padding: 0.5rem 0.9rem; font-size: 0.82rem; }
+        .btn-edit:hover { background: #2563eb; }
+        .btn-danger { background: #dc2626; color: white; padding: 0.5rem 0.9rem; font-size: 0.82rem; }
+        .btn-danger:hover { background: #b91c1c; }
+        .btn-cancel { background: #f1f5f9; color: #475569; padding: 0.75rem 1.35rem; border-radius: 10px; border: none; cursor: pointer; font-weight: 700; font-size: 0.92rem; font-family: inherit; }
+        .btn-cancel:hover { background: #e2e8f0; }
+
+        /* Announcement cards */
         .ann-list { display: flex; flex-direction: column; gap: 1rem; }
-        .ann-card { padding: 1.25rem; border-radius: 6px; border-left: 5px solid #3498db; background: #fafafa; }
-        .ann-card.high { border-left-color: #f39c12; }
-        .ann-card.urgent { border-left-color: #c0392b; }
-        .ann-card h3 { color: #1e3a5f; margin-bottom: 0.5rem; }
-        .ann-card .meta { color: #666; font-size: 0.85rem; margin-bottom: 0.75rem; }
-        .ann-card .actions { margin-top: 0.75rem; }
-        .ann-card button { padding: 0.35rem 0.75rem; margin-right: 0.5rem; border: none; border-radius: 4px; cursor: pointer; font-size: 0.85rem; }
-        .btn-edit { background: #3498db; color: white; }
-        .btn-delete { background: #c0392b; color: white; }
-        .priority-badge { display: inline-block; padding: 0.15rem 0.6rem; border-radius: 10px; font-size: 0.7rem; font-weight: bold; text-transform: uppercase; margin-left: 0.5rem; }
-        .priority-normal { background: #e8f4fd; color: #2471a3; }
-        .priority-high { background: #fef5e7; color: #b9770e; }
-        .priority-urgent { background: #fdecea; color: #a93226; }
-        .modal-overlay { display: none; position: fixed; top: 0; left: 0; right: 0; bottom: 0; background: rgba(0,0,0,0.5); justify-content: center; align-items: center; z-index: 100; }
+        .ann-card { background: white; border-radius: 14px; padding: 1.5rem; box-shadow: 0 4px 20px rgba(15,23,42,0.05); border: 1px solid #e2e8f0; border-left: 5px solid #14b8a6; transition: all 0.2s; }
+        .ann-card:hover { transform: translateX(3px); box-shadow: 0 8px 24px rgba(15,23,42,0.08); }
+        .ann-card.high { border-left-color: #f59e0b; }
+        .ann-card.urgent { border-left-color: #dc2626; }
+        .ann-head { display: flex; justify-content: space-between; align-items: flex-start; gap: 1rem; flex-wrap: wrap; margin-bottom: 0.75rem; }
+        .ann-head h3 { color: #0f2744; font-size: 1.1rem; font-weight: 800; margin: 0; display: flex; align-items: center; gap: 0.5rem; flex-wrap: wrap; }
+        .ann-meta { display: flex; align-items: center; gap: 1rem; color: #94a3b8; font-size: 0.82rem; margin-bottom: 0.75rem; }
+        .ann-card p { color: #475569; font-size: 0.95rem; margin: 0 0 1rem; }
+        .ann-actions { display: flex; gap: 0.5rem; flex-wrap: wrap; }
+
+        .priority-pill { display: inline-block; padding: 0.15rem 0.65rem; border-radius: 999px; font-size: 0.68rem; font-weight: 700; text-transform: uppercase; letter-spacing: 0.04em; }
+        .priority-normal { background: #dbeafe; color: #1e40af; }
+        .priority-high { background: #fef3c7; color: #92400e; }
+        .priority-urgent { background: #fee2e2; color: #991b1b; }
+
+        .empty-state { text-align: center; padding: 3rem 1rem; background: white; border-radius: 14px; border: 1px solid #e2e8f0; }
+        .empty-state .icon { font-size: 3rem; margin-bottom: 1rem; opacity: 0.4; }
+        .empty-state h4 { color: #0f2744; font-size: 1.1rem; font-weight: 700; margin-bottom: 0.5rem; }
+        .empty-state p { color: #64748b; font-size: 0.92rem; }
+
+        .loading-state { text-align: center; padding: 3rem; color: #64748b; background: white; border-radius: 14px; border: 1px solid #e2e8f0; }
+        .spinner { width: 40px; height: 40px; border: 3px solid #e2e8f0; border-top-color: #14b8a6; border-radius: 50%; margin: 0 auto 1rem; animation: spin 0.8s linear infinite; }
+        @keyframes spin { to { transform: rotate(360deg); } }
+
+        /* Modal */
+        .modal-overlay { display: none; position: fixed; top: 0; left: 0; right: 0; bottom: 0; background: rgba(15,23,42,0.6); backdrop-filter: blur(4px); justify-content: center; align-items: center; z-index: 100; padding: 1rem; }
         .modal-overlay.active { display: flex; }
-        .modal { background: white; padding: 2rem; border-radius: 8px; max-width: 600px; width: 90%; max-height: 85vh; overflow-y: auto; }
-        .modal h3 { color: #1e3a5f; margin-bottom: 1rem; }
-        .modal label { display: block; margin-bottom: 0.25rem; color: #333; font-size: 0.9rem; font-weight: 500; margin-top: 1rem; }
-        .modal input, .modal textarea, .modal select { width: 100%; padding: 0.75rem; border: 1px solid #ccc; border-radius: 4px; font-family: inherit; box-sizing: border-box; }
-        .modal textarea { min-height: 120px; resize: vertical; }
-        .modal-actions { display: flex; gap: 0.5rem; justify-content: flex-end; margin-top: 1.5rem; }
-        #loading { text-align: center; padding: 2rem; }
+        .modal { background: white; padding: 2rem; border-radius: 16px; max-width: 600px; width: 100%; max-height: 90vh; overflow-y: auto; box-shadow: 0 30px 80px rgba(0,0,0,0.3); }
+        .modal h3 { color: #0f2744; font-size: 1.25rem; font-weight: 800; margin-bottom: 1.5rem; letter-spacing: -0.01em; }
+        .modal label { display: block; margin-bottom: 0.4rem; color: #334155; font-size: 0.88rem; font-weight: 600; }
+        .modal input, .modal textarea, .modal select { width: 100%; padding: 0.85rem 1rem; border: 2px solid #e2e8f0; border-radius: 10px; font-size: 0.95rem; font-family: inherit; background: #f8fafc; color: #0f172a; transition: all 0.2s; box-sizing: border-box; margin-bottom: 1rem; }
+        .modal input:focus, .modal textarea:focus, .modal select:focus { outline: none; border-color: #14b8a6; background: white; box-shadow: 0 0 0 3px rgba(20,184,166,0.1); }
+        .modal textarea { min-height: 130px; resize: vertical; }
+        .modal select {
+            background: #f8fafc url("data:image/svg+xml;charset=UTF-8,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='%2394a3b8'%3e%3cpath d='M7 10l5 5 5-5z'/%3e%3c/svg%3e") no-repeat right 0.7rem center;
+            background-size: 20px;
+            appearance: none; -webkit-appearance: none;
+            padding-right: 2.5rem;
+            cursor: pointer;
+        }
+        .modal-actions { display: flex; gap: 0.75rem; justify-content: flex-end; margin-top: 1rem; padding-top: 1.25rem; border-top: 1px solid #f1f5f9; flex-wrap: wrap; }
+
+        @media (max-width: 900px) {
+            .layout { grid-template-columns: 1fr; padding: 1rem; gap: 1rem; }
+            .sidebar { position: static; display: flex; overflow-x: auto; padding: 0.5rem; }
+            .sidebar-title { display: none; }
+            .sidebar nav { flex-direction: row; }
+            .sidebar nav a { white-space: nowrap; padding: 0.5rem 0.85rem; font-size: 0.85rem; }
+        }
+        @media (max-width: 600px) {
+            .admin-topbar { padding: 0.75rem 1rem; }
+            .user-chip .email-text { display: none; }
+            .ann-head { flex-direction: column; }
+        }
     </style>
 </head>
 <body>
-    <header>
-        <h1>College Financial</h1>
-        <nav>
-            <a href="../index.html">Home</a>
-            <a href="dashboard.html">Dashboard</a>
-        </nav>
-    </header>
 
-    <main>
-        <div id="loading">Loading...</div>
-
-        <div id="admin-view" style="display: none;">
-            <div class="admin-page">
-                <div class="admin-header">
-                    <div>
-                        <h2>Announcements</h2>
-                        <div class="admin-nav" style="margin-top:0.5rem;">
-                            <a href="dashboard.html">Courses</a>
-                            <a href="applications.html">Applications</a>
-                            <a href="announcements.html" class="active">Announcements</a>
-                            <a href="timetables.html">Timetables</a>
-                            <a href="results.html">Results</a>
-                            <a href="fees.html">Fees</a>
-                        </div>
-                    </div>
-                    <div>
-                        <span id="user-email" style="margin-right: 1rem; color: #666;"></span>
-                        <button id="logout-btn" class="btn-danger">Log Out</button>
-                    </div>
-                </div>
-
-                <button id="add-btn" class="btn-primary">+ New Announcement</button>
-
-                <div class="ann-list" id="ann-list">
-                    <p>Loading...</p>
-                </div>
+    <div class="admin-topbar">
+        <a href="dashboard.html" class="logo-area">
+            <div class="logo-icon">M&R</div>
+            <div>
+                <h1>M&R Institution</h1>
+                <small>Admin Console</small>
             </div>
+        </a>
+        <div class="admin-user">
+            <div class="user-chip">
+                <div class="avatar" id="avatar">A</div>
+                <span class="email-text" id="user-email">...</span>
+            </div>
+            <button class="logout-btn" id="logout-btn">Log Out</button>
         </div>
-    </main>
+    </div>
 
-    <footer>
-        <p>&copy; 2026 College Financial</p>
-    </footer>
+    <div class="layout">
+        <aside class="sidebar">
+            <div class="sidebar-title">Manage</div>
+            <nav>
+                <a href="dashboard.html"><span class="ico">📚</span> Courses</a>
+                <a href="applications.html"><span class="ico">📋</span> Applications</a>
+                <a href="announcements.html" class="active"><span class="ico">📢</span> Announcements</a>
+                <a href="timetables.html"><span class="ico">📅</span> Timetables</a>
+                <a href="results.html"><span class="ico">🎓</span> Results</a>
+                <a href="fees.html"><span class="ico">💰</span> Fees</a>
+                <a href="staff.html"><span class="ico">👥</span> Staff</a>
+            </nav>
+        </aside>
+
+        <main>
+            <div class="main-header">
+                <div>
+                    <h2>Announcements</h2>
+                    <p>Post news and updates that appear on the homepage and student portal.</p>
+                </div>
+                <button class="btn btn-teal" id="add-btn">+ New Announcement</button>
+            </div>
+
+            <div id="loading" class="loading-state">
+                <div class="spinner"></div>
+                <p>Loading announcements...</p>
+            </div>
+
+            <div class="ann-list" id="ann-list" style="display:none;"></div>
+
+            <div class="empty-state" id="empty-state" style="display:none;">
+                <div class="icon">📢</div>
+                <h4>No announcements yet</h4>
+                <p>Click "New Announcement" to post the first update.</p>
+            </div>
+        </main>
+    </div>
 
     <div id="modal-overlay" class="modal-overlay">
         <div class="modal">
             <h3 id="modal-title">New Announcement</h3>
             <form id="ann-form">
                 <input type="hidden" id="ann-id">
+
                 <label>Title *</label>
-                <input type="text" id="ann-title" required>
+                <input type="text" id="ann-title" placeholder="e.g. Semester Registration Open" required>
+
                 <label>Content *</label>
-                <textarea id="ann-content" required></textarea>
+                <textarea id="ann-content" placeholder="Write the full announcement..." required></textarea>
+
                 <label>Priority</label>
                 <select id="ann-priority">
                     <option value="normal">Normal</option>
                     <option value="high">High</option>
                     <option value="urgent">Urgent</option>
                 </select>
+
                 <div class="modal-actions">
-                    <button type="button" id="cancel-btn" style="background:#ccc;color:#333;padding:0.6rem 1rem;border:none;border-radius:4px;cursor:pointer;">Cancel</button>
-                    <button type="submit" class="btn-primary" style="margin:0;">Save</button>
+                    <button type="button" class="btn-cancel" id="cancel-btn">Cancel</button>
+                    <button type="submit" class="btn btn-primary" id="save-btn">Publish</button>
                 </div>
             </form>
         </div>
@@ -131,34 +216,52 @@
         }
 
         document.getElementById('user-email').textContent = currentUser.email;
-        document.getElementById('loading').style.display = 'none';
-        document.getElementById('admin-view').style.display = 'block';
+        document.getElementById('avatar').textContent = (currentUser.email[0] || 'A').toUpperCase();
+
         loadAnnouncements();
       }
 
       async function loadAnnouncements() {
         const { data, error } = await supabaseClient
-          .from('announcements')
-          .select('*')
+          .from('announcements').select('*')
           .order('created_at', { ascending: false });
 
+        const loading = document.getElementById('loading');
         const list = document.getElementById('ann-list');
-        if (error) { list.innerHTML = '<p style="color:#c0392b;">Error: ' + error.message + '</p>'; return; }
+        const empty = document.getElementById('empty-state');
 
-        announcements = data || [];
-        if (!announcements.length) {
-          list.innerHTML = '<p>No announcements yet. Click "New Announcement".</p>';
+        loading.style.display = 'none';
+
+        if (error) {
+          loading.style.display = 'block';
+          loading.innerHTML = '<p style="color:#dc2626;">Error: ' + error.message + '</p>';
           return;
         }
 
+        announcements = data || [];
+
+        if (!announcements.length) {
+          list.style.display = 'none';
+          empty.style.display = 'block';
+          return;
+        }
+
+        empty.style.display = 'none';
+        list.style.display = 'flex';
+
         list.innerHTML = announcements.map(a => `
           <div class="ann-card ${a.priority}">
-            <h3>${a.title} <span class="priority-badge priority-${a.priority}">${a.priority}</span></h3>
-            <div class="meta">Posted ${new Date(a.created_at).toLocaleDateString()}</div>
+            <div class="ann-head">
+              <h3>${a.title} <span class="priority-pill priority-${a.priority}">${a.priority}</span></h3>
+            </div>
+            <div class="ann-meta">
+              <span>📅 ${new Date(a.created_at).toLocaleDateString()}</span>
+              <span>🕐 ${new Date(a.created_at).toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' })}</span>
+            </div>
             <p>${a.content}</p>
-            <div class="actions">
-              <button class="btn-edit" onclick="editAnn(${a.id})">Edit</button>
-              <button class="btn-delete" onclick="deleteAnn(${a.id})">Delete</button>
+            <div class="ann-actions">
+              <button class="btn btn-edit" onclick="editAnn(${a.id})">Edit</button>
+              <button class="btn btn-danger" onclick="deleteAnn(${a.id})">Delete</button>
             </div>
           </div>
         `).join('');
@@ -166,11 +269,15 @@
 
       const overlay = document.getElementById('modal-overlay');
       const form = document.getElementById('ann-form');
+      const modalTitle = document.getElementById('modal-title');
+      const saveBtn = document.getElementById('save-btn');
 
       document.getElementById('add-btn').addEventListener('click', () => {
-        document.getElementById('modal-title').textContent = 'New Announcement';
+        modalTitle.textContent = 'New Announcement';
+        saveBtn.textContent = 'Publish';
         form.reset();
         document.getElementById('ann-id').value = '';
+        document.getElementById('ann-priority').value = 'normal';
         overlay.classList.add('active');
       });
 
@@ -178,10 +285,15 @@
         overlay.classList.remove('active');
       });
 
+      overlay.addEventListener('click', (e) => {
+        if (e.target === overlay) overlay.classList.remove('active');
+      });
+
       window.editAnn = (id) => {
         const a = announcements.find(x => x.id === id);
         if (!a) return;
-        document.getElementById('modal-title').textContent = 'Edit Announcement';
+        modalTitle.textContent = 'Edit Announcement';
+        saveBtn.textContent = 'Save Changes';
         document.getElementById('ann-id').value = a.id;
         document.getElementById('ann-title').value = a.title;
         document.getElementById('ann-content').value = a.content;
@@ -190,7 +302,7 @@
       };
 
       window.deleteAnn = async (id) => {
-        if (!confirm('Delete this announcement?')) return;
+        if (!confirm('Delete this announcement? It will be removed from the site immediately.')) return;
         const { error } = await supabaseClient.from('announcements').delete().eq('id', id);
         if (error) { alert('Error: ' + error.message); return; }
         loadAnnouncements();
@@ -199,6 +311,10 @@
       form.addEventListener('submit', async (e) => {
         e.preventDefault();
         const id = document.getElementById('ann-id').value;
+        saveBtn.disabled = true;
+        const originalText = saveBtn.textContent;
+        saveBtn.textContent = 'Saving...';
+
         const payload = {
           title: document.getElementById('ann-title').value.trim(),
           content: document.getElementById('ann-content').value.trim(),
@@ -214,7 +330,11 @@
           result = await supabaseClient.from('announcements').insert(payload);
         }
 
+        saveBtn.disabled = false;
+        saveBtn.textContent = originalText;
+
         if (result.error) { alert('Error: ' + result.error.message); return; }
+
         overlay.classList.remove('active');
         loadAnnouncements();
       });
