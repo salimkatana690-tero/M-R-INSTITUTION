@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Student Registration - M&R Institution</title>
+    <title>Application Form - M&R Institution</title>
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
@@ -12,254 +12,159 @@
         * { margin: 0; padding: 0; box-sizing: border-box; }
         body {
             font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
-            color: #0f172a;
-            background: #f8fafc;
-            line-height: 1.6;
+            color: #0f172a; background: #f8fafc; line-height: 1.6;
             -webkit-font-smoothing: antialiased;
-            min-height: 100vh;
-            display: flex;
-            flex-direction: column;
         }
 
         /* Header */
         header {
-            background: rgba(255,255,255,0.95);
-            backdrop-filter: blur(10px);
-            padding: 1rem 2rem;
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            border-bottom: 1px solid #e2e8f0;
-            position: sticky;
-            top: 0;
-            z-index: 50;
-            flex-wrap: wrap;
-            gap: 1rem;
+            background: rgba(255,255,255,0.95); backdrop-filter: blur(10px);
+            padding: 1rem 2rem; display: flex; justify-content: space-between;
+            align-items: center; border-bottom: 1px solid #e2e8f0;
+            position: sticky; top: 0; z-index: 50; flex-wrap: wrap; gap: 1rem;
         }
         .logo-area { display: flex; align-items: center; gap: 0.6rem; text-decoration: none; color: inherit; }
         .logo-icon {
             width: 40px; height: 40px;
             background: linear-gradient(135deg, #0f2744, #14b8a6);
-            border-radius: 10px;
-            display: flex; align-items: center; justify-content: center;
+            border-radius: 10px; display: flex; align-items: center; justify-content: center;
             color: white; font-weight: 800; font-size: 1rem;
         }
-        .logo-area h1 { font-size: 1.25rem; font-weight: 800; color: #0f2744; letter-spacing: -0.01em; }
-        .logo-area small { display: block; font-size: 0.7rem; color: #64748b; font-weight: 500; letter-spacing: 0.5px; text-transform: uppercase; }
+        .logo-area h1 { font-size: 1.25rem; font-weight: 800; color: #0f2744; }
+        .logo-area small { display: block; font-size: 0.7rem; color: #64748b; font-weight: 500; text-transform: uppercase; }
 
-        .header-right { display: flex; align-items: center; gap: 1.5rem; }
-        nav { display: flex; gap: 1.5rem; align-items: center; }
-        nav a { color: #64748b; text-decoration: none; font-weight: 500; font-size: 0.95rem; transition: color 0.2s; }
-        nav a:hover { color: #0f2744; }
+        .header-right { display: flex; align-items: center; gap: 1rem; }
         .back-btn {
             display: inline-flex; align-items: center; gap: 0.5rem;
             background: #0f2744; color: white;
             padding: 0.6rem 1.2rem; border-radius: 8px;
-            text-decoration: none; font-weight: 600; font-size: 0.95rem;
+            text-decoration: none; font-weight: 600; font-size: 0.9rem;
             transition: all 0.2s;
         }
         .back-btn:hover { background: #1e3a5f; transform: translateY(-1px); }
         .back-btn svg { width: 16px; height: 16px; fill: currentColor; }
 
-        /* Main */
-        main {
-            flex: 1;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            padding: 3rem 2rem;
-            background: linear-gradient(135deg, #f8fafc 0%, #e0f2fe 100%);
-            position: relative;
-            overflow: hidden;
+        /* Hero */
+        .page-hero {
+            background: linear-gradient(135deg, #0f2744 0%, #1e3a5f 100%);
+            color: white; padding: 3rem 2rem 2.5rem;
+            position: relative; overflow: hidden;
         }
-        main::before {
-            content: '';
-            position: absolute;
-            top: -50%; left: -20%;
-            width: 600px; height: 600px;
-            background: radial-gradient(circle, rgba(20,184,166,0.15), transparent 70%);
+        .page-hero::before {
+            content: ''; position: absolute;
+            top: -50%; right: -20%; width: 600px; height: 600px;
+            background: radial-gradient(circle, rgba(20,184,166,0.3), transparent 70%);
             border-radius: 50%;
         }
-        main::after {
-            content: '';
-            position: absolute;
-            bottom: -50%; right: -20%;
-            width: 500px; height: 500px;
-            background: radial-gradient(circle, rgba(15,39,68,0.1), transparent 70%);
-            border-radius: 50%;
+        .page-hero-inner { max-width: 900px; margin: 0 auto; position: relative; z-index: 2; }
+        .page-hero h2 { font-size: 2.25rem; font-weight: 800; letter-spacing: -0.02em; margin-bottom: 0.5rem; }
+        .page-hero h2 .accent { color: #14b8a6; }
+        .page-hero p { font-size: 1rem; color: rgba(255,255,255,0.85); max-width: 600px; }
+
+        /* Form layout */
+        .form-section { padding: 2.5rem 2rem 5rem; }
+        .form-inner { max-width: 900px; margin: 0 auto; }
+        .form-card {
+            background: white; padding: 2.5rem; border-radius: 16px;
+            box-shadow: 0 4px 20px rgba(15,23,42,0.06); border: 1px solid #e2e8f0;
         }
 
-        .register-wrap {
-            max-width: 500px;
-            width: 100%;
-            padding: 2.5rem;
-            background: white;
-            border-radius: 20px;
-            box-shadow: 0 20px 60px rgba(15,23,42,0.12);
-            position: relative;
-            z-index: 2;
-            border: 1px solid #e2e8f0;
+        .section-title {
+            display: flex; align-items: center; gap: 0.75rem;
+            padding-bottom: 0.75rem; margin-bottom: 1.5rem;
+            border-bottom: 2px solid #f1f5f9;
         }
+        .section-title .icon {
+            width: 36px; height: 36px;
+            background: linear-gradient(135deg, #ccfbf1, #99f6e4);
+            border-radius: 10px; display: flex; align-items: center; justify-content: center;
+            font-size: 1rem;
+        }
+        .section-title h3 { color: #0f2744; font-size: 1.1rem; font-weight: 800; margin: 0; }
 
-        .register-icon {
-            width: 64px; height: 64px;
-            margin: 0 auto 1.25rem;
-            background: linear-gradient(135deg, #0f2744, #14b8a6);
-            border-radius: 16px;
-            display: flex; align-items: center; justify-content: center;
-            box-shadow: 0 8px 20px rgba(15,39,68,0.2);
-            font-size: 1.75rem;
-        }
+        .form-row { display: grid; grid-template-columns: 1fr 1fr; gap: 1rem; margin-bottom: 0; }
 
-        .register-wrap h2 {
-            text-align: center;
-            color: #0f2744;
-            margin-bottom: 0.35rem;
-            font-size: 1.65rem;
-            font-weight: 800;
-            letter-spacing: -0.02em;
+        label {
+            display: block; margin-bottom: 0.4rem;
+            color: #334155; font-size: 0.88rem; font-weight: 600;
         }
-        .register-wrap .subtitle {
-            text-align: center;
-            color: #64748b;
-            margin-bottom: 2rem;
-            font-size: 0.92rem;
-        }
+        label .req { color: #dc2626; margin-left: 0.15rem; }
+        label .hint { color: #94a3b8; font-weight: 500; font-size: 0.8rem; }
 
-        .register-wrap label {
-            display: block;
-            margin-bottom: 0.4rem;
-            color: #334155;
-            font-size: 0.88rem;
-            font-weight: 600;
-        }
-
-        .input-wrap {
-            position: relative;
+        input[type="text"],
+        input[type="email"],
+        input[type="tel"],
+        input[type="date"],
+        select,
+        textarea {
+            width: 100%; padding: 0.85rem 1rem;
+            border: 2px solid #e2e8f0; border-radius: 10px;
+            font-size: 0.98rem; font-family: inherit;
+            background: #f8fafc; color: #0f172a;
+            transition: all 0.2s; box-sizing: border-box;
             margin-bottom: 1rem;
         }
-        .input-wrap svg {
-            position: absolute;
-            left: 14px; top: 50%;
-            transform: translateY(-50%);
-            width: 18px; height: 18px;
-            fill: #94a3b8;
-            pointer-events: none;
+        input:focus, select:focus, textarea:focus {
+            outline: none; border-color: #14b8a6;
+            background: white; box-shadow: 0 0 0 3px rgba(20,184,166,0.1);
         }
-        .input-wrap input {
-            width: 100%;
-            padding: 0.85rem 1rem 0.85rem 2.75rem;
-            border: 2px solid #e2e8f0;
-            border-radius: 10px;
-            font-size: 0.98rem;
-            font-family: inherit;
-            background: #f8fafc;
-            color: #0f172a;
-            transition: all 0.2s;
-            box-sizing: border-box;
-        }
-        .input-wrap input:focus {
-            outline: none;
-            border-color: #14b8a6;
-            background: white;
-            box-shadow: 0 0 0 3px rgba(20,184,166,0.1);
-        }
+        textarea { min-height: 130px; resize: vertical; }
 
-        .pw-hint {
-            font-size: 0.78rem;
-            color: #94a3b8;
-            margin: -0.5rem 0 1rem;
-            display: block;
-        }
-
-        .register-btn {
-            width: 100%;
-            padding: 0.95rem;
-            background: #0f2744;
-            color: white;
-            border: none;
-            border-radius: 10px;
-            font-size: 1rem;
-            font-weight: 700;
+        select {
+            background: #f8fafc url("data:image/svg+xml;charset=UTF-8,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='%2394a3b8'%3e%3cpath d='M7 10l5 5 5-5z'/%3e%3c/svg%3e") no-repeat right 0.7rem center;
+            background-size: 20px;
+            appearance: none; -webkit-appearance: none;
+            padding-right: 2.5rem;
             cursor: pointer;
+        }
+
+        .submit-row {
+            display: flex; gap: 1rem; justify-content: flex-end;
+            margin-top: 1.5rem; padding-top: 1.5rem;
+            border-top: 1px solid #f1f5f9;
+            flex-wrap: wrap;
+        }
+        .btn {
+            display: inline-flex; align-items: center; gap: 0.5rem;
+            padding: 0.85rem 1.75rem; border-radius: 10px;
+            text-decoration: none; font-weight: 700; font-size: 1rem;
+            transition: all 0.2s; border: none; cursor: pointer;
             font-family: inherit;
-            transition: all 0.2s;
-            margin-top: 0.5rem;
         }
-        .register-btn:hover:not(:disabled) {
-            background: #1e3a5f;
-            transform: translateY(-1px);
-            box-shadow: 0 8px 20px rgba(15,39,68,0.2);
+        .btn-ghost {
+            background: #f1f5f9; color: #475569;
         }
-        .register-btn:disabled {
-            background: #94a3b8;
-            cursor: not-allowed;
-            transform: none;
-        }
+        .btn-ghost:hover { background: #e2e8f0; color: #0f2744; }
+        .btn-primary { background: #0f2744; color: white; }
+        .btn-primary:hover:not(:disabled) { background: #1e3a5f; transform: translateY(-1px); box-shadow: 0 8px 20px rgba(15,39,68,0.2); }
+        .btn-primary:disabled { background: #94a3b8; cursor: not-allowed; transform: none; }
 
         .msg {
-            text-align: center;
-            margin-top: 1rem;
-            font-size: 0.9rem;
-            font-weight: 500;
-            min-height: 1.2rem;
-            padding: 0.5rem;
-            border-radius: 8px;
-            transition: all 0.2s;
+            text-align: center; margin-top: 1rem;
+            font-size: 0.92rem; font-weight: 500;
+            padding: 0.75rem 1rem; border-radius: 10px;
+            min-height: 1.2rem; transition: all 0.2s;
         }
         .msg.error { color: #991b1b; background: #fee2e2; }
         .msg.success { color: #166534; background: #dcfce7; }
 
-        .divider {
-            display: flex;
-            align-items: center;
-            gap: 0.75rem;
-            margin: 1.5rem 0;
-            color: #94a3b8;
-            font-size: 0.8rem;
-            text-transform: uppercase;
-            letter-spacing: 0.05em;
-        }
-        .divider::before,
-        .divider::after {
-            content: '';
-            flex: 1;
-            height: 1px;
-            background: #e2e8f0;
-        }
-
-        .login-link {
-            text-align: center;
-            font-size: 0.92rem;
-            color: #64748b;
-        }
-        .login-link a {
-            color: #0d9488;
-            text-decoration: none;
-            font-weight: 700;
-            transition: color 0.2s;
-        }
-        .login-link a:hover { color: #0f2744; text-decoration: underline; }
+        .loading-state { text-align: center; padding: 3rem; color: #64748b; }
+        .spinner { width: 40px; height: 40px; border: 3px solid #e2e8f0; border-top-color: #14b8a6; border-radius: 50%; margin: 0 auto 1rem; animation: spin 0.8s linear infinite; }
+        @keyframes spin { to { transform: rotate(360deg); } }
 
         /* Footer */
-        footer {
-            background: #0f2744;
-            color: rgba(255,255,255,0.7);
-            padding: 1.5rem 2rem;
-            text-align: center;
-            font-size: 0.85rem;
-        }
+        footer { background: #0f2744; color: rgba(255,255,255,0.7); padding: 1.5rem 2rem; text-align: center; font-size: 0.85rem; margin-top: 3rem; }
         footer p { margin: 0; }
 
-        @media (max-width: 600px) {
+        @media (max-width: 700px) {
             header { padding: 1rem; }
-            .header-right { gap: 0.75rem; }
-            nav { gap: 0.9rem; }
-            nav a { font-size: 0.85rem; }
-            .register-wrap { padding: 1.75rem; border-radius: 16px; }
-            .register-wrap h2 { font-size: 1.4rem; }
-            .logo-area h1 { font-size: 1.05rem; }
-            main { padding: 2rem 1rem; }
+            .page-hero { padding: 2.5rem 1rem 2rem; }
+            .page-hero h2 { font-size: 1.65rem; }
+            .form-section { padding: 1.5rem 1rem 3rem; }
+            .form-card { padding: 1.5rem; }
+            .form-row { grid-template-columns: 1fr; }
+            .submit-row { flex-direction: column-reverse; }
+            .submit-row .btn { width: 100%; justify-content: center; }
         }
     </style>
 </head>
@@ -275,63 +180,104 @@
             </div>
         </a>
         <div class="header-right">
-            <nav>
-                <a href="../index.html">Home</a>
-                <a href="../courses.html">Courses</a>
-                <a href="../contact.html">Contact</a>
-            </nav>
-            <a href="login.html" class="back-btn">
+            <a href="portal.html" class="back-btn">
                 <svg viewBox="0 0 24 24"><path d="M20 11H7.83l5.59-5.59L12 4l-8 8 8 8 1.41-1.41L7.83 13H20v-2z"/></svg>
-                Login
+                My Portal
             </a>
         </div>
     </header>
 
-    <main>
-        <div class="register-wrap">
-            <div class="register-icon">🎓</div>
-
-            <h2>Create Your Account</h2>
-            <p class="subtitle">Register to start your application</p>
-
-            <form id="register-form">
-                <label>Full Name</label>
-                <div class="input-wrap">
-                    <svg viewBox="0 0 24 24"><path d="M12 12c2.76 0 5-2.24 5-5s-2.24-5-5-5-5 2.24-5 5 2.24 5 5 5zm0 2c-3.34 0-10 1.67-10 5v3h20v-3c0-3.33-6.66-5-10-5z"/></svg>
-                    <input type="text" id="full_name" placeholder="John Doe" required autocomplete="name">
-                </div>
-
-                <label>Email</label>
-                <div class="input-wrap">
-                    <svg viewBox="0 0 24 24"><path d="M20 4H4c-1.1 0-1.99.9-1.99 2L2 18c0 1.1.9 2 2 2h16c1.1 0 2-.9 2-2V6c0-1.1-.9-2-2-2zm0 4l-8 5-8-5V6l8 5 8-5v2z"/></svg>
-                    <input type="email" id="email" placeholder="you@example.com" required autocomplete="email">
-                </div>
-
-                <label>Password</label>
-                <div class="input-wrap">
-                    <svg viewBox="0 0 24 24"><path d="M18 8h-1V6c0-2.76-2.24-5-5-5S7 3.24 7 6v2H6c-1.1 0-2 .9-2 2v10c0 1.1.9 2 2 2h12c1.1 0 2-.9 2-2V10c0-1.1-.9-2-2-2zM9 6c0-1.66 1.34-3 3-3s3 1.34 3 3v2H9V6zm3 12c-1.1 0-2-.9-2-2s.9-2 2-2 2 .9 2 2-.9 2-2 2z"/></svg>
-                    <input type="password" id="password" placeholder="At least 6 characters" required minlength="6" autocomplete="new-password">
-                </div>
-                <span class="pw-hint">Minimum 6 characters</span>
-
-                <label>Confirm Password</label>
-                <div class="input-wrap">
-                    <svg viewBox="0 0 24 24"><path d="M18 8h-1V6c0-2.76-2.24-5-5-5S7 3.24 7 6v2H6c-1.1 0-2 .9-2 2v10c0 1.1.9 2 2 2h12c1.1 0 2-.9 2-2V10c0-1.1-.9-2-2-2zM9 6c0-1.66 1.34-3 3-3s3 1.34 3 3v2H9V6zm3 12c-1.1 0-2-.9-2-2s.9-2 2-2 2 .9 2 2-.9 2-2 2z"/></svg>
-                    <input type="password" id="confirm_password" placeholder="Re-type password" required autocomplete="new-password">
-                </div>
-
-                <button type="submit" class="register-btn" id="submit-btn">Create Account</button>
-
-                <p class="msg" id="message"></p>
-            </form>
-
-            <div class="divider">or</div>
-
-            <p class="login-link">
-                Already have an account? <a href="login.html">Log in</a>
-            </p>
+    <!-- Hero -->
+    <section class="page-hero">
+        <div class="page-hero-inner">
+            <h2 id="form-title">Application <span class="accent">Form</span></h2>
+            <p>Fill in all fields marked with <span style="color:#f87171;">*</span>. Your information will be saved and reviewed by our admissions team.</p>
         </div>
-    </main>
+    </section>
+
+    <!-- Form -->
+    <section class="form-section">
+        <div class="form-inner">
+            <div id="loading" class="loading-state">
+                <div class="spinner"></div>
+                <p>Loading form...</p>
+            </div>
+
+            <div class="form-card" id="form-card" style="display:none;">
+                <form id="apply-form">
+
+                    <!-- Personal Info -->
+                    <div class="section-title">
+                        <div class="icon">👤</div>
+                        <h3>Personal Information</h3>
+                    </div>
+
+                    <div class="form-row">
+                        <div>
+                            <label>Full Name <span class="req">*</span></label>
+                            <input type="text" id="full_name" required>
+                        </div>
+                        <div>
+                            <label>Email <span class="req">*</span></label>
+                            <input type="email" id="email" required>
+                        </div>
+                    </div>
+
+                    <div class="form-row">
+                        <div>
+                            <label>Phone</label>
+                            <input type="tel" id="phone" placeholder="+254...">
+                        </div>
+                        <div>
+                            <label>Date of Birth</label>
+                            <input type="date" id="date_of_birth">
+                        </div>
+                    </div>
+
+                    <label>Address</label>
+                    <input type="text" id="address" placeholder="Street, City, County">
+
+                    <!-- Academic Info -->
+                    <div class="section-title" style="margin-top:1.5rem;">
+                        <div class="icon">🎓</div>
+                        <h3>Academic Information</h3>
+                    </div>
+
+                    <label>Course You're Applying For <span class="req">*</span></label>
+                    <select id="course_id" required>
+                        <option value="">-- Select a course --</option>
+                    </select>
+
+                    <div class="form-row">
+                        <div>
+                            <label>Previous School</label>
+                            <input type="text" id="previous_school" placeholder="Name of school">
+                        </div>
+                        <div>
+                            <label>Grades / Results</label>
+                            <input type="text" id="grades" placeholder="e.g. A, B+, B...">
+                        </div>
+                    </div>
+
+                    <!-- Personal Statement -->
+                    <div class="section-title" style="margin-top:1.5rem;">
+                        <div class="icon">✍️</div>
+                        <h3>Personal Statement</h3>
+                    </div>
+
+                    <label>Why do you want to join M&R Institution? <span class="hint">(optional but recommended)</span></label>
+                    <textarea id="personal_statement" placeholder="Tell us a bit about yourself, your goals, and why you want to study here..."></textarea>
+
+                    <p class="msg" id="message"></p>
+
+                    <div class="submit-row">
+                        <a href="portal.html" class="btn btn-ghost">Cancel</a>
+                        <button type="submit" class="btn btn-primary" id="submit-btn">Submit Application</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </section>
 
     <footer>
         <p>&copy; 2026 M&R Institution. All rights reserved.</p>
@@ -345,77 +291,99 @@
         'sb_publishable_78sLh6qbQtYP2KFhpx-NuA_HvBOpKnD'
       );
 
-      const form = document.getElementById('register-form');
+      let currentUser = null;
+      let existingApp = null;
+
+      async function init() {
+        const { data: { session } } = await supabaseClient.auth.getSession();
+        if (!session) { window.location.href = 'login.html'; return; }
+        currentUser = session.user;
+
+        // Pre-fill email
+        document.getElementById('email').value = currentUser.email;
+
+        // Load courses into dropdown
+        const { data: courses } = await supabaseClient
+          .from('courses').select('id, name').order('name');
+
+        const sel = document.getElementById('course_id');
+        if (courses && courses.length) {
+          courses.forEach(c => {
+            const opt = document.createElement('option');
+            opt.value = c.id;
+            opt.textContent = c.name;
+            sel.appendChild(opt);
+          });
+        }
+
+        // Check if an application exists (edit mode)
+        const { data } = await supabaseClient
+          .from('applications').select('*')
+          .eq('user_id', currentUser.id).maybeSingle();
+
+        if (data) {
+          existingApp = data;
+          document.getElementById('form-title').innerHTML = 'Edit Your <span class="accent">Application</span>';
+          document.getElementById('submit-btn').textContent = 'Save Changes';
+          document.getElementById('full_name').value = data.full_name || '';
+          document.getElementById('phone').value = data.phone || '';
+          document.getElementById('date_of_birth').value = data.date_of_birth || '';
+          document.getElementById('address').value = data.address || '';
+          document.getElementById('course_id').value = data.course_id || '';
+          document.getElementById('previous_school').value = data.previous_school || '';
+          document.getElementById('grades').value = data.grades || '';
+          document.getElementById('personal_statement').value = data.personal_statement || '';
+        }
+
+        document.getElementById('loading').style.display = 'none';
+        document.getElementById('form-card').style.display = 'block';
+      }
+
+      const form = document.getElementById('apply-form');
       const msg = document.getElementById('message');
       const submitBtn = document.getElementById('submit-btn');
 
       form.addEventListener('submit', async (e) => {
         e.preventDefault();
         msg.className = 'msg';
-        msg.textContent = '';
+        msg.textContent = 'Saving...';
         submitBtn.disabled = true;
-        submitBtn.textContent = 'Creating account...';
 
-        const fullName = document.getElementById('full_name').value.trim();
-        const email = document.getElementById('email').value.trim();
-        const password = document.getElementById('password').value;
-        const confirm = document.getElementById('confirm_password').value;
+        const payload = {
+          user_id: currentUser.id,
+          full_name: document.getElementById('full_name').value.trim(),
+          email: document.getElementById('email').value.trim(),
+          phone: document.getElementById('phone').value.trim() || null,
+          date_of_birth: document.getElementById('date_of_birth').value || null,
+          address: document.getElementById('address').value.trim() || null,
+          course_id: document.getElementById('course_id').value ? parseInt(document.getElementById('course_id').value) : null,
+          previous_school: document.getElementById('previous_school').value.trim() || null,
+          grades: document.getElementById('grades').value.trim() || null,
+          personal_statement: document.getElementById('personal_statement').value.trim() || null,
+          updated_at: new Date().toISOString()
+        };
 
-        // Validate
-        if (password !== confirm) {
-          msg.className = 'msg error';
-          msg.textContent = '❌ Passwords do not match.';
-          submitBtn.disabled = false;
-          submitBtn.textContent = 'Create Account';
-          return;
+        let result;
+        if (existingApp) {
+          result = await supabaseClient.from('applications').update(payload).eq('id', existingApp.id);
+        } else {
+          payload.status = 'pending';
+          result = await supabaseClient.from('applications').insert(payload);
         }
 
-        if (password.length < 6) {
+        if (result.error) {
           msg.className = 'msg error';
-          msg.textContent = '❌ Password must be at least 6 characters.';
+          msg.textContent = '❌ ' + result.error.message;
           submitBtn.disabled = false;
-          submitBtn.textContent = 'Create Account';
           return;
         }
-
-        // Create user
-        const { data, error } = await supabaseClient.auth.signUp({
-          email: email,
-          password: password,
-          options: {
-            data: { full_name: fullName }
-          }
-        });
-
-        if (error) {
-          msg.className = 'msg error';
-          msg.textContent = '❌ ' + error.message;
-          submitBtn.disabled = false;
-          submitBtn.textContent = 'Create Account';
-          return;
-        }
-
-        if (!data.user) {
-          msg.className = 'msg error';
-          msg.textContent = '❌ Registration failed. Please try again.';
-          submitBtn.disabled = false;
-          submitBtn.textContent = 'Create Account';
-          return;
-        }
-
-        // Create profile row with 'student' role
-        await supabaseClient.from('profiles').upsert({
-          id: data.user.id,
-          email: email,
-          role: 'student'
-        }, { onConflict: 'id' });
 
         msg.className = 'msg success';
-        msg.textContent = '✅ Account created! Redirecting to login...';
-        setTimeout(() => {
-          window.location.href = 'login.html';
-        }, 1500);
+        msg.textContent = '✅ Application saved! Redirecting to your portal...';
+        setTimeout(() => { window.location.href = 'portal.html'; }, 1200);
       });
+
+      init();
     </script>
 </body>
 </html>
