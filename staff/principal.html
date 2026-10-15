@@ -2,64 +2,278 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>Principal Dashboard - College Financial</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Principal Dashboard - M&R Institution</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="../css/style.css">
     <style>
-        .dash { max-width: 1000px; margin: 2rem auto; padding: 2rem; background: white; border-radius: 8px; }
-        .dash-header { display: flex; justify-content: space-between; align-items: center; padding-bottom: 1rem; border-bottom: 2px solid #eee; margin-bottom: 1.5rem; flex-wrap: wrap; gap: 1rem; }
-        .dash-header h2 { color: #1e3a5f; margin: 0; }
-        .role-badge { display: inline-block; background: #c0392b; color: white; padding: 0.25rem 0.75rem; border-radius: 12px; font-size: 0.75rem; font-weight: bold; text-transform: uppercase; margin-top: 0.25rem; }
-        .btn-danger { background: #c0392b; color: white; padding: 0.5rem 1rem; border: none; border-radius: 4px; cursor: pointer; }
-        .card-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(240px, 1fr)); gap: 1rem; margin-top: 1rem; }
-        .dash-card { padding: 1.25rem; border-radius: 6px; background: #fafafa; border-left: 5px solid #c0392b; }
-        .dash-card h4 { color: #1e3a5f; margin-bottom: 0.5rem; }
-        #loading { text-align: center; padding: 2rem; }
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body { font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif; color: #0f172a; background: #f8fafc; line-height: 1.6; -webkit-font-smoothing: antialiased; }
+
+        .staff-topbar { background: white; padding: 0.9rem 2rem; display: flex; justify-content: space-between; align-items: center; border-bottom: 1px solid #e2e8f0; position: sticky; top: 0; z-index: 50; flex-wrap: wrap; gap: 1rem; }
+        .logo-area { display: flex; align-items: center; gap: 0.6rem; text-decoration: none; color: inherit; }
+        .logo-icon { width: 38px; height: 38px; background: linear-gradient(135deg, #0f2744, #14b8a6); border-radius: 10px; display: flex; align-items: center; justify-content: center; color: white; font-weight: 800; font-size: 0.95rem; }
+        .logo-area h1 { font-size: 1.15rem; font-weight: 800; color: #0f2744; }
+        .logo-area small { display: block; font-size: 0.68rem; color: #14b8a6; font-weight: 700; text-transform: uppercase; letter-spacing: 0.05em; }
+        .staff-user { display: flex; align-items: center; gap: 1rem; }
+        .role-chip { display: inline-flex; align-items: center; gap: 0.4rem; background: #fdecea; color: #7b241c; padding: 0.35rem 0.75rem; border-radius: 999px; font-size: 0.75rem; font-weight: 800; text-transform: uppercase; letter-spacing: 0.05em; }
+        .user-chip { display: inline-flex; align-items: center; gap: 0.5rem; background: #f1f5f9; padding: 0.4rem 0.85rem; border-radius: 999px; font-size: 0.83rem; color: #334155; font-weight: 500; }
+        .user-chip .avatar { width: 24px; height: 24px; background: linear-gradient(135deg, #dc2626, #7b241c); border-radius: 50%; color: white; display: flex; align-items: center; justify-content: center; font-size: 0.68rem; font-weight: 800; }
+        .logout-btn { background: #fee2e2; color: #991b1b; padding: 0.45rem 0.9rem; border-radius: 8px; border: none; cursor: pointer; font-weight: 600; font-size: 0.82rem; font-family: inherit; transition: all 0.2s; }
+        .logout-btn:hover { background: #fecaca; }
+
+        .hero {
+            background: linear-gradient(135deg, #0f2744 0%, #7b241c 200%);
+            color: white; padding: 3rem 2rem 2.5rem;
+            position: relative; overflow: hidden;
+        }
+        .hero::before {
+            content: ''; position: absolute;
+            top: -50%; right: -10%; width: 500px; height: 500px;
+            background: radial-gradient(circle, rgba(220,38,38,0.35), transparent 70%);
+            border-radius: 50%;
+        }
+        .hero-inner { max-width: 1200px; margin: 0 auto; position: relative; z-index: 2; }
+        .hero h2 { font-size: 2rem; font-weight: 800; letter-spacing: -0.02em; margin-bottom: 0.4rem; }
+        .hero h2 .accent { color: #fca5a5; }
+        .hero p { font-size: 1rem; color: rgba(255,255,255,0.85); }
+
+        .layout { max-width: 1200px; margin: 0 auto; padding: 2rem; }
+
+        .stats-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+            gap: 1rem; margin-bottom: 2rem;
+        }
+        .stat-card {
+            background: white; padding: 1.35rem;
+            border-radius: 12px; border: 1px solid #e2e8f0;
+            border-left: 4px solid #dc2626;
+            display: flex; align-items: center; gap: 0.9rem;
+        }
+        .stat-card .stat-icon {
+            width: 46px; height: 46px;
+            background: #fee2e2; color: #991b1b;
+            border-radius: 10px;
+            display: flex; align-items: center; justify-content: center;
+            font-size: 1.25rem; flex-shrink: 0;
+        }
+        .stat-card .stat-value { font-size: 1.55rem; font-weight: 800; color: #0f2744; line-height: 1; }
+        .stat-card .stat-label { color: #64748b; font-size: 0.72rem; font-weight: 700; text-transform: uppercase; letter-spacing: 0.04em; margin-top: 0.2rem; }
+
+        .panel {
+            background: white; border-radius: 14px; padding: 1.75rem;
+            box-shadow: 0 4px 20px rgba(15,23,42,0.05);
+            border: 1px solid #e2e8f0; margin-bottom: 1.5rem;
+        }
+        .panel-head {
+            display: flex; justify-content: space-between; align-items: center;
+            padding-bottom: 1rem; margin-bottom: 1rem;
+            border-bottom: 1px solid #f1f5f9;
+            flex-wrap: wrap; gap: 0.75rem;
+        }
+        .panel-head h3 {
+            color: #0f2744; font-size: 1.1rem; font-weight: 800;
+            margin: 0; display: flex; align-items: center; gap: 0.5rem;
+        }
+        .panel-head .sub { color: #94a3b8; font-size: 0.82rem; font-weight: 500; }
+
+        .data-table { width: 100%; border-collapse: collapse; font-size: 0.92rem; }
+        .data-table th, .data-table td { padding: 0.85rem 0.9rem; text-align: left; border-bottom: 1px solid #f1f5f9; vertical-align: middle; }
+        .data-table th { background: #f8fafc; color: #64748b; font-weight: 700; font-size: 0.72rem; text-transform: uppercase; letter-spacing: 0.05em; }
+        .data-table tr:hover td { background: #f8fafc; }
+
+        /* Two column grid for panels */
+        .row-2 { display: grid; grid-template-columns: 1fr 1fr; gap: 1.5rem; }
+        @media (max-width: 900px) { .row-2 { grid-template-columns: 1fr; } }
+
+        /* Progress bars */
+        .progress-item { margin-bottom: 1.25rem; }
+        .progress-item:last-child { margin-bottom: 0; }
+        .progress-item .p-head {
+            display: flex; justify-content: space-between; align-items: baseline;
+            margin-bottom: 0.5rem;
+        }
+        .progress-item .p-label {
+            font-size: 0.85rem; font-weight: 700; color: #334155;
+        }
+        .progress-item .p-value {
+            font-size: 0.88rem; font-weight: 800; color: #0f2744;
+            font-family: 'Courier New', monospace;
+        }
+        .progress-bar {
+            height: 10px; background: #f1f5f9;
+            border-radius: 999px; overflow: hidden;
+        }
+        .progress-fill {
+            height: 100%;
+            border-radius: 999px;
+            transition: width 0.6s ease;
+        }
+        .progress-fill.teal { background: linear-gradient(90deg, #14b8a6, #0d9488); }
+        .progress-fill.blue { background: linear-gradient(90deg, #3b82f6, #2563eb); }
+        .progress-fill.green { background: linear-gradient(90deg, #16a34a, #15803d); }
+        .progress-fill.orange { background: linear-gradient(90deg, #f59e0b, #d97706); }
+        .progress-fill.red { background: linear-gradient(90deg, #dc2626, #991b1b); }
+
+        /* Status pills */
+        .status-badge { display: inline-block; padding: 0.25rem 0.7rem; border-radius: 999px; font-size: 0.7rem; font-weight: 700; text-transform: uppercase; letter-spacing: 0.04em; }
+        .status-pending { background: #fef3c7; color: #92400e; }
+        .status-under_review { background: #dbeafe; color: #1e40af; }
+        .status-accepted { background: #dcfce7; color: #166534; }
+        .status-rejected { background: #fee2e2; color: #991b1b; }
+
+        .empty-state { text-align: center; padding: 2rem 1rem; color: #64748b; }
+        .empty-state .icon { font-size: 2.5rem; margin-bottom: 0.75rem; opacity: 0.4; }
+        .empty-state p { font-size: 0.92rem; }
+
+        .loading-state { text-align: center; padding: 3rem; color: #64748b; }
+        .spinner { width: 40px; height: 40px; border: 3px solid #e2e8f0; border-top-color: #dc2626; border-radius: 50%; margin: 0 auto 1rem; animation: spin 0.8s linear infinite; }
+        @keyframes spin { to { transform: rotate(360deg); } }
+
+        @media (max-width: 600px) {
+            .staff-topbar { padding: 0.75rem 1rem; }
+            .user-chip .email-text, .role-chip { display: none; }
+            .hero { padding: 2rem 1rem 1.75rem; }
+            .hero h2 { font-size: 1.5rem; }
+            .layout { padding: 1rem; }
+            .panel { padding: 1.25rem; }
+            .data-table th, .data-table td { padding: 0.6rem 0.5rem; font-size: 0.82rem; }
+            .data-table th:nth-child(3),
+            .data-table td:nth-child(3) { display: none; }
+        }
     </style>
 </head>
 <body>
-    <header>
-        <h1>College Financial</h1>
-        <nav>
-            <a href="../index.html">Home</a>
-            <a href="principal.html">Principal</a>
-        </nav>
-    </header>
 
-    <main>
-        <div id="loading">Loading dashboard...</div>
+    <div class="staff-topbar">
+        <a href="principal.html" class="logo-area">
+            <div class="logo-icon">M&R</div>
+            <div>
+                <h1>M&R Institution</h1>
+                <small>Principal's Office</small>
+            </div>
+        </a>
+        <div class="staff-user">
+            <span class="role-chip">👔 Principal</span>
+            <div class="user-chip">
+                <div class="avatar" id="avatar">P</div>
+                <span class="email-text" id="user-email">...</span>
+            </div>
+            <button class="logout-btn" id="logout-btn">Log Out</button>
+        </div>
+    </div>
 
-        <div id="dash-view" style="display: none;">
-            <div class="dash">
-                <div class="dash-header">
+    <section class="hero">
+        <div class="hero-inner">
+            <h2>Welcome, <span class="accent" id="user-name">Principal</span> 👔</h2>
+            <p>Executive overview of the entire institution — students, staff, academics, and finances.</p>
+        </div>
+    </section>
+
+    <div class="layout">
+
+        <div id="loading" class="loading-state">
+            <div class="spinner"></div>
+            <p>Gathering institutional data...</p>
+        </div>
+
+        <div id="dash-view" style="display:none;">
+
+            <!-- Top-level stats -->
+            <div class="stats-grid">
+                <div class="stat-card">
+                    <div class="stat-icon">🎓</div>
                     <div>
-                        <h2>Principal Dashboard</h2>
-                        <span class="role-badge">Principal</span>
-                    </div>
-                    <div>
-                        <span id="user-email" style="margin-right: 1rem; color: #666;"></span>
-                        <button id="logout-btn" class="btn-danger">Log Out</button>
+                        <div class="stat-value" id="stat-students">—</div>
+                        <div class="stat-label">Students</div>
                     </div>
                 </div>
-
-                <p style="color:#555;">Welcome, Principal. Here's what you'll be able to do soon:</p>
-
-                <div class="card-grid">
-                    <div class="dash-card"><h4>📊 Overview</h4><p>Full institution snapshot.</p></div>
-                    <div class="dash-card"><h4>🏛️ Departments</h4><p>All department performance.</p></div>
-                    <div class="dash-card"><h4>👥 Students</h4><p>Total students and enrollments.</p></div>
-                    <div class="dash-card"><h4>👨‍🏫 Staff</h4><p>All staff members.</p></div>
-                    <div class="dash-card"><h4>💰 Finance</h4><p>Revenue and fee collection.</p></div>
-                    <div class="dash-card"><h4>📋 Approvals</h4><p>Approve decisions.</p></div>
-                    <div class="dash-card"><h4>📢 Broadcast</h4><p>Send announcements to all.</p></div>
-                    <div class="dash-card"><h4>📈 Reports</h4><p>Institution reports.</p></div>
+                <div class="stat-card" style="border-left-color:#8b5cf6;">
+                    <div class="stat-icon" style="background:#ede9fe;color:#6d28d9;">👥</div>
+                    <div>
+                        <div class="stat-value" id="stat-staff">—</div>
+                        <div class="stat-label">Staff Members</div>
+                    </div>
+                </div>
+                <div class="stat-card" style="border-left-color:#3b82f6;">
+                    <div class="stat-icon" style="background:#dbeafe;color:#1e40af;">📚</div>
+                    <div>
+                        <div class="stat-value" id="stat-courses">—</div>
+                        <div class="stat-label">Courses</div>
+                    </div>
+                </div>
+                <div class="stat-card" style="border-left-color:#f59e0b;">
+                    <div class="stat-icon" style="background:#fef3c7;color:#92400e;">📋</div>
+                    <div>
+                        <div class="stat-value" id="stat-apps">—</div>
+                        <div class="stat-label">Applications</div>
+                    </div>
                 </div>
             </div>
-        </div>
-    </main>
 
-    <footer>
-        <p>&copy; 2026 College Financial</p>
-    </footer>
+            <!-- Row: academic + financial -->
+            <div class="row-2">
+
+                <!-- Academic Overview -->
+                <div class="panel">
+                    <div class="panel-head">
+                        <h3>🎓 Academic Overview</h3>
+                    </div>
+                    <div id="academic-wrap">
+                        <div class="empty-state"><p>Loading...</p></div>
+                    </div>
+                </div>
+
+                <!-- Financial Overview -->
+                <div class="panel">
+                    <div class="panel-head">
+                        <h3>💰 Financial Overview</h3>
+                    </div>
+                    <div id="finance-wrap">
+                        <div class="empty-state"><p>Loading...</p></div>
+                    </div>
+                </div>
+
+            </div>
+
+            <!-- Application status breakdown -->
+            <div class="panel">
+                <div class="panel-head">
+                    <h3>📋 Admissions Snapshot</h3>
+                    <span class="sub" id="apps-head"></span>
+                </div>
+                <div id="apps-wrap">
+                    <div class="empty-state"><p>Loading...</p></div>
+                </div>
+            </div>
+
+            <!-- Staff breakdown -->
+            <div class="panel">
+                <div class="panel-head">
+                    <h3>👥 Staff Directory</h3>
+                    <span class="sub" id="staff-head"></span>
+                </div>
+                <div id="staff-wrap">
+                    <div class="empty-state"><p>Loading...</p></div>
+                </div>
+            </div>
+
+            <!-- Recent announcements -->
+            <div class="panel">
+                <div class="panel-head">
+                    <h3>📢 Recent Announcements</h3>
+                    <span class="sub" id="ann-head"></span>
+                </div>
+                <div id="ann-wrap">
+                    <div class="empty-state"><p>Loading...</p></div>
+                </div>
+            </div>
+
+        </div>
+    </div>
 
     <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
     <script>
@@ -69,21 +283,237 @@
         'sb_publishable_78sLh6qbQtYP2KFhpx-NuA_HvBOpKnD'
       );
 
+      let currentUser = null;
+
       async function init() {
         const { data: { session } } = await supabaseClient.auth.getSession();
         if (!session) { window.location.href = '../login.html'; return; }
+        currentUser = session.user;
 
         const { data: profile } = await supabaseClient
-          .from('profiles').select('role').eq('id', session.user.id).single();
+          .from('profiles').select('role').eq('id', currentUser.id).single();
 
         if (!profile || profile.role !== 'principal') {
           window.location.href = '../login.html';
           return;
         }
 
-        document.getElementById('user-email').textContent = session.user.email;
+        document.getElementById('user-email').textContent = currentUser.email;
+        document.getElementById('user-name').textContent = (currentUser.email.split('@')[0] || 'Principal');
+        document.getElementById('avatar').textContent = (currentUser.email[0] || 'P').toUpperCase();
+
         document.getElementById('loading').style.display = 'none';
         document.getElementById('dash-view').style.display = 'block';
+
+        await loadAll();
+      }
+
+      async function loadAll() {
+        const [studentsRes, staffRes, coursesRes, appsRes, feesRes, paymentsRes, resultsRes, annRes] = await Promise.all([
+          supabaseClient.from('profiles').select('id').eq('role', 'student'),
+          supabaseClient.from('profiles').select('id, email, role, created_at')
+            .in('role', ['admin', 'principal', 'deputy', 'hod', 'lecturer', 'finance']),
+          supabaseClient.from('courses').select('id, name, department, credits'),
+          supabaseClient.from('applications').select('id, status, course_id, submitted_at'),
+          supabaseClient.from('fees').select('id, total_amount, student_id'),
+          supabaseClient.from('payments').select('id, amount, status'),
+          supabaseClient.from('results').select('id, grade'),
+          supabaseClient.from('announcements').select('*').order('created_at', { ascending: false }).limit(5)
+        ]);
+
+        const students = studentsRes.data || [];
+        const staff = staffRes.data || [];
+        const courses = coursesRes.data || [];
+        const apps = appsRes.data || [];
+        const fees = feesRes.data || [];
+        const payments = paymentsRes.data || [];
+        const results = resultsRes.data || [];
+        const anns = annRes.data || [];
+
+        // Top stats
+        document.getElementById('stat-students').textContent = students.length;
+        document.getElementById('stat-staff').textContent = staff.length;
+        document.getElementById('stat-courses').textContent = courses.length;
+        document.getElementById('stat-apps').textContent = apps.length;
+
+        renderAcademic(courses, apps, results);
+        renderFinance(fees, payments);
+        renderApps(apps);
+        renderStaff(staff);
+        renderAnnouncements(anns);
+      }
+
+      function renderAcademic(courses, apps, results) {
+        const wrap = document.getElementById('academic-wrap');
+        const totalCredits = courses.reduce((s, c) => s + (c.credits || 0), 0);
+        const depts = new Set(courses.map(c => c.department).filter(Boolean)).size;
+
+        // Grade distribution
+        const gradeDist = { A: 0, B: 0, C: 0, D: 0, F: 0 };
+        results.forEach(r => { if (gradeDist[r.grade] !== undefined) gradeDist[r.grade]++; });
+        const totalGrades = Object.values(gradeDist).reduce((a, b) => a + b, 0);
+        const passRate = totalGrades
+          ? Math.round(((totalGrades - gradeDist.F) / totalGrades) * 100)
+          : 0;
+
+        wrap.innerHTML = `
+          <div class="progress-item">
+            <div class="p-head">
+              <div class="p-label">Departments</div>
+              <div class="p-value">${depts}</div>
+            </div>
+          </div>
+          <div class="progress-item">
+            <div class="p-head">
+              <div class="p-label">Total Course Credits Offered</div>
+              <div class="p-value">${totalCredits}</div>
+            </div>
+          </div>
+          <div class="progress-item">
+            <div class="p-head">
+              <div class="p-label">Results Published</div>
+              <div class="p-value">${results.length}</div>
+            </div>
+          </div>
+          <div class="progress-item">
+            <div class="p-head">
+              <div class="p-label">Overall Pass Rate</div>
+              <div class="p-value">${passRate}%</div>
+            </div>
+            <div class="progress-bar">
+              <div class="progress-fill green" style="width:${passRate}%"></div>
+            </div>
+          </div>
+        `;
+      }
+
+      function renderFinance(fees, payments) {
+        const wrap = document.getElementById('finance-wrap');
+        const totalBilled = fees.reduce((s, f) => s + parseFloat(f.total_amount), 0);
+        const verified = payments.filter(p => p.status === 'verified');
+        const totalPaid = verified.reduce((s, p) => s + parseFloat(p.amount), 0);
+        const pending = payments.filter(p => p.status === 'pending')
+          .reduce((s, p) => s + parseFloat(p.amount), 0);
+        const collectionRate = totalBilled ? Math.round((totalPaid / totalBilled) * 100) : 0;
+
+        wrap.innerHTML = `
+          <div class="progress-item">
+            <div class="p-head">
+              <div class="p-label">Total Billed</div>
+              <div class="p-value">KES ${totalBilled.toLocaleString()}</div>
+            </div>
+          </div>
+          <div class="progress-item">
+            <div class="p-head">
+              <div class="p-label">Total Collected</div>
+              <div class="p-value" style="color:#16a34a;">KES ${totalPaid.toLocaleString()}</div>
+            </div>
+            <div class="progress-bar">
+              <div class="progress-fill green" style="width:${collectionRate}%"></div>
+            </div>
+          </div>
+          <div class="progress-item">
+            <div class="p-head">
+              <div class="p-label">Outstanding</div>
+              <div class="p-value" style="color:#dc2626;">KES ${(totalBilled - totalPaid).toLocaleString()}</div>
+            </div>
+          </div>
+          <div class="progress-item">
+            <div class="p-head">
+              <div class="p-label">Awaiting Verification</div>
+              <div class="p-value" style="color:#f59e0b;">KES ${pending.toLocaleString()}</div>
+            </div>
+          </div>
+          <div class="progress-item">
+            <div class="p-head">
+              <div class="p-label">Collection Rate</div>
+              <div class="p-value">${collectionRate}%</div>
+            </div>
+          </div>
+        `;
+      }
+
+      function renderApps(apps) {
+        const wrap = document.getElementById('apps-wrap');
+        const counts = { pending: 0, under_review: 0, accepted: 0, rejected: 0 };
+        apps.forEach(a => { if (counts[a.status] !== undefined) counts[a.status]++; });
+
+        document.getElementById('apps-head').textContent = apps.length + ' total application' + (apps.length !== 1 ? 's' : '');
+
+        const total = apps.length || 1;
+
+        wrap.innerHTML = `
+          <div style="display:grid;grid-template-columns:repeat(4,1fr);gap:1rem;">
+            ${['pending', 'under_review', 'accepted', 'rejected'].map(status => {
+              const count = counts[status];
+              const pct = Math.round((count / total) * 100);
+              return `
+                <div style="text-align:center;padding:1rem;background:#f8fafc;border-radius:10px;">
+                  <div style="font-size:1.5rem;font-weight:800;color:#0f2744;">${count}</div>
+                  <div style="font-size:0.75rem;font-weight:700;color:#64748b;text-transform:uppercase;letter-spacing:0.04em;margin-top:0.25rem;">${status.replace('_', ' ')}</div>
+                  <div style="font-size:0.78rem;color:#94a3b8;margin-top:0.4rem;">${pct}%</div>
+                </div>
+              `;
+            }).join('')}
+          </div>
+        `;
+      }
+
+      function renderStaff(staff) {
+        const wrap = document.getElementById('staff-wrap');
+        const roleCounts = {};
+        staff.forEach(s => { roleCounts[s.role] = (roleCounts[s.role] || 0) + 1; });
+
+        document.getElementById('staff-head').textContent = staff.length + ' total';
+
+        if (!staff.length) {
+          wrap.innerHTML = '<div class="empty-state"><p>No staff members yet.</p></div>';
+          return;
+        }
+
+        const roles = ['admin', 'principal', 'deputy', 'hod', 'lecturer', 'finance'];
+        wrap.innerHTML = `
+          <table class="data-table">
+            <thead>
+              <tr><th>Role</th><th>Count</th><th>Members</th></tr>
+            </thead>
+            <tbody>
+              ${roles.filter(r => roleCounts[r]).map(role => {
+                const members = staff.filter(s => s.role === role);
+                return `
+                  <tr>
+                    <td><strong style="color:#0f2744;text-transform:capitalize;">${role}</strong></td>
+                    <td><strong>${roleCounts[role]}</strong></td>
+                    <td style="color:#64748b;font-size:0.85rem;">${members.map(m => m.email).join(', ')}</td>
+                  </tr>
+                `;
+              }).join('')}
+            </tbody>
+          </table>
+        `;
+      }
+
+      function renderAnnouncements(anns) {
+        const wrap = document.getElementById('ann-wrap');
+        document.getElementById('ann-head').textContent = anns.length + ' recent';
+
+        if (!anns.length) {
+          wrap.innerHTML = '<div class="empty-state"><p>No announcements yet.</p></div>';
+          return;
+        }
+
+        wrap.innerHTML = anns.map(a => `
+          <div style="padding:1rem 1.15rem;border-radius:10px;border-left:4px solid ${
+            a.priority === 'urgent' ? '#dc2626' :
+            a.priority === 'high' ? '#f59e0b' : '#14b8a6'
+          };background:#f8fafc;margin-bottom:0.75rem;">
+            <div style="display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:0.5rem;margin-bottom:0.35rem;">
+              <strong style="color:#0f2744;">${a.title}</strong>
+              <span style="color:#94a3b8;font-size:0.78rem;">${new Date(a.created_at).toLocaleDateString()}</span>
+            </div>
+            <p style="color:#475569;font-size:0.9rem;margin:0;">${a.content}</p>
+          </div>
+        `).join('');
       }
 
       document.getElementById('logout-btn').addEventListener('click', async () => {
