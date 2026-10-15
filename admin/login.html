@@ -2,129 +2,312 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>Login - College Financial</title>
-    <link rel="stylesheet" href="css/style.css">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Admin Login - M&R Institution</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="../css/style.css">
     <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
         body {
-            background: linear-gradient(135deg, #1e3a5f 0%, #2c4a73 100%);
+            font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+            color: #0f172a; line-height: 1.6;
+            -webkit-font-smoothing: antialiased;
             min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            background: #0f172a;
         }
-        header, footer {
-            background: rgba(0, 0, 0, 0.2);
+
+        /* Header */
+        header {
+            background: rgba(15,23,42,0.8);
+            backdrop-filter: blur(10px);
+            padding: 1rem 2rem;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            border-bottom: 1px solid rgba(255,255,255,0.1);
+            position: sticky;
+            top: 0;
+            z-index: 50;
+            flex-wrap: wrap;
+            gap: 1rem;
         }
+        .logo-area { display: flex; align-items: center; gap: 0.6rem; text-decoration: none; color: inherit; }
+        .logo-icon {
+            width: 40px; height: 40px;
+            background: linear-gradient(135deg, #14b8a6, #0d9488);
+            border-radius: 10px;
+            display: flex; align-items: center; justify-content: center;
+            color: white; font-weight: 800; font-size: 1rem;
+        }
+        .logo-area h1 { font-size: 1.25rem; font-weight: 800; color: white; letter-spacing: -0.01em; }
+        .logo-area small { display: block; font-size: 0.7rem; color: #14b8a6; font-weight: 600; letter-spacing: 0.5px; text-transform: uppercase; }
+
+        .back-btn {
+            display: inline-flex; align-items: center; gap: 0.5rem;
+            background: rgba(255,255,255,0.1); color: white;
+            padding: 0.6rem 1.2rem; border-radius: 8px;
+            text-decoration: none; font-weight: 600; font-size: 0.9rem;
+            transition: all 0.2s;
+            border: 1px solid rgba(255,255,255,0.15);
+        }
+        .back-btn:hover { background: rgba(255,255,255,0.2); transform: translateY(-1px); }
+        .back-btn svg { width: 16px; height: 16px; fill: currentColor; }
+
+        /* Main */
+        main {
+            flex: 1;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 3rem 2rem;
+            position: relative;
+            overflow: hidden;
+        }
+        main::before {
+            content: '';
+            position: absolute;
+            top: -30%; left: -10%;
+            width: 600px; height: 600px;
+            background: radial-gradient(circle, rgba(20,184,166,0.15), transparent 70%);
+            border-radius: 50%;
+        }
+        main::after {
+            content: '';
+            position: absolute;
+            bottom: -30%; right: -10%;
+            width: 500px; height: 500px;
+            background: radial-gradient(circle, rgba(20,184,166,0.08), transparent 70%);
+            border-radius: 50%;
+        }
+
         .login-wrap {
             max-width: 440px;
-            margin: 3rem auto;
+            width: 100%;
             padding: 2.5rem;
             background: white;
-            border-radius: 12px;
-            box-shadow: 0 15px 40px rgba(0, 0, 0, 0.25);
+            border-radius: 20px;
+            box-shadow: 0 30px 80px rgba(0,0,0,0.4);
+            position: relative;
+            z-index: 2;
         }
+
+        .login-icon {
+            width: 64px; height: 64px;
+            margin: 0 auto 1.25rem;
+            background: linear-gradient(135deg, #14b8a6, #0d9488);
+            border-radius: 16px;
+            display: flex; align-items: center; justify-content: center;
+            font-size: 1.75rem;
+            box-shadow: 0 8px 20px rgba(20,184,166,0.3);
+        }
+
+        .admin-badge {
+            display: inline-block;
+            background: linear-gradient(135deg, #0f2744, #14b8a6);
+            color: white;
+            padding: 0.25rem 0.75rem;
+            border-radius: 999px;
+            font-size: 0.7rem;
+            font-weight: 800;
+            text-transform: uppercase;
+            letter-spacing: 0.1em;
+            margin: 0 auto 0.75rem;
+            display: table;
+        }
+
         .login-wrap h2 {
             text-align: center;
-            color: #1e3a5f;
-            margin-bottom: 0.25rem;
-            font-size: 1.75rem;
+            color: #0f2744;
+            margin-bottom: 0.35rem;
+            font-size: 1.65rem;
+            font-weight: 800;
+            letter-spacing: -0.02em;
         }
         .login-wrap .subtitle {
             text-align: center;
-            color: #888;
+            color: #64748b;
             margin-bottom: 2rem;
-            font-size: 0.95rem;
+            font-size: 0.92rem;
         }
+
         .login-wrap label {
             display: block;
-            margin-bottom: 0.3rem;
-            color: #333;
-            font-size: 0.9rem;
-            font-weight: 500;
+            margin-bottom: 0.4rem;
+            color: #334155;
+            font-size: 0.88rem;
+            font-weight: 600;
         }
-        .login-wrap input {
-            width: 100%;
-            padding: 0.85rem;
+
+        .input-wrap {
+            position: relative;
             margin-bottom: 1.1rem;
-            border: 2px solid #e0e0e0;
-            border-radius: 8px;
-            font-size: 1rem;
-            box-sizing: border-box;
-            transition: border-color 0.2s;
         }
-        .login-wrap input:focus {
-            outline: none;
-            border-color: #1e3a5f;
+        .input-wrap svg {
+            position: absolute;
+            left: 14px; top: 50%;
+            transform: translateY(-50%);
+            width: 18px; height: 18px;
+            fill: #94a3b8;
+            pointer-events: none;
         }
-        .login-wrap button {
+        .input-wrap input {
             width: 100%;
-            padding: 0.9rem;
-            background: #1e3a5f;
+            padding: 0.85rem 1rem 0.85rem 2.75rem;
+            border: 2px solid #e2e8f0;
+            border-radius: 10px;
+            font-size: 0.98rem;
+            font-family: inherit;
+            background: #f8fafc;
+            color: #0f172a;
+            transition: all 0.2s;
+            box-sizing: border-box;
+        }
+        .input-wrap input:focus {
+            outline: none;
+            border-color: #14b8a6;
+            background: white;
+            box-shadow: 0 0 0 3px rgba(20,184,166,0.1);
+        }
+        .toggle-password {
+            position: absolute;
+            right: 14px; top: 50%;
+            transform: translateY(-50%);
+            background: none;
+            border: none;
+            cursor: pointer;
+            padding: 4px;
+            font-size: 1rem;
+            color: #64748b;
+        }
+
+        .login-btn-submit {
+            width: 100%;
+            padding: 0.95rem;
+            background: linear-gradient(135deg, #0f2744, #1e3a5f);
             color: white;
             border: none;
-            border-radius: 8px;
-            font-size: 1.05rem;
+            border-radius: 10px;
+            font-size: 1rem;
+            font-weight: 700;
             cursor: pointer;
-            font-weight: 600;
-            transition: background 0.2s;
+            font-family: inherit;
+            transition: all 0.2s;
+            margin-top: 0.5rem;
         }
-        .login-wrap button:hover { background: #2c4a73; }
-        .login-wrap button:disabled { background: #95a5a6; cursor: not-allowed; }
+        .login-btn-submit:hover:not(:disabled) {
+            background: linear-gradient(135deg, #1e3a5f, #0f2744);
+            transform: translateY(-1px);
+            box-shadow: 0 8px 20px rgba(15,39,68,0.3);
+        }
+        .login-btn-submit:disabled {
+            background: #94a3b8;
+            cursor: not-allowed;
+            transform: none;
+        }
+
         .msg {
             text-align: center;
             margin-top: 1rem;
             font-size: 0.9rem;
-            min-height: 1.2rem;
-        }
-        .msg.error { color: #c0392b; }
-        .msg.success { color: #27ae60; }
-        .login-wrap .footer-links {
-            text-align: center;
-            margin-top: 1.5rem;
-            font-size: 0.9rem;
-            color: #666;
-        }
-        .login-wrap .footer-links a {
-            color: #1e3a5f;
-            text-decoration: none;
             font-weight: 500;
+            min-height: 1.2rem;
+            padding: 0.5rem;
+            border-radius: 8px;
+            transition: all 0.2s;
         }
-        .login-wrap .footer-links a:hover { text-decoration: underline; }
+        .msg.error { color: #991b1b; background: #fee2e2; }
+        .msg.success { color: #166534; background: #dcfce7; }
+
+        .info-note {
+            margin-top: 1.5rem;
+            padding: 0.9rem 1rem;
+            background: #fef3c7;
+            border-radius: 10px;
+            font-size: 0.82rem;
+            color: #92400e;
+            text-align: center;
+            border-left: 3px solid #f59e0b;
+            line-height: 1.5;
+        }
+
+        /* Footer */
+        footer {
+            background: rgba(15,23,42,0.95);
+            color: rgba(255,255,255,0.5);
+            padding: 1.25rem 2rem;
+            text-align: center;
+            font-size: 0.82rem;
+            border-top: 1px solid rgba(255,255,255,0.05);
+        }
+        footer p { margin: 0; }
+
+        @media (max-width: 600px) {
+            header { padding: 1rem; }
+            .logo-area h1 { font-size: 1.05rem; }
+            .login-wrap { padding: 1.75rem; border-radius: 16px; }
+            .login-wrap h2 { font-size: 1.4rem; }
+            main { padding: 2rem 1rem; }
+        }
     </style>
 </head>
 <body>
+
+    <!-- Header -->
     <header>
-        <h1>College Financial</h1>
-        <nav>
-            <a href="index.html">Home</a>
-            <a href="about.html">About</a>
-            <a href="courses.html">Courses</a>
-            <a href="contact.html">Contact</a>
-        </nav>
+        <a href="../index.html" class="logo-area">
+            <div class="logo-icon">M&R</div>
+            <div>
+                <h1>M&R Institution</h1>
+                <small>Administration</small>
+            </div>
+        </a>
+        <a href="../index.html" class="back-btn">
+            <svg viewBox="0 0 24 24"><path d="M20 11H7.83l5.59-5.59L12 4l-8 8 8 8 1.41-1.41L7.83 13H20v-2z"/></svg>
+            Back to Site
+        </a>
     </header>
 
     <main>
         <div class="login-wrap">
-            <h2>Welcome Back</h2>
-            <p class="subtitle">Log in to access your dashboard</p>
+            <div class="login-icon">🔐</div>
+
+            <span class="admin-badge">Admin Access</span>
+
+            <h2>Administrator Login</h2>
+            <p class="subtitle">Restricted area — staff only</p>
 
             <form id="login-form">
-                <label>Email</label>
-                <input type="email" id="email" placeholder="you@example.com" required autocomplete="email">
+                <label>Admin Email</label>
+                <div class="input-wrap">
+                    <svg viewBox="0 0 24 24"><path d="M20 4H4c-1.1 0-1.99.9-1.99 2L2 18c0 1.1.9 2 2 2h16c1.1 0 2-.9 2-2V6c0-1.1-.9-2-2-2zm0 4l-8 5-8-5V6l8 5 8-5v2z"/></svg>
+                    <input type="email" id="email" placeholder="admin@mrinst.com" required autocomplete="email">
+                </div>
 
                 <label>Password</label>
-                <input type="password" id="password" placeholder="Your password" required autocomplete="current-password">
+                <div class="input-wrap">
+                    <svg viewBox="0 0 24 24"><path d="M18 8h-1V6c0-2.76-2.24-5-5-5S7 3.24 7 6v2H6c-1.1 0-2 .9-2 2v10c0 1.1.9 2 2 2h12c1.1 0 2-.9 2-2V10c0-1.1-.9-2-2-2zM9 6c0-1.66 1.34-3 3-3s3 1.34 3 3v2H9V6zm3 12c-1.1 0-2-.9-2-2s.9-2 2-2 2 .9 2 2-.9 2-2 2z"/></svg>
+                    <input type="password" id="password" placeholder="Your admin password" required autocomplete="current-password">
+                    <button type="button" class="toggle-password" id="toggle-pw" title="Show password">👁️</button>
+                </div>
 
-                <button type="submit" id="submit-btn">Log In</button>
+                <button type="submit" class="login-btn-submit" id="submit-btn">Log In as Admin</button>
+
+                <p class="msg" id="message"></p>
             </form>
 
-            <p id="message" class="msg"></p>
-
-            <p class="footer-links">
-                New student? <a href="apply/register.html">Register here</a>
-            </p>
+            <div class="info-note">
+                ⚠️ This area is restricted to <strong>administrators only</strong>.<br>
+                Regular users should <a href="../login.html" style="color:#0f2744; font-weight:700;">log in here</a>.
+            </div>
         </div>
     </main>
 
     <footer>
-        <p>&copy; 2026 College Financial</p>
+        <p>&copy; 2026 M&R Institution. Admin Console.</p>
     </footer>
 
     <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
@@ -135,81 +318,65 @@
         'sb_publishable_78sLh6qbQtYP2KFhpx-NuA_HvBOpKnD'
       );
 
-      // Where each role goes after login
-      const ROLE_REDIRECT = {
-        'student':   'apply/portal.html',
-        'admin':     'admin/dashboard.html',
-        'lecturer':  'staff/lecturer.html',
-        'hod':       'staff/hod.html',
-        'finance':   'staff/finance.html',
-        'principal': 'staff/principal.html',
-        'deputy':    'staff/deputy.html'
-      };
-
       const form = document.getElementById('login-form');
       const msg = document.getElementById('message');
       const submitBtn = document.getElementById('submit-btn');
+      const togglePw = document.getElementById('toggle-pw');
+      const pwInput = document.getElementById('password');
 
-      // If already logged in, redirect based on their role
+      togglePw.addEventListener('click', () => {
+        const isPw = pwInput.type === 'password';
+        pwInput.type = isPw ? 'text' : 'password';
+        togglePw.textContent = isPw ? '🙈' : '👁️';
+      });
+
+      // Auto-redirect if already logged in as admin
       (async () => {
         const { data: { session } } = await supabaseClient.auth.getSession();
         if (!session) return;
         const { data: profile } = await supabaseClient
           .from('profiles').select('role').eq('id', session.user.id).single();
-        const dest = ROLE_REDIRECT[profile?.role];
-        if (dest) window.location.href = dest;
+        if (profile?.role === 'admin') {
+          window.location.href = 'dashboard.html';
+        }
       })();
 
       form.addEventListener('submit', async (e) => {
         e.preventDefault();
         msg.className = 'msg';
-        msg.textContent = 'Logging in...';
+        msg.textContent = '';
         submitBtn.disabled = true;
-        submitBtn.textContent = 'Logging in...';
+        submitBtn.textContent = 'Signing in...';
 
         const email = document.getElementById('email').value.trim();
-        const password = document.getElementById('password').value;
+        const password = pwInput.value;
 
-        const { data, error } = await supabaseClient.auth.signInWithPassword({
-          email: email,
-          password: password
-        });
+        const { data, error } = await supabaseClient.auth.signInWithPassword({ email, password });
 
         if (error) {
           msg.className = 'msg error';
-          msg.textContent = 'Login failed: ' + error.message;
+          msg.textContent = '❌ ' + error.message;
           submitBtn.disabled = false;
-          submitBtn.textContent = 'Log In';
+          submitBtn.textContent = 'Log In as Admin';
           return;
         }
 
-        // Get user's role
-        const { data: profile, error: profileErr } = await supabaseClient
+        // Verify admin role
+        const { data: profile } = await supabaseClient
           .from('profiles').select('role').eq('id', data.user.id).single();
 
-        if (profileErr || !profile) {
+        if (!profile || profile.role !== 'admin') {
           msg.className = 'msg error';
-          msg.textContent = 'Profile not found. Contact admin.';
+          msg.textContent = '❌ Access denied. You are not an admin.';
           await supabaseClient.auth.signOut();
           submitBtn.disabled = false;
-          submitBtn.textContent = 'Log In';
-          return;
-        }
-
-        const destination = ROLE_REDIRECT[profile.role];
-
-        if (!destination) {
-          msg.className = 'msg error';
-          msg.textContent = 'Unknown role: ' + profile.role + '. Contact admin.';
-          await supabaseClient.auth.signOut();
-          submitBtn.disabled = false;
-          submitBtn.textContent = 'Log In';
+          submitBtn.textContent = 'Log In as Admin';
           return;
         }
 
         msg.className = 'msg success';
-        msg.textContent = 'Welcome! Redirecting to your dashboard...';
-        setTimeout(() => { window.location.href = destination; }, 700);
+        msg.textContent = '✅ Welcome, Admin! Redirecting...';
+        setTimeout(() => { window.location.href = 'dashboard.html'; }, 700);
       });
     </script>
 </body>
