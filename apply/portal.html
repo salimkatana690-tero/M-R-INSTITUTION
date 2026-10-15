@@ -12,392 +12,180 @@
         * { margin: 0; padding: 0; box-sizing: border-box; }
         body {
             font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
-            color: #0f172a;
-            background: #f8fafc;
-            line-height: 1.6;
+            color: #0f172a; background: #f8fafc; line-height: 1.6;
             -webkit-font-smoothing: antialiased;
         }
-
-        /* Header */
         header {
-            background: rgba(255,255,255,0.95);
-            backdrop-filter: blur(10px);
-            padding: 1rem 2rem;
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            border-bottom: 1px solid #e2e8f0;
-            position: sticky;
-            top: 0;
-            z-index: 50;
-            flex-wrap: wrap;
-            gap: 1rem;
+            background: rgba(255,255,255,0.95); backdrop-filter: blur(10px);
+            padding: 1rem 2rem; display: flex; justify-content: space-between;
+            align-items: center; border-bottom: 1px solid #e2e8f0;
+            position: sticky; top: 0; z-index: 50; flex-wrap: wrap; gap: 1rem;
         }
         .logo-area { display: flex; align-items: center; gap: 0.6rem; text-decoration: none; color: inherit; }
         .logo-icon {
             width: 40px; height: 40px;
             background: linear-gradient(135deg, #0f2744, #14b8a6);
-            border-radius: 10px;
-            display: flex; align-items: center; justify-content: center;
+            border-radius: 10px; display: flex; align-items: center; justify-content: center;
             color: white; font-weight: 800; font-size: 1rem;
         }
-        .logo-area h1 { font-size: 1.25rem; font-weight: 800; color: #0f2744; letter-spacing: -0.01em; }
-        .logo-area small { display: block; font-size: 0.7rem; color: #64748b; font-weight: 500; letter-spacing: 0.5px; text-transform: uppercase; }
+        .logo-area h1 { font-size: 1.25rem; font-weight: 800; color: #0f2744; }
+        .logo-area small { display: block; font-size: 0.7rem; color: #64748b; font-weight: 500; text-transform: uppercase; }
 
         .header-right { display: flex; align-items: center; gap: 1rem; }
         .user-chip {
             display: inline-flex; align-items: center; gap: 0.5rem;
-            background: #f1f5f9;
-            padding: 0.45rem 0.9rem;
-            border-radius: 999px;
-            font-size: 0.85rem;
-            color: #334155;
-            font-weight: 500;
+            background: #f1f5f9; padding: 0.45rem 0.9rem;
+            border-radius: 999px; font-size: 0.85rem; color: #334155; font-weight: 500;
         }
         .user-chip .avatar {
             width: 26px; height: 26px;
             background: linear-gradient(135deg, #0f2744, #14b8a6);
-            border-radius: 50%;
-            color: white;
+            border-radius: 50%; color: white;
             display: flex; align-items: center; justify-content: center;
-            font-size: 0.7rem;
-            font-weight: 800;
+            font-size: 0.7rem; font-weight: 800;
         }
         .logout-btn {
-            display: inline-flex; align-items: center; gap: 0.4rem;
             background: #fee2e2; color: #991b1b;
             padding: 0.5rem 1rem; border-radius: 8px;
-            border: none; cursor: pointer;
-            font-weight: 600; font-size: 0.85rem;
-            font-family: inherit;
-            transition: all 0.2s;
+            border: none; cursor: pointer; font-weight: 600; font-size: 0.85rem;
+            font-family: inherit; transition: all 0.2s;
         }
         .logout-btn:hover { background: #fecaca; }
 
-        /* Hero */
         .portal-hero {
             background: linear-gradient(135deg, #0f2744 0%, #1e3a5f 100%);
-            color: white;
-            padding: 3.5rem 2rem 3rem;
-            position: relative;
-            overflow: hidden;
+            color: white; padding: 3.5rem 2rem 3rem; position: relative; overflow: hidden;
         }
         .portal-hero::before {
-            content: '';
-            position: absolute;
-            top: -50%; right: -20%;
-            width: 600px; height: 600px;
+            content: ''; position: absolute;
+            top: -50%; right: -20%; width: 600px; height: 600px;
             background: radial-gradient(circle, rgba(20,184,166,0.3), transparent 70%);
             border-radius: 50%;
         }
         .portal-hero-inner { max-width: 1200px; margin: 0 auto; position: relative; z-index: 2; }
-        .portal-hero h2 {
-            font-size: 2.25rem; font-weight: 800;
-            letter-spacing: -0.02em; line-height: 1.15;
-            margin-bottom: 0.5rem;
-        }
+        .portal-hero h2 { font-size: 2.25rem; font-weight: 800; letter-spacing: -0.02em; margin-bottom: 0.5rem; }
         .portal-hero h2 .accent { color: #14b8a6; }
         .portal-hero p { font-size: 1.05rem; color: rgba(255,255,255,0.85); }
 
-        /* Portal layout */
         .portal-layout {
-            max-width: 1200px;
-            margin: 0 auto;
-            padding: 2.5rem 2rem 5rem;
-            display: grid;
-            grid-template-columns: 240px 1fr;
-            gap: 2rem;
-            align-items: start;
+            max-width: 1200px; margin: 0 auto; padding: 2.5rem 2rem 5rem;
+            display: grid; grid-template-columns: 240px 1fr; gap: 2rem; align-items: start;
         }
-
-        /* Sidebar */
         .sidebar {
-            position: sticky;
-            top: 90px;
-            background: white;
-            border-radius: 14px;
-            padding: 1rem;
-            box-shadow: 0 4px 20px rgba(15,23,42,0.06);
-            border: 1px solid #e2e8f0;
+            position: sticky; top: 90px; background: white;
+            border-radius: 14px; padding: 1rem;
+            box-shadow: 0 4px 20px rgba(15,23,42,0.06); border: 1px solid #e2e8f0;
         }
-        .sidebar nav {
-            display: flex;
-            flex-direction: column;
-            gap: 0.2rem;
-            background: transparent;
-            padding: 0;
-        }
+        .sidebar nav { display: flex; flex-direction: column; gap: 0.2rem; }
         .sidebar nav a {
-            display: flex;
-            align-items: center;
-            gap: 0.6rem;
-            padding: 0.7rem 0.9rem;
-            border-radius: 8px;
-            color: #475569;
-            text-decoration: none;
-            font-weight: 500;
-            font-size: 0.92rem;
-            transition: all 0.15s;
+            display: flex; align-items: center; gap: 0.6rem;
+            padding: 0.7rem 0.9rem; border-radius: 8px;
+            color: #475569; text-decoration: none; font-weight: 500;
+            font-size: 0.92rem; transition: all 0.15s;
         }
-        .sidebar nav a:hover {
-            background: #f1f5f9;
-            color: #0f2744;
-        }
-        .sidebar nav a.active {
-            background: #ccfbf1;
-            color: #0d9488;
-            font-weight: 700;
-        }
+        .sidebar nav a:hover { background: #f1f5f9; color: #0f2744; }
+        .sidebar nav a.active { background: #ccfbf1; color: #0d9488; font-weight: 700; }
         .sidebar nav a .ico { font-size: 1.05rem; }
 
-        /* Main content */
         .portal-content { display: flex; flex-direction: column; gap: 1.5rem; }
-
         .panel {
-            background: white;
-            border-radius: 14px;
-            padding: 1.75rem;
-            box-shadow: 0 4px 20px rgba(15,23,42,0.05);
-            border: 1px solid #e2e8f0;
+            background: white; border-radius: 14px; padding: 1.75rem;
+            box-shadow: 0 4px 20px rgba(15,23,42,0.05); border: 1px solid #e2e8f0;
             scroll-margin-top: 90px;
         }
         .panel-head {
-            display: flex;
-            align-items: center;
-            gap: 0.75rem;
-            margin-bottom: 1.25rem;
-            padding-bottom: 0.9rem;
-            border-bottom: 1px solid #f1f5f9;
+            display: flex; align-items: center; gap: 0.75rem;
+            margin-bottom: 1.25rem; padding-bottom: 0.9rem; border-bottom: 1px solid #f1f5f9;
         }
         .panel-head .icon {
             width: 40px; height: 40px;
             background: linear-gradient(135deg, #ccfbf1, #99f6e4);
-            border-radius: 10px;
-            display: flex; align-items: center; justify-content: center;
+            border-radius: 10px; display: flex; align-items: center; justify-content: center;
             font-size: 1.15rem;
         }
-        .panel-head h3 {
-            color: #0f2744;
-            font-size: 1.15rem;
-            font-weight: 800;
-            margin: 0;
-            letter-spacing: -0.01em;
-        }
+        .panel-head h3 { color: #0f2744; font-size: 1.15rem; font-weight: 800; margin: 0; }
 
-        /* Application status */
-        .status-card {
-            padding: 1.25rem;
-            border-radius: 12px;
-            border-left: 5px solid #94a3b8;
-            background: #f8fafc;
-        }
+        .status-card { padding: 1.25rem; border-radius: 12px; border-left: 5px solid #94a3b8; background: #f8fafc; }
         .status-card.pending { border-left-color: #f59e0b; background: #fffbeb; }
         .status-card.under_review { border-left-color: #3b82f6; background: #eff6ff; }
         .status-card.accepted { border-left-color: #16a34a; background: #f0fdf4; }
         .status-card.rejected { border-left-color: #dc2626; background: #fef2f2; }
 
-        .status-head {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            margin-bottom: 1rem;
-            flex-wrap: wrap;
-            gap: 0.5rem;
-        }
+        .status-head { display: flex; justify-content: space-between; align-items: center; margin-bottom: 1rem; flex-wrap: wrap; gap: 0.5rem; }
         .status-head h4 { color: #0f2744; font-size: 1.05rem; font-weight: 700; margin: 0; }
-        .status-badge {
-            display: inline-block;
-            padding: 0.3rem 0.75rem;
-            border-radius: 999px;
-            font-size: 0.72rem;
-            font-weight: 700;
-            text-transform: uppercase;
-            letter-spacing: 0.04em;
-        }
+        .status-badge { display: inline-block; padding: 0.3rem 0.75rem; border-radius: 999px; font-size: 0.72rem; font-weight: 700; text-transform: uppercase; }
         .status-badge.pending { background: #fef3c7; color: #92400e; }
         .status-badge.under_review { background: #dbeafe; color: #1e40af; }
         .status-badge.accepted { background: #dcfce7; color: #166534; }
         .status-badge.rejected { background: #fee2e2; color: #991b1b; }
 
-        .info-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
-            gap: 0.75rem 1.25rem;
-            margin-top: 0.75rem;
-        }
+        .info-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 0.75rem 1.25rem; margin-top: 0.75rem; }
         .info-row { font-size: 0.9rem; }
-        .info-row strong { color: #64748b; font-weight: 600; display: block; font-size: 0.75rem; text-transform: uppercase; letter-spacing: 0.04em; margin-bottom: 0.15rem; }
+        .info-row strong { color: #64748b; font-weight: 600; display: block; font-size: 0.72rem; text-transform: uppercase; letter-spacing: 0.04em; margin-bottom: 0.15rem; }
         .info-row span { color: #0f172a; font-weight: 500; }
 
-        .admin-notes {
-            margin-top: 1rem;
-            padding: 1rem;
-            background: white;
-            border-radius: 8px;
-            border: 1px dashed #cbd5e1;
-            font-size: 0.9rem;
-            color: #475569;
-        }
+        .admin-notes { margin-top: 1rem; padding: 1rem; background: white; border-radius: 8px; border: 1px dashed #cbd5e1; font-size: 0.9rem; color: #475569; }
         .admin-notes strong { color: #0f2744; }
 
         .btn {
             display: inline-flex; align-items: center; gap: 0.4rem;
-            padding: 0.65rem 1.25rem;
-            border-radius: 8px;
-            text-decoration: none;
-            font-weight: 600;
-            font-size: 0.92rem;
-            transition: all 0.2s;
-            border: none;
-            cursor: pointer;
-            font-family: inherit;
-            margin-top: 1rem;
+            padding: 0.65rem 1.25rem; border-radius: 8px;
+            text-decoration: none; font-weight: 600; font-size: 0.92rem;
+            transition: all 0.2s; border: none; cursor: pointer; font-family: inherit; margin-top: 1rem;
         }
         .btn-primary { background: #0f2744; color: white; }
         .btn-primary:hover { background: #1e3a5f; transform: translateY(-1px); }
         .btn-teal { background: #14b8a6; color: white; }
         .btn-teal:hover { background: #0d9488; }
 
-        /* Announcements */
-        .ann-item {
-            padding: 1rem 1.15rem;
-            border-radius: 10px;
-            border-left: 4px solid #14b8a6;
-            background: #f8fafc;
-            margin-bottom: 0.75rem;
-        }
+        .ann-item { padding: 1rem 1.15rem; border-radius: 10px; border-left: 4px solid #14b8a6; background: #f8fafc; margin-bottom: 0.75rem; }
         .ann-item:last-child { margin-bottom: 0; }
         .ann-item.high { border-left-color: #f59e0b; background: #fffbeb; }
         .ann-item.urgent { border-left-color: #dc2626; background: #fef2f2; }
         .ann-item h4 { color: #0f2744; font-size: 0.98rem; font-weight: 700; margin-bottom: 0.35rem; display: flex; align-items: center; gap: 0.5rem; flex-wrap: wrap; }
         .ann-item .date { color: #94a3b8; font-size: 0.78rem; margin-bottom: 0.5rem; }
         .ann-item p { color: #475569; font-size: 0.92rem; margin: 0; }
-        .priority-pill {
-            display: inline-block;
-            padding: 0.1rem 0.55rem;
-            border-radius: 999px;
-            font-size: 0.65rem;
-            font-weight: 700;
-            text-transform: uppercase;
-            letter-spacing: 0.04em;
-        }
+        .priority-pill { display: inline-block; padding: 0.1rem 0.55rem; border-radius: 999px; font-size: 0.65rem; font-weight: 700; text-transform: uppercase; }
         .priority-normal { background: #dbeafe; color: #1e40af; }
         .priority-high { background: #fef3c7; color: #92400e; }
         .priority-urgent { background: #fee2e2; color: #991b1b; }
 
-        /* Table */
-        .data-table {
-            width: 100%;
-            border-collapse: collapse;
-            font-size: 0.92rem;
-        }
-        .data-table th, .data-table td {
-            padding: 0.75rem 0.9rem;
-            text-align: left;
-            border-bottom: 1px solid #f1f5f9;
-        }
-        .data-table th {
-            background: #f8fafc;
-            color: #475569;
-            font-weight: 700;
-            font-size: 0.78rem;
-            text-transform: uppercase;
-            letter-spacing: 0.04em;
-        }
+        .data-table { width: 100%; border-collapse: collapse; font-size: 0.92rem; }
+        .data-table th, .data-table td { padding: 0.75rem 0.9rem; text-align: left; border-bottom: 1px solid #f1f5f9; }
+        .data-table th { background: #f8fafc; color: #475569; font-weight: 700; font-size: 0.75rem; text-transform: uppercase; letter-spacing: 0.04em; }
         .data-table tr:hover td { background: #f8fafc; }
 
-        .grade-badge {
-            display: inline-block;
-            padding: 0.2rem 0.6rem;
-            border-radius: 6px;
-            font-size: 0.8rem;
-            font-weight: 800;
-        }
+        .grade-badge { display: inline-block; padding: 0.2rem 0.6rem; border-radius: 6px; font-size: 0.8rem; font-weight: 800; }
         .grade-A { background: #dcfce7; color: #166534; }
         .grade-B { background: #dbeafe; color: #1e40af; }
         .grade-C { background: #fef3c7; color: #92400e; }
         .grade-D { background: #fee2e2; color: #991b1b; }
         .grade-F { background: #fecaca; color: #7f1d1d; }
 
-        /* Fees */
-        .fee-summary {
-            display: grid;
-            grid-template-columns: repeat(3, 1fr);
-            gap: 1rem;
-            margin-bottom: 1.5rem;
-        }
-        .fee-box {
-            padding: 1.25rem;
-            border-radius: 12px;
-            background: #f8fafc;
-            border-left: 5px solid #3b82f6;
-            text-align: center;
-        }
+        .fee-summary { display: grid; grid-template-columns: repeat(3, 1fr); gap: 1rem; margin-bottom: 1.5rem; }
+        .fee-box { padding: 1.25rem; border-radius: 12px; background: #f8fafc; border-left: 5px solid #3b82f6; text-align: center; }
         .fee-box.paid { border-left-color: #16a34a; }
         .fee-box.balance { border-left-color: #dc2626; }
-        .fee-box .label {
-            color: #64748b;
-            font-size: 0.78rem;
-            font-weight: 700;
-            text-transform: uppercase;
-            letter-spacing: 0.05em;
-            margin-bottom: 0.35rem;
-        }
-        .fee-box .amount {
-            color: #0f2744;
-            font-size: 1.35rem;
-            font-weight: 800;
-            letter-spacing: -0.02em;
-        }
+        .fee-box .label { color: #64748b; font-size: 0.75rem; font-weight: 700; text-transform: uppercase; letter-spacing: 0.05em; margin-bottom: 0.35rem; }
+        .fee-box .amount { color: #0f2744; font-size: 1.35rem; font-weight: 800; letter-spacing: -0.02em; }
         .fee-meta { color: #64748b; font-size: 0.9rem; margin-bottom: 1.25rem; }
 
-        /* Payment form */
-        .pay-form {
-            background: #f8fafc;
-            padding: 1.5rem;
-            border-radius: 12px;
-            border: 1px solid #e2e8f0;
-        }
+        .pay-form { background: #f8fafc; padding: 1.5rem; border-radius: 12px; border: 1px solid #e2e8f0; }
         .pay-form h4 { color: #0f2744; font-size: 1rem; font-weight: 800; margin-bottom: 1rem; }
-        .pay-form label {
-            display: block;
-            margin-bottom: 0.35rem;
-            color: #334155;
-            font-size: 0.85rem;
-            font-weight: 600;
-        }
+        .pay-form label { display: block; margin-bottom: 0.35rem; color: #334155; font-size: 0.85rem; font-weight: 600; }
         .pay-form input, .pay-form select {
-            width: 100%;
-            padding: 0.75rem 0.9rem;
-            border: 2px solid #e2e8f0;
-            border-radius: 8px;
-            font-size: 0.95rem;
-            font-family: inherit;
-            background: white;
-            transition: all 0.2s;
-            box-sizing: border-box;
-            margin-bottom: 0.9rem;
+            width: 100%; padding: 0.75rem 0.9rem; border: 2px solid #e2e8f0;
+            border-radius: 8px; font-size: 0.95rem; font-family: inherit;
+            background: white; transition: all 0.2s; box-sizing: border-box; margin-bottom: 0.9rem;
         }
-        .pay-form input:focus, .pay-form select:focus {
-            outline: none;
-            border-color: #14b8a6;
-            box-shadow: 0 0 0 3px rgba(20,184,166,0.1);
-        }
+        .pay-form input:focus, .pay-form select:focus { outline: none; border-color: #14b8a6; box-shadow: 0 0 0 3px rgba(20,184,166,0.1); }
         .pay-form button {
-            width: 100%;
-            padding: 0.85rem;
-            background: #14b8a6;
-            color: white;
-            border: none;
-            border-radius: 8px;
-            font-size: 0.98rem;
-            font-weight: 700;
-            cursor: pointer;
-            font-family: inherit;
-            transition: all 0.2s;
+            width: 100%; padding: 0.85rem; background: #14b8a6; color: white;
+            border: none; border-radius: 8px; font-size: 0.98rem; font-weight: 700;
+            cursor: pointer; font-family: inherit; transition: all 0.2s;
         }
-        .pay-form button:hover { background: #0d9488; transform: translateY(-1px); }
-        .pay-form button:disabled { background: #94a3b8; cursor: not-allowed; transform: none; }
+        .pay-form button:hover { background: #0d9488; }
+        .pay-form button:disabled { background: #94a3b8; cursor: not-allowed; }
 
         .pay-msg { text-align: center; margin-top: 0.75rem; font-size: 0.88rem; font-weight: 500; min-height: 1.2rem; }
         .pay-msg.error { color: #991b1b; }
@@ -410,31 +198,16 @@
         .pay-badge.rejected { background: #fee2e2; color: #991b1b; }
 
         .empty { color: #94a3b8; font-size: 0.92rem; padding: 1rem 0; text-align: center; }
-
-        .loading-state { text-align: center; padding: 3rem; color: #64748b; }
-        .spinner {
-            width: 40px; height: 40px;
-            border: 3px solid #e2e8f0;
-            border-top-color: #14b8a6;
-            border-radius: 50%;
-            margin: 0 auto 1rem;
-            animation: spin 0.8s linear infinite;
-        }
+        .loading-state { text-align: center; padding: 3rem; color: #64748b; grid-column: 1/-1; }
+        .spinner { width: 40px; height: 40px; border: 3px solid #e2e8f0; border-top-color: #14b8a6; border-radius: 50%; margin: 0 auto 1rem; animation: spin 0.8s linear infinite; }
         @keyframes spin { to { transform: rotate(360deg); } }
 
-        /* Footer */
-        footer {
-            background: #0f2744;
-            color: rgba(255,255,255,0.7);
-            padding: 1.5rem 2rem;
-            text-align: center;
-            font-size: 0.85rem;
-        }
+        footer { background: #0f2744; color: rgba(255,255,255,0.7); padding: 1.5rem 2rem; text-align: center; font-size: 0.85rem; }
         footer p { margin: 0; }
 
         @media (max-width: 900px) {
             .portal-layout { grid-template-columns: 1fr; padding: 1.5rem 1rem 3rem; }
-            .sidebar { position: static; display: flex; overflow-x: auto; padding: 0.5rem; gap: 0.4rem; }
+            .sidebar { position: static; display: flex; overflow-x: auto; padding: 0.5rem; }
             .sidebar nav { flex-direction: row; }
             .sidebar nav a { white-space: nowrap; padding: 0.55rem 0.85rem; }
             .fee-summary { grid-template-columns: 1fr; }
@@ -442,8 +215,6 @@
         }
         @media (max-width: 600px) {
             header { padding: 1rem; }
-            .header-right { gap: 0.5rem; }
-            .user-chip { font-size: 0.78rem; padding: 0.35rem 0.7rem; }
             .user-chip .email-text { display: none; }
             .panel { padding: 1.25rem; }
             .data-table th, .data-table td { padding: 0.6rem 0.5rem; font-size: 0.85rem; }
@@ -454,7 +225,6 @@
 </head>
 <body>
 
-    <!-- Header -->
     <header>
         <a href="../index.html" class="logo-area">
             <div class="logo-icon">M&R</div>
@@ -472,7 +242,6 @@
         </div>
     </header>
 
-    <!-- Portal Hero -->
     <section class="portal-hero">
         <div class="portal-hero-inner">
             <h2>Welcome back, <span class="accent" id="user-name">Student</span></h2>
@@ -480,10 +249,7 @@
         </div>
     </section>
 
-    <!-- Layout -->
     <div class="portal-layout">
-
-        <!-- Sidebar -->
         <aside class="sidebar">
             <nav>
                 <a href="#application"><span class="ico">📋</span> Application</a>
@@ -494,66 +260,37 @@
             </nav>
         </aside>
 
-        <!-- Main -->
         <div class="portal-content">
-
             <div id="loading" class="loading-state">
                 <div class="spinner"></div>
                 <p>Loading your portal...</p>
             </div>
 
             <div id="portal-view" style="display:none;">
-
-                <!-- Application -->
                 <section class="panel" id="application">
-                    <div class="panel-head">
-                        <div class="icon">📋</div>
-                        <h3>My Application</h3>
-                    </div>
+                    <div class="panel-head"><div class="icon">📋</div><h3>My Application</h3></div>
                     <div id="application-section"></div>
                 </section>
-
-                <!-- Announcements -->
                 <section class="panel" id="announcements">
-                    <div class="panel-head">
-                        <div class="icon">📢</div>
-                        <h3>Announcements</h3>
-                    </div>
+                    <div class="panel-head"><div class="icon">📢</div><h3>Announcements</h3></div>
                     <div id="announcements-section"></div>
                 </section>
-
-                <!-- Timetable -->
                 <section class="panel" id="timetable">
-                    <div class="panel-head">
-                        <div class="icon">📅</div>
-                        <h3>Class Timetable</h3>
-                    </div>
+                    <div class="panel-head"><div class="icon">📅</div><h3>Class Timetable</h3></div>
                     <div id="timetable-section"></div>
                 </section>
-
-                <!-- Results -->
                 <section class="panel" id="results">
-                    <div class="panel-head">
-                        <div class="icon">🎓</div>
-                        <h3>My Results</h3>
-                    </div>
+                    <div class="panel-head"><div class="icon">🎓</div><h3>My Results</h3></div>
                     <div id="results-section"></div>
                 </section>
-
-                <!-- Fees -->
                 <section class="panel" id="fees">
-                    <div class="panel-head">
-                        <div class="icon">💰</div>
-                        <h3>My Fees</h3>
-                    </div>
+                    <div class="panel-head"><div class="icon">💰</div><h3>My Fees</h3></div>
                     <div id="fees-section"></div>
                 </section>
-
             </div>
         </div>
     </div>
 
-    <!-- Footer -->
     <footer>
         <p>&copy; 2026 M&R Institution. All rights reserved.</p>
     </footer>
@@ -573,7 +310,6 @@
         if (!session) { window.location.href = 'login.html'; return; }
         currentUser = session.user;
 
-        // Check role
         const { data: profile } = await supabaseClient
           .from('profiles').select('role').eq('id', currentUser.id).single();
 
@@ -584,8 +320,8 @@
         }
 
         document.getElementById('user-email').textContent = currentUser.email;
-        const initial = (currentUser.email[0] || 'S').toUpperCase();
-        document.getElementById('avatar').textContent = initial;
+        document.getElementById('user-name').textContent = (currentUser.email.split('@')[0] || 'Student');
+        document.getElementById('avatar').textContent = (currentUser.email[0] || 'S').toUpperCase();
 
         document.getElementById('loading').style.display = 'none';
         document.getElementById('portal-view').style.display = 'block';
@@ -595,11 +331,9 @@
         loadTimetable();
         loadResults();
         loadFees();
-
         setupSmoothScroll();
       }
 
-      // Smooth scroll for sidebar links
       function setupSmoothScroll() {
         document.querySelectorAll('.sidebar nav a').forEach(a => {
           a.addEventListener('click', (e) => {
@@ -614,19 +348,15 @@
         });
       }
 
-      // Application
       async function loadApplication() {
         const { data, error } = await supabaseClient
-          .from('applications').select('*')
-          .eq('user_id', currentUser.id).maybeSingle();
+          .from('applications').select('*').eq('user_id', currentUser.id).maybeSingle();
 
         const el = document.getElementById('application-section');
         if (error) { el.innerHTML = '<p class="empty">Error: ' + error.message + '</p>'; return; }
 
         if (!data) {
-          el.innerHTML = `
-            <p class="empty">You haven't submitted an application yet.</p>
-            <a href="apply.html" class="btn btn-teal">Start Application →</a>`;
+          el.innerHTML = '<p class="empty">You haven\'t submitted an application yet.</p><a href="apply.html" class="btn btn-teal">Start Application →</a>';
           return;
         }
 
@@ -648,11 +378,9 @@
           </div>`;
       }
 
-      // Announcements
       async function loadAnnouncements() {
         const { data, error } = await supabaseClient
-          .from('announcements').select('*')
-          .order('created_at', { ascending: false });
+          .from('announcements').select('*').order('created_at', { ascending: false });
 
         const el = document.getElementById('announcements-section');
         if (error) { el.innerHTML = '<p class="empty">Error loading announcements.</p>'; return; }
@@ -663,17 +391,14 @@
             <h4>${a.title} <span class="priority-pill priority-${a.priority}">${a.priority}</span></h4>
             <div class="date">📅 ${new Date(a.created_at).toLocaleDateString()}</div>
             <p>${a.content}</p>
-          </div>
-        `).join('');
+          </div>`).join('');
       }
 
-      // Timetable
       async function loadTimetable() {
         const el = document.getElementById('timetable-section');
 
         const { data: app } = await supabaseClient
-          .from('applications').select('course_id')
-          .eq('user_id', currentUser.id).maybeSingle();
+          .from('applications').select('course_id').eq('user_id', currentUser.id).maybeSingle();
 
         if (!app || !app.course_id) {
           el.innerHTML = '<p class="empty">Submit an application first to see your class timetable.</p>';
@@ -681,8 +406,7 @@
         }
 
         const { data, error } = await supabaseClient
-          .from('timetables').select('*')
-          .eq('course_id', app.course_id).order('day_of_week');
+          .from('timetables').select('*').eq('course_id', app.course_id).order('day_of_week');
 
         if (error) { el.innerHTML = '<p class="empty">Error loading timetable.</p>'; return; }
         if (!data || !data.length) { el.innerHTML = '<p class="empty">No classes scheduled for your course yet.</p>'; return; }
@@ -691,13 +415,9 @@
           .from('courses').select('name').eq('id', app.course_id).single();
 
         el.innerHTML = `
-          <p style="color:#64748b; font-size:0.9rem; margin-bottom:1rem;">
-            Showing classes for <strong style="color:#0f2744;">${course ? course.name : 'Your Course'}</strong>
-          </p>
+          <p style="color:#64748b;font-size:0.9rem;margin-bottom:1rem;">Showing classes for <strong style="color:#0f2744;">${course ? course.name : 'Your Course'}</strong></p>
           <table class="data-table">
-            <thead>
-              <tr><th>Day</th><th>Time</th><th>Room</th><th>Lecturer</th></tr>
-            </thead>
+            <thead><tr><th>Day</th><th>Time</th><th>Room</th><th>Lecturer</th></tr></thead>
             <tbody>
               ${data.map(t => `
                 <tr>
@@ -710,11 +430,9 @@
           </table>`;
       }
 
-      // Results
       async function loadResults() {
         const { data, error } = await supabaseClient
-          .from('results').select('*')
-          .eq('student_id', currentUser.id)
+          .from('results').select('*').eq('student_id', currentUser.id)
           .order('created_at', { ascending: false });
 
         const el = document.getElementById('results-section');
@@ -745,7 +463,6 @@
           </table>`;
       }
 
-      // Fees
       async function loadFees() {
         const el = document.getElementById('fees-section');
 
@@ -788,4 +505,54 @@
 
           <div class="pay-form">
             <h4>💳 Submit a Payment</h4>
-            <form
+            <form id="pay-form">
+              <label>Amount (KES) *</label>
+              <input type="number" id="pay-amount" step="0.01" min="1" required>
+
+              <label>Payment Method *</label>
+              <select id="pay-method" required>
+                <option value="">-- Select --</option>
+                <option value="mpesa">M-Pesa</option>
+                <option value="bank">Bank Transfer</option>
+                <option value="cash">Cash</option>
+                <option value="card">Card</option>
+              </select>
+
+              <label>Reference / Transaction Code *</label>
+              <input type="text" id="pay-reference" placeholder="e.g. QAB1234567" required>
+
+              <button type="submit">Submit Payment</button>
+              <p id="pay-msg" class="pay-msg"></p>
+            </form>
+          </div>
+
+          <h4 class="pay-history-title">Payment History</h4>
+          ${(!payData || !payData.length)
+            ? '<p class="empty">No payments submitted yet.</p>'
+            : `<table class="data-table">
+                <thead><tr><th>Date</th><th>Amount</th><th>Method</th><th>Reference</th><th>Status</th></tr></thead>
+                <tbody>
+                  ${payData.map(p => `
+                    <tr>
+                      <td>${new Date(p.paid_at).toLocaleDateString()}</td>
+                      <td>KES ${parseFloat(p.amount).toLocaleString()}</td>
+                      <td>${p.method || '—'}</td>
+                      <td>${p.reference || '—'}</td>
+                      <td><span class="pay-badge pay-${p.status}">${p.status}</span></td>
+                    </tr>`).join('')}
+                </tbody>
+              </table>`}
+        `;
+
+        document.getElementById('pay-form').addEventListener('submit', async (e) => {
+          e.preventDefault();
+          const msg = document.getElementById('pay-msg');
+          msg.className = 'pay-msg';
+          msg.textContent = 'Submitting...';
+
+          const payload = {
+            student_id: currentUser.id,
+            amount: parseFloat(document.getElementById('pay-amount').value),
+            method: document.getElementById('pay-method').value,
+            reference: document.getElementById('pay-reference').value.trim(),
+            status: 'pending'
