@@ -556,3 +556,26 @@
             method: document.getElementById('pay-method').value,
             reference: document.getElementById('pay-reference').value.trim(),
             status: 'pending'
+          };
+
+          const { error } = await supabaseClient.from('payments').insert(payload);
+          if (error) {
+            msg.className = 'pay-msg error';
+            msg.textContent = '❌ ' + error.message;
+            return;
+          }
+          msg.className = 'pay-msg success';
+          msg.textContent = '✅ Payment submitted! Awaiting admin verification.';
+          setTimeout(loadFees, 1500);
+        });
+      }
+
+      document.getElementById('logout-btn').addEventListener('click', async () => {
+        await supabaseClient.auth.signOut();
+        window.location.href = '../login.html';
+      });
+
+      init();
+    </script>
+</body>
+</html>
