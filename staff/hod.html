@@ -2,62 +2,257 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>HOD Dashboard - College Financial</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>HOD Dashboard - M&R Institution</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="../css/style.css">
     <style>
-        .dash { max-width: 900px; margin: 2rem auto; padding: 2rem; background: white; border-radius: 8px; }
-        .dash-header { display: flex; justify-content: space-between; align-items: center; padding-bottom: 1rem; border-bottom: 2px solid #eee; margin-bottom: 1.5rem; flex-wrap: wrap; gap: 1rem; }
-        .dash-header h2 { color: #1e3a5f; margin: 0; }
-        .role-badge { display: inline-block; background: #8e44ad; color: white; padding: 0.25rem 0.75rem; border-radius: 12px; font-size: 0.75rem; font-weight: bold; text-transform: uppercase; margin-top: 0.25rem; }
-        .btn-danger { background: #c0392b; color: white; padding: 0.5rem 1rem; border: none; border-radius: 4px; cursor: pointer; }
-        .card-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(240px, 1fr)); gap: 1rem; margin-top: 1rem; }
-        .dash-card { padding: 1.25rem; border-radius: 6px; background: #fafafa; border-left: 5px solid #8e44ad; }
-        .dash-card h4 { color: #1e3a5f; margin-bottom: 0.5rem; }
-        #loading { text-align: center; padding: 2rem; }
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body { font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif; color: #0f172a; background: #f8fafc; line-height: 1.6; -webkit-font-smoothing: antialiased; }
+
+        .staff-topbar { background: white; padding: 0.9rem 2rem; display: flex; justify-content: space-between; align-items: center; border-bottom: 1px solid #e2e8f0; position: sticky; top: 0; z-index: 50; flex-wrap: wrap; gap: 1rem; }
+        .logo-area { display: flex; align-items: center; gap: 0.6rem; text-decoration: none; color: inherit; }
+        .logo-icon { width: 38px; height: 38px; background: linear-gradient(135deg, #0f2744, #14b8a6); border-radius: 10px; display: flex; align-items: center; justify-content: center; color: white; font-weight: 800; font-size: 0.95rem; }
+        .logo-area h1 { font-size: 1.15rem; font-weight: 800; color: #0f2744; }
+        .logo-area small { display: block; font-size: 0.68rem; color: #14b8a6; font-weight: 700; text-transform: uppercase; letter-spacing: 0.05em; }
+        .staff-user { display: flex; align-items: center; gap: 1rem; }
+        .role-chip { display: inline-flex; align-items: center; gap: 0.4rem; background: #f3e5f5; color: #6a1b9a; padding: 0.35rem 0.75rem; border-radius: 999px; font-size: 0.75rem; font-weight: 800; text-transform: uppercase; letter-spacing: 0.05em; }
+        .user-chip { display: inline-flex; align-items: center; gap: 0.5rem; background: #f1f5f9; padding: 0.4rem 0.85rem; border-radius: 999px; font-size: 0.83rem; color: #334155; font-weight: 500; }
+        .user-chip .avatar { width: 24px; height: 24px; background: linear-gradient(135deg, #8b5cf6, #6a1b9a); border-radius: 50%; color: white; display: flex; align-items: center; justify-content: center; font-size: 0.68rem; font-weight: 800; }
+        .logout-btn { background: #fee2e2; color: #991b1b; padding: 0.45rem 0.9rem; border-radius: 8px; border: none; cursor: pointer; font-weight: 600; font-size: 0.82rem; font-family: inherit; transition: all 0.2s; }
+        .logout-btn:hover { background: #fecaca; }
+
+        .hero {
+            background: linear-gradient(135deg, #0f2744 0%, #8b5cf6 150%);
+            color: white; padding: 3rem 2rem 2.5rem;
+            position: relative; overflow: hidden;
+        }
+        .hero::before {
+            content: ''; position: absolute;
+            top: -50%; right: -10%; width: 500px; height: 500px;
+            background: radial-gradient(circle, rgba(139,92,246,0.4), transparent 70%);
+            border-radius: 50%;
+        }
+        .hero-inner { max-width: 1200px; margin: 0 auto; position: relative; z-index: 2; }
+        .hero h2 { font-size: 2rem; font-weight: 800; letter-spacing: -0.02em; margin-bottom: 0.4rem; }
+        .hero h2 .accent { color: #c4b5fd; }
+        .hero p { font-size: 1rem; color: rgba(255,255,255,0.85); }
+
+        .layout { max-width: 1200px; margin: 0 auto; padding: 2rem; }
+
+        .stats-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+            gap: 1rem; margin-bottom: 2rem;
+        }
+        .stat-card {
+            background: white; padding: 1.25rem;
+            border-radius: 12px; border: 1px solid #e2e8f0;
+            border-left: 4px solid #8b5cf6;
+            display: flex; align-items: center; gap: 0.9rem;
+        }
+        .stat-card .stat-icon {
+            width: 44px; height: 44px;
+            background: #ede9fe; color: #6d28d9;
+            border-radius: 10px;
+            display: flex; align-items: center; justify-content: center;
+            font-size: 1.2rem; flex-shrink: 0;
+        }
+        .stat-card .stat-value { font-size: 1.5rem; font-weight: 800; color: #0f2744; line-height: 1; }
+        .stat-card .stat-label { color: #64748b; font-size: 0.75rem; font-weight: 700; text-transform: uppercase; letter-spacing: 0.04em; margin-top: 0.15rem; }
+
+        .panel {
+            background: white; border-radius: 14px; padding: 1.75rem;
+            box-shadow: 0 4px 20px rgba(15,23,42,0.05);
+            border: 1px solid #e2e8f0; margin-bottom: 1.5rem;
+        }
+        .panel-head {
+            display: flex; justify-content: space-between; align-items: center;
+            padding-bottom: 1rem; margin-bottom: 1rem;
+            border-bottom: 1px solid #f1f5f9;
+            flex-wrap: wrap; gap: 0.75rem;
+        }
+        .panel-head h3 {
+            color: #0f2744; font-size: 1.1rem; font-weight: 800;
+            margin: 0; display: flex; align-items: center; gap: 0.5rem;
+        }
+        .panel-head .sub { color: #94a3b8; font-size: 0.82rem; font-weight: 500; }
+
+        .data-table { width: 100%; border-collapse: collapse; font-size: 0.92rem; }
+        .data-table th, .data-table td { padding: 0.85rem 0.9rem; text-align: left; border-bottom: 1px solid #f1f5f9; vertical-align: middle; }
+        .data-table th { background: #f8fafc; color: #64748b; font-weight: 700; font-size: 0.72rem; text-transform: uppercase; letter-spacing: 0.05em; }
+        .data-table tr:hover td { background: #f8fafc; }
+
+        .dept-pill {
+            display: inline-block; padding: 0.2rem 0.7rem;
+            background: #ede9fe; color: #6d28d9;
+            border-radius: 6px; font-size: 0.75rem; font-weight: 700;
+            text-transform: uppercase; letter-spacing: 0.03em;
+        }
+        .credits-pill {
+            display: inline-block; padding: 0.2rem 0.65rem;
+            background: #f1f5f9; color: #475569;
+            border-radius: 6px; font-size: 0.8rem; font-weight: 700;
+        }
+        .role-pill {
+            display: inline-block; padding: 0.2rem 0.6rem;
+            border-radius: 6px; font-size: 0.72rem; font-weight: 800;
+            text-transform: uppercase; letter-spacing: 0.04em;
+        }
+        .role-lecturer { background: #e8f4fd; color: #2471a3; }
+        .role-admin { background: #fdecea; color: #a93226; }
+        .role-hod { background: #f3e5f5; color: #6a1b9a; }
+        .role-finance { background: #e8f8f0; color: #1e8449; }
+        .role-principal { background: #fdecea; color: #7b241c; }
+        .role-deputy { background: #fef5e7; color: #b9770e; }
+
+        .empty-state { text-align: center; padding: 2.5rem 1rem; color: #64748b; }
+        .empty-state .icon { font-size: 2.5rem; margin-bottom: 0.75rem; opacity: 0.4; }
+        .empty-state p { font-size: 0.92rem; }
+
+        .loading-state { text-align: center; padding: 3rem; color: #64748b; }
+        .spinner { width: 40px; height: 40px; border: 3px solid #e2e8f0; border-top-color: #8b5cf6; border-radius: 50%; margin: 0 auto 1rem; animation: spin 0.8s linear infinite; }
+        @keyframes spin { to { transform: rotate(360deg); } }
+
+        .dept-selector {
+            background: white; padding: 1rem 1.25rem;
+            border-radius: 12px; border: 1px solid #e2e8f0;
+            margin-bottom: 1.5rem;
+            display: flex; align-items: center; gap: 1rem;
+            flex-wrap: wrap;
+        }
+        .dept-selector label {
+            font-size: 0.82rem; font-weight: 700;
+            color: #64748b; text-transform: uppercase;
+            letter-spacing: 0.04em;
+        }
+        .dept-selector select {
+            padding: 0.6rem 1rem; border: 2px solid #e2e8f0;
+            border-radius: 8px; font-size: 0.95rem;
+            font-family: inherit; background: #f8fafc;
+            cursor: pointer; min-width: 220px;
+            appearance: none; -webkit-appearance: none;
+            background-image: url("data:image/svg+xml;charset=UTF-8,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='%2394a3b8'%3e%3cpath d='M7 10l5 5 5-5z'/%3e%3c/svg%3e");
+            background-repeat: no-repeat;
+            background-position: right 0.6rem center;
+            background-size: 18px;
+            padding-right: 2.2rem;
+        }
+        .dept-selector select:focus { outline: none; border-color: #8b5cf6; background-color: white; }
+
+        @media (max-width: 600px) {
+            .staff-topbar { padding: 0.75rem 1rem; }
+            .user-chip .email-text, .role-chip { display: none; }
+            .hero { padding: 2rem 1rem 1.75rem; }
+            .hero h2 { font-size: 1.5rem; }
+            .layout { padding: 1rem; }
+            .panel { padding: 1.25rem; }
+            .data-table th, .data-table td { padding: 0.6rem 0.5rem; font-size: 0.82rem; }
+        }
     </style>
 </head>
 <body>
-    <header>
-        <h1>College Financial</h1>
-        <nav>
-            <a href="../index.html">Home</a>
-            <a href="hod.html">HOD</a>
-        </nav>
-    </header>
 
-    <main>
-        <div id="loading">Loading dashboard...</div>
+    <div class="staff-topbar">
+        <a href="hod.html" class="logo-area">
+            <div class="logo-icon">M&R</div>
+            <div>
+                <h1>M&R Institution</h1>
+                <small>HOD Portal</small>
+            </div>
+        </a>
+        <div class="staff-user">
+            <span class="role-chip">🏛️ HOD</span>
+            <div class="user-chip">
+                <div class="avatar" id="avatar">H</div>
+                <span class="email-text" id="user-email">...</span>
+            </div>
+            <button class="logout-btn" id="logout-btn">Log Out</button>
+        </div>
+    </div>
 
-        <div id="dash-view" style="display: none;">
-            <div class="dash">
-                <div class="dash-header">
+    <section class="hero">
+        <div class="hero-inner">
+            <h2>Welcome, <span class="accent" id="user-name">HOD</span> 👋</h2>
+            <p>Overview of your department — courses, lecturers, and results at a glance.</p>
+        </div>
+    </section>
+
+    <div class="layout">
+
+        <div id="loading" class="loading-state">
+            <div class="spinner"></div>
+            <p>Loading department data...</p>
+        </div>
+
+        <div id="dash-view" style="display:none;">
+
+            <!-- Department selector -->
+            <div class="dept-selector">
+                <label>📂 Department:</label>
+                <select id="dept-select">
+                    <option value="">All Departments</option>
+                </select>
+            </div>
+
+            <!-- Stats -->
+            <div class="stats-grid">
+                <div class="stat-card">
+                    <div class="stat-icon">📚</div>
                     <div>
-                        <h2>Head of Department Dashboard</h2>
-                        <span class="role-badge">HOD</span>
-                    </div>
-                    <div>
-                        <span id="user-email" style="margin-right: 1rem; color: #666;"></span>
-                        <button id="logout-btn" class="btn-danger">Log Out</button>
+                        <div class="stat-value" id="stat-courses">—</div>
+                        <div class="stat-label">Courses</div>
                     </div>
                 </div>
-
-                <p style="color:#555;">Welcome, HOD. Here's what you'll be able to do soon:</p>
-
-                <div class="card-grid">
-                    <div class="dash-card"><h4>🏛️ My Department</h4><p>Overview of your department.</p></div>
-                    <div class="dash-card"><h4>📚 Department Courses</h4><p>Courses in your department.</p></div>
-                    <div class="dash-card"><h4>👨‍🏫 Lecturers</h4><p>Staff under your department.</p></div>
-                    <div class="dash-card"><h4>👥 Students</h4><p>Students enrolled in your department.</p></div>
-                    <div class="dash-card"><h4>🎓 Results</h4><p>Review and approve results.</p></div>
-                    <div class="dash-card"><h4>📊 Reports</h4><p>Department performance.</p></div>
+                <div class="stat-card" style="border-left-color:#3b82f6;">
+                    <div class="stat-icon" style="background:#dbeafe;color:#1e40af;">👥</div>
+                    <div>
+                        <div class="stat-value" id="stat-lecturers">—</div>
+                        <div class="stat-label">Lecturers</div>
+                    </div>
+                </div>
+                <div class="stat-card" style="border-left-color:#16a34a;">
+                    <div class="stat-icon" style="background:#dcfce7;color:#166534;">🎓</div>
+                    <div>
+                        <div class="stat-value" id="stat-results">—</div>
+                        <div class="stat-label">Results Posted</div>
+                    </div>
+                </div>
+                <div class="stat-card" style="border-left-color:#f59e0b;">
+                    <div class="stat-icon" style="background:#fef3c7;color:#92400e;">🎯</div>
+                    <div>
+                        <div class="stat-value" id="stat-credits">—</div>
+                        <div class="stat-label">Total Credits</div>
+                    </div>
                 </div>
             </div>
-        </div>
-    </main>
 
-    <footer>
-        <p>&copy; 2026 College Financial</p>
-    </footer>
+            <!-- Department Courses -->
+            <div class="panel">
+                <div class="panel-head">
+                    <h3>📚 Department Courses</h3>
+                    <span class="sub" id="course-count"></span>
+                </div>
+                <div id="courses-wrap">
+                    <div class="empty-state"><p>Loading...</p></div>
+                </div>
+            </div>
+
+            <!-- Department Lecturers -->
+            <div class="panel">
+                <div class="panel-head">
+                    <h3>👨‍🏫 Lecturers in Department</h3>
+                    <span class="sub" id="lecturer-count"></span>
+                </div>
+                <div id="lecturers-wrap">
+                    <div class="empty-state"><p>Loading...</p></div>
+                </div>
+            </div>
+
+        </div>
+    </div>
 
     <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
     <script>
@@ -67,21 +262,173 @@
         'sb_publishable_78sLh6qbQtYP2KFhpx-NuA_HvBOpKnD'
       );
 
+      let currentUser = null;
+      let allCourses = [];
+      let allStaff = [];
+      let allResults = [];
+      let allTimetables = [];
+      let currentDept = '';
+
       async function init() {
         const { data: { session } } = await supabaseClient.auth.getSession();
         if (!session) { window.location.href = '../login.html'; return; }
+        currentUser = session.user;
 
         const { data: profile } = await supabaseClient
-          .from('profiles').select('role').eq('id', session.user.id).single();
+          .from('profiles').select('role').eq('id', currentUser.id).single();
 
         if (!profile || profile.role !== 'hod') {
           window.location.href = '../login.html';
           return;
         }
 
-        document.getElementById('user-email').textContent = session.user.email;
+        document.getElementById('user-email').textContent = currentUser.email;
+        document.getElementById('user-name').textContent = (currentUser.email.split('@')[0] || 'HOD');
+        document.getElementById('avatar').textContent = (currentUser.email[0] || 'H').toUpperCase();
+
         document.getElementById('loading').style.display = 'none';
         document.getElementById('dash-view').style.display = 'block';
+
+        await loadAll();
+      }
+
+      async function loadAll() {
+        const [coursesRes, staffRes, resultsRes, ttRes] = await Promise.all([
+          supabaseClient.from('courses').select('*').order('name'),
+          supabaseClient.from('profiles').select('id, email, role, created_at')
+            .in('role', ['lecturer', 'hod', 'finance', 'admin', 'principal', 'deputy']),
+          supabaseClient.from('results').select('id, course_id'),
+          supabaseClient.from('timetables').select('id, course_id, lecturer')
+        ]);
+
+        allCourses = coursesRes.data || [];
+        allStaff = staffRes.data || [];
+        allResults = resultsRes.data || [];
+        allTimetables = ttRes.data || [];
+
+        // Populate department selector
+        const depts = [...new Set(allCourses.map(c => c.department).filter(Boolean))].sort();
+        const sel = document.getElementById('dept-select');
+        sel.innerHTML = '<option value="">All Departments</option>' +
+          depts.map(d => `<option value="${d}">${d}</option>`).join('');
+
+        sel.addEventListener('change', (e) => {
+          currentDept = e.target.value;
+          renderAll();
+        });
+
+        renderAll();
+      }
+
+      function getFilteredCourses() {
+        return currentDept
+          ? allCourses.filter(c => c.department === currentDept)
+          : allCourses;
+      }
+
+      function getLecturersForCourses(courses) {
+        const courseIds = courses.map(c => c.id);
+        // Find timetable entries for these courses
+        const relevantTT = allTimetables.filter(t => courseIds.includes(t.course_id));
+        // Extract unique lecturer names
+        const lecturerNames = [...new Set(relevantTT.map(t => t.lecturer).filter(Boolean))];
+
+        // Match against staff profiles: email prefix contains the lecturer string, OR lecturer string contains email prefix
+        const matchedStaff = allStaff.filter(s => {
+          if (s.role !== 'lecturer') return false;
+          const prefix = s.email.split('@')[0].toLowerCase();
+          return lecturerNames.some(name => {
+            const n = name.toLowerCase();
+            return n.includes(prefix) || prefix.includes(n);
+          });
+        });
+
+        return { lecturers: matchedStaff, names: lecturerNames };
+      }
+
+      function renderAll() {
+        const courses = getFilteredCourses();
+        const courseIds = courses.map(c => c.id);
+
+        // Stats
+        document.getElementById('stat-courses').textContent = courses.length;
+        document.getElementById('stat-credits').textContent =
+          courses.reduce((s, c) => s + (c.credits || 0), 0);
+
+        const { lecturers, names } = getLecturersForCourses(courses);
+        document.getElementById('stat-lecturers').textContent = names.length;
+
+        const relevantResults = allResults.filter(r => courseIds.includes(r.course_id));
+        document.getElementById('stat-results').textContent = relevantResults.length;
+
+        renderCourses(courses);
+        renderLecturers(lecturers, names);
+      }
+
+      function renderCourses(courses) {
+        const wrap = document.getElementById('courses-wrap');
+        document.getElementById('course-count').textContent =
+          courses.length + ' course' + (courses.length !== 1 ? 's' : '');
+
+        if (!courses.length) {
+          wrap.innerHTML = `<div class="empty-state">
+            <div class="icon">📚</div>
+            <p>No courses in this department yet.</p>
+          </div>`;
+          return;
+        }
+
+        wrap.innerHTML = `
+          <table class="data-table">
+            <thead>
+              <tr><th>Course</th><th>Department</th><th>Credits</th><th>Description</th></tr>
+            </thead>
+            <tbody>
+              ${courses.map(c => `
+                <tr>
+                  <td><strong style="color:#0f2744;">${c.name}</strong></td>
+                  <td><span class="dept-pill">${c.department || 'General'}</span></td>
+                  <td><span class="credits-pill">${c.credits || 0}</span></td>
+                  <td style="color:#64748b;font-size:0.85rem;">${c.description || '—'}</td>
+                </tr>`).join('')}
+            </tbody>
+          </table>`;
+      }
+
+      function renderLecturers(lecturers, names) {
+        const wrap = document.getElementById('lecturers-wrap');
+        document.getElementById('lecturer-count').textContent =
+          names.length + ' lecturer' + (names.length !== 1 ? 's' : '');
+
+        if (!names.length) {
+          wrap.innerHTML = `<div class="empty-state">
+            <div class="icon">👨‍🏫</div>
+            <p>No lecturers assigned to this department's courses yet.</p>
+          </div>`;
+          return;
+        }
+
+        wrap.innerHTML = `
+          <table class="data-table">
+            <thead>
+              <tr><th>Lecturer (from timetable)</th><th>Matched Account</th><th>Role</th></tr>
+            </thead>
+            <tbody>
+              ${names.map(name => {
+                const matched = lecturers.find(l => {
+                  const prefix = l.email.split('@')[0].toLowerCase();
+                  const n = name.toLowerCase();
+                  return n.includes(prefix) || prefix.includes(n);
+                });
+                return `
+                  <tr>
+                    <td><strong style="color:#0f2744;">${name}</strong></td>
+                    <td>${matched ? matched.email : '<span style="color:#94a3b8;">No linked account</span>'}</td>
+                    <td>${matched ? `<span class="role-pill role-${matched.role}">${matched.role}</span>` : '—'}</td>
+                  </tr>`;
+              }).join('')}
+            </tbody>
+          </table>`;
       }
 
       document.getElementById('logout-btn').addEventListener('click', async () => {
