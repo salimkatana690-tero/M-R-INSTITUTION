@@ -55,22 +55,6 @@
         }
         .notice strong { color: #0c4a6e; }
 
-        .role-section { margin-bottom: 1.5rem; }
-        .role-section-head {
-            display: flex; justify-content: space-between; align-items: center;
-            margin-bottom: 0.75rem; padding: 0 0.25rem;
-        }
-        .role-section-head h3 {
-            color: #0f2744; font-size: 0.95rem; font-weight: 800;
-            text-transform: uppercase; letter-spacing: 0.05em;
-            display: flex; align-items: center; gap: 0.5rem;
-        }
-        .role-count {
-            background: #f1f5f9; color: #64748b;
-            padding: 0.15rem 0.55rem; border-radius: 999px;
-            font-size: 0.72rem; font-weight: 800;
-        }
-
         .panel { background: white; border-radius: 14px; padding: 1.75rem; box-shadow: 0 4px 20px rgba(15,23,42,0.05); border: 1px solid #e2e8f0; }
         .panel-head { display: flex; justify-content: space-between; align-items: center; padding-bottom: 1rem; margin-bottom: 1rem; border-bottom: 1px solid #f1f5f9; flex-wrap: wrap; gap: 0.75rem; }
         .panel-head h3 { color: #0f2744; font-size: 1.1rem; font-weight: 800; margin: 0; }
@@ -114,10 +98,7 @@
         .modal input:focus, .modal select:focus { outline: none; border-color: #14b8a6; background: white; box-shadow: 0 0 0 3px rgba(20,184,166,0.1); }
         .modal select {
             background: #f8fafc url("data:image/svg+xml;charset=UTF-8,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='%2394a3b8'%3e%3cpath d='M7 10l5 5 5-5z'/%3e%3c/svg%3e") no-repeat right 0.7rem center;
-            background-size: 20px;
-            appearance: none; -webkit-appearance: none;
-            padding-right: 2.5rem;
-            cursor: pointer;
+            background-size: 20px; appearance: none; -webkit-appearance: none; padding-right: 2.5rem; cursor: pointer;
         }
         .modal-actions { display: flex; gap: 0.75rem; justify-content: flex-end; margin-top: 1rem; padding-top: 1.25rem; border-top: 1px solid #f1f5f9; flex-wrap: wrap; }
         .modal-hint { font-size: 0.82rem; color: #64748b; margin-top: -0.5rem; margin-bottom: 1rem; line-height: 1.5; }
@@ -131,8 +112,7 @@
             .sidebar-title { display: none; }
             .sidebar nav { flex-direction: row; }
             .sidebar nav a { white-space: nowrap; padding: 0.5rem 0.85rem; font-size: 0.85rem; }
-            .data-table th:nth-child(1),
-            .data-table td:nth-child(1) { display: none; }
+            .data-table th:nth-child(1), .data-table td:nth-child(1) { display: none; }
         }
         @media (max-width: 600px) {
             .admin-topbar { padding: 0.75rem 1rem; }
@@ -437,7 +417,6 @@
         }
 
         // Step 2: Upsert the profile with correct role
-        // (trigger may have already created with role=student — we override)
         const { error: profileErr } = await supabaseClient
           .from('profiles')
           .upsert({
